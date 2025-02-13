@@ -17,7 +17,7 @@ namespace HomeService.Domain.Core.HomeService.OrderEntity.Entities
         #region Properties
        public int Id { get; set; }
         public string Description { get; set; }
-        public DateTime DateFor { get; set; }
+        public DateTime? DateFor { get; set; }
         public int CustomerId { get; set; }
         public int ServiceId { get; set; }
         public StatusEnum Status { get; set; }

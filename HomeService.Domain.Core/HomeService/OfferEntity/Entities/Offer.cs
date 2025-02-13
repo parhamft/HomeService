@@ -14,7 +14,7 @@ namespace HomeService.Domain.Core.HomeService.OfferEntity.Entities
         public int Id { get; set; }
         public string Description { get; set; }
         public decimal Price { get; set; }
-        public DateTime RequestTime { get; set; }
+        public DateTime? RequestTime { get; set; }
         public int OrderId { get; set; }
         public Order Order { get; set; }
         public int ExpertId { get; set; }

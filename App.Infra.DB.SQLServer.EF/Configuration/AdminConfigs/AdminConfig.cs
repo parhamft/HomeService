@@ -19,10 +19,10 @@ namespace App.Infra.DB.SQLServer.EF.Configuration.AdminConfigs
             builder.Property(x => x.Balance)
                    .HasColumnType("decimal(18, 2)");
 
-            builder.HasOne(x => x.User)
-                   .WithOne()
-                   .HasForeignKey<Admin>(x => x.UserId)
-                   .OnDelete(DeleteBehavior.NoAction);
+            //builder.HasOne(x => x.User)
+            //       .WithOne(x=>x.Admin)
+            //       .HasForeignKey<Admin>(x => x.UserId)
+            //       .OnDelete(DeleteBehavior.NoAction);
         }
     }
 }

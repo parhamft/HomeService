@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace App.Infra.DB.SQLServer.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250212194656_init2")]
-    partial class init2
+    [Migration("20250213063818_init")]
+    partial class init
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -54,17 +54,10 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
-                    b.Property<int?>("UserId1")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("UserId")
                         .IsUnique();
-
-                    b.HasIndex("UserId1")
-                        .IsUnique()
-                        .HasFilter("[UserId1] IS NOT NULL");
 
                     b.ToTable("Admins");
                 });
@@ -277,7 +270,7 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18, 2)");
 
-                    b.Property<DateTime>("RequestTime")
+                    b.Property<DateTime?>("RequestTime")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -300,7 +293,7 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("DateFor")
+                    b.Property<DateTime?>("DateFor")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Description")
@@ -420,24 +413,6 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "917351c3-c791-4409-9bee-f300fb31bc6b",
-                            Email = "Admin@gmail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "ADMIN@GMAIL.COM",
-                            NormalizedUserName = "ADMIN@GMAIL.COM",
-                            PasswordHash = "AQAAAAIAAYagAAAAELtdaov4I4vaq+gjV9EXlO0xLwfio8YZYQ55IuAvImmWgzRn/80UIPqJixHKITo4rQ==",
-                            PhoneNumber = "09377507920",
-                            PhoneNumberConfirmed = false,
-                            TwoFactorEnabled = false,
-                            UserName = "Admin@gmail.com"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
@@ -468,26 +443,6 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            Name = "Admin",
-                            NormalizedName = "ADMIN"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            Name = "Customer",
-                            NormalizedName = "CUSTOMER"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Expert",
-                            NormalizedName = "EXPERT"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -572,13 +527,6 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            RoleId = 1
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
@@ -618,14 +566,10 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
             modelBuilder.Entity("HomeService.Domain.Core.HomeService.AdminEntity.Entities.Admin", b =>
                 {
                     b.HasOne("HomeService.Domain.Core.HomeService.Users.Entities.User", "User")
-                        .WithOne()
-                        .HasForeignKey("HomeService.Domain.Core.HomeService.AdminEntity.Entities.Admin", "UserId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
-                    b.HasOne("HomeService.Domain.Core.HomeService.Users.Entities.User", null)
                         .WithOne("Admin")
-                        .HasForeignKey("HomeService.Domain.Core.HomeService.AdminEntity.Entities.Admin", "UserId1");
+                        .HasForeignKey("HomeService.Domain.Core.HomeService.AdminEntity.Entities.Admin", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });

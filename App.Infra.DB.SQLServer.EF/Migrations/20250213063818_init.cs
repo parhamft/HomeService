@@ -107,8 +107,7 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     UserId = table.Column<int>(type: "int", nullable: false),
-                    Balance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    UserId1 = table.Column<int>(type: "int", nullable: true)
+                    Balance = table.Column<decimal>(type: "decimal(18,2)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -117,12 +116,8 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                         name: "FK_Admins_AspNetUsers_UserId",
                         column: x => x.UserId,
                         principalTable: "AspNetUsers",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_Admins_AspNetUsers_UserId1",
-                        column: x => x.UserId1,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -334,7 +329,7 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DateFor = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    DateFor = table.Column<DateTime>(type: "datetime2", nullable: true),
                     CustomerId = table.Column<int>(type: "int", nullable: false),
                     ServiceId = table.Column<int>(type: "int", nullable: false),
                     Status = table.Column<int>(type: "int", nullable: false),
@@ -368,7 +363,7 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
-                    RequestTime = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    RequestTime = table.Column<DateTime>(type: "datetime2", nullable: true),
                     OrderId = table.Column<int>(type: "int", nullable: false),
                     ExpertId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -427,13 +422,6 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                 table: "Admins",
                 column: "UserId",
                 unique: true);
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Admins_UserId1",
-                table: "Admins",
-                column: "UserId1",
-                unique: true,
-                filter: "[UserId1] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
