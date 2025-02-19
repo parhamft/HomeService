@@ -10,14 +10,16 @@ namespace HomeService.Domain.Core.HomeService.CustomerEntity.Entities
     {
         #region Properties
        public int Id { get; set; }
-        [MaxLength(50)]
+        [MaxLength(100), MinLength(3)]
         public string? FirstName { get; set; }
-        [MaxLength(50)]
+        [MaxLength(100), MinLength(3)]
         public string? LastName { get; set; }
         public GenderEnum? Gender { get; set; }
         public int UserId { get; set; }
         public decimal Balance { get; set; }
         public string?  ImagePath{ get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime TimeCreated { get; set; }
         #endregion
 
         #region NavigationProperties

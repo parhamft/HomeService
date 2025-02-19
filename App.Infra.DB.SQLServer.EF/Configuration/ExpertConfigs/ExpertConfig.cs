@@ -31,6 +31,8 @@ namespace App.Infra.DB.SQLServer.EF.Configuration.ExpertConfigs
                    .WithOne(x => x.Expert)
                    .HasForeignKey<Expert>(x => x.UserId)
                    .OnDelete(DeleteBehavior.NoAction);
+
+
             builder.HasMany(x => x.offers)
                    .WithOne(x => x.Expert)
                    .HasForeignKey(x => x.ExpertId)

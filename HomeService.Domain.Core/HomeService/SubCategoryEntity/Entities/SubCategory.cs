@@ -17,6 +17,8 @@ namespace HomeService.Domain.Core.HomeService.SubCategoryEntity.Entities
         public string Name { get; set; }
         public int CategoryId { get; set; }
         public string ImagePath { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime TimeCreated { get; set; }
         #endregion
 
         #region NavigationProperties

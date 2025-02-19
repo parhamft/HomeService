@@ -14,7 +14,6 @@ namespace HomeService.Domain.Core.HomeService.Users.Entities
         public Customer? Customer { get; set; }
         public Admin? Admin{ get; set; }
         public Expert? Expert { get; set; }
-
         #endregion
 
     }

@@ -6,4 +6,19 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="HomeService\AdminEntity\" />
+    <Folder Include="HomeService\CityEntity\" />
+    <Folder Include="HomeService\CommentEntity\" />
+    <Folder Include="HomeService\CustomerEntity\" />
+    <Folder Include="HomeService\ExpertEntity\" />
+    <Folder Include="HomeService\OfferEntity\" />
+    <Folder Include="HomeService\OrderEntity\" />
+    <Folder Include="HomeService\UserEntity\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HomeService.Domain.Core\HomeService.Domain.Core.csproj" />
+  </ItemGroup>
+
 </Project>

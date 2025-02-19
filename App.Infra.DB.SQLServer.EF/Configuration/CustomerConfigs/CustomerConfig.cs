@@ -33,6 +33,7 @@ namespace App.Infra.DB.SQLServer.EF.Configuration.CustomerConfigs
                    .WithOne(x => x.Customer)
                    .HasForeignKey(x => x.CustomerId)
                    .OnDelete(DeleteBehavior.NoAction);
+
         }
     }
 }

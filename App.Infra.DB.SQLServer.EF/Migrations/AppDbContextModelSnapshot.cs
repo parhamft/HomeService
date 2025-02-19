@@ -48,6 +48,12 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.Property<decimal>("Balance")
                         .HasColumnType("decimal(18, 2)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("TimeCreated")
+                        .HasColumnType("datetime2");
+
                     b.Property<int>("UserId")
                         .HasColumnType("int");
 
@@ -57,6 +63,16 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                         .IsUnique();
 
                     b.ToTable("Admins");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Balance = 0m,
+                            IsDeleted = false,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 1
+                        });
                 });
 
             modelBuilder.Entity("HomeService.Domain.Core.HomeService.CategoryEntity.Entities.Category", b =>
@@ -71,14 +87,86 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
+                    b.Property<DateTime>("TimeCreated")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ImagePath = "\\Images\\Category\\cleaning.jpg",
+                            IsDeleted = false,
+                            Name = "تمیز کاری",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ImagePath = "\\Images\\Category\\building.jpg",
+                            IsDeleted = false,
+                            Name = "ساختمان",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ImagePath = "\\Images\\Category\\repair.jpg",
+                            IsDeleted = false,
+                            Name = "تعمیرات اشیا",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ImagePath = "\\Images\\Category\\Moving.jpg",
+                            IsDeleted = false,
+                            Name = "اسباب و حمل بار",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ImagePath = "\\Images\\Category\\Car.jpg",
+                            IsDeleted = false,
+                            Name = "خودرو",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ImagePath = "\\Images\\Category\\Beauty.jpg",
+                            IsDeleted = false,
+                            Name = "سلامت و زیبایی",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ImagePath = "\\Images\\Category\\organiser.jpg",
+                            IsDeleted = false,
+                            Name = "سازمان ها مجتمع ها",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ImagePath = "\\Images\\Category\\Other.jpg",
+                            IsDeleted = false,
+                            Name = "سایر خدمات",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("HomeService.Domain.Core.HomeService.CityEntity.Entities.City", b =>
@@ -96,6 +184,163 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Cities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Titel = "آذربایجان شرقی"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Titel = "آذربایجان غربی"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Titel = "اردبیل"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Titel = "اصفهان"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Titel = "البرز"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Titel = "ایلام"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Titel = "بوشهر"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Titel = "تهران"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Titel = "چهارمحال و بختیاری"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Titel = "خراسان جنوبی"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Titel = "خراسان رضوی"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Titel = "خراسان شمالی"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Titel = "خوزستان"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Titel = "زنجان"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Titel = "سمنان"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Titel = "سیستان و بلوچستان"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Titel = "فارس"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Titel = "قزوین"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Titel = "قم"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Titel = "کردستان"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Titel = "کرمان"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Titel = "کرمانشاه"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Titel = "کهگیلویه و بویراحمد"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Titel = "گلستان"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Titel = "گیلان"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Titel = "لرستان"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Titel = "مازندران"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Titel = "مرکزی"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Titel = "هرمزگان"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Titel = "همدان"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Titel = "یزد"
+                        });
                 });
 
             modelBuilder.Entity("HomeService.Domain.Core.HomeService.CommentEntity.Entities.Comment", b =>
@@ -119,11 +364,17 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.Property<int>("ExpertId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("OfferId")
                         .HasColumnType("int");
 
                     b.Property<decimal>("Score")
                         .HasColumnType("decimal(3, 2)");
+
+                    b.Property<DateTime>("TimeCreated")
+                        .HasColumnType("datetime2");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -161,9 +412,15 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
+
+                    b.Property<DateTime>("TimeCreated")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -200,12 +457,18 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.Property<string>("ImagePath")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("LastName")
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
                     b.Property<decimal?>("Rating")
                         .HasColumnType("decimal(3, 2)");
+
+                    b.Property<DateTime>("TimeCreated")
+                        .HasColumnType("datetime2");
 
                     b.Property<int>("UserId")
                         .HasColumnType("int");
@@ -231,6 +494,13 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.Property<decimal>("BasePrice")
                         .HasColumnType("decimal(18, 2)");
 
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
@@ -239,11 +509,346 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.Property<int>("SubCategoryId")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("TimeCreated")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
 
                     b.HasIndex("SubCategoryId");
 
                     b.ToTable("Services");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\1.jpg",
+                            IsDeleted = false,
+                            Name = ">سرویس عادی نظافت",
+                            SubCategoryId = 1,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\2.jpg",
+                            IsDeleted = false,
+                            Name = "سرویس ویژه نظافت",
+                            SubCategoryId = 1,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\3.jpg",
+                            IsDeleted = false,
+                            Name = "قالیشویی",
+                            SubCategoryId = 2,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\4.jpg",
+                            IsDeleted = false,
+                            Name = "خشکشویی",
+                            SubCategoryId = 2,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\5.jpg",
+                            IsDeleted = false,
+                            Name = "سرامیک خودرو",
+                            SubCategoryId = 3,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\6.jpg",
+                            IsDeleted = false,
+                            Name = "صفرشویی خودرو",
+                            SubCategoryId = 3,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\7.jpg",
+                            IsDeleted = false,
+                            Name = "تعمیر و سرویس پکیج",
+                            SubCategoryId = 4,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\8.jpg",
+                            IsDeleted = false,
+                            Name = "تعمیر و سرویس آبگرمکن<",
+                            SubCategoryId = 4,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\9.jpg",
+                            IsDeleted = false,
+                            Name = "سنگ کاری",
+                            SubCategoryId = 5,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 10,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\10.jpg",
+                            IsDeleted = false,
+                            Name = "نقاشی ساختمان",
+                            SubCategoryId = 5,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 11,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\11.jpg",
+                            IsDeleted = false,
+                            Name = "نصب و تعمیر شیرآلات",
+                            SubCategoryId = 6,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 12,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\12.jpg",
+                            IsDeleted = false,
+                            Name = "تخلیه چاه و لوله بازکنی",
+                            SubCategoryId = 6,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 13,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\13.jpg",
+                            IsDeleted = false,
+                            Name = "تعمیر و سرویس پکیج",
+                            SubCategoryId = 7,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 14,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\14.jpg",
+                            IsDeleted = false,
+                            Name = "تعمیر و سرویس آبگرمکن",
+                            SubCategoryId = 7,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 15,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\15.jpg",
+                            IsDeleted = false,
+                            Name = "تعمیر کامپیوتر و لپ تاپ",
+                            SubCategoryId = 9,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 16,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\16.jpg",
+                            IsDeleted = false,
+                            Name = "مودم و اینترنت",
+                            SubCategoryId = 9,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 17,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\17.jpg",
+                            IsDeleted = false,
+                            Name = "نصب و تعمیر یخچال و فریزر",
+                            SubCategoryId = 8,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 18,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\18.jpg",
+                            IsDeleted = false,
+                            Name = "نصب و تعمیر ماشین لباسشویی",
+                            SubCategoryId = 8,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 19,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\19.jpg",
+                            IsDeleted = false,
+                            Name = "اسباب کشی با خاور و کامیون",
+                            SubCategoryId = 10,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 20,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\20.jpg",
+                            IsDeleted = false,
+                            Name = "اسباب کشی با وانت و نیسان",
+                            SubCategoryId = 10,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 21,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\21.jpg",
+                            IsDeleted = false,
+                            Name = "تعویض باتری خودرو",
+                            SubCategoryId = 11,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 22,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\22.jpg",
+                            IsDeleted = false,
+                            Name = "باتری به باتری",
+                            SubCategoryId = 11,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 23,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\23.jpg",
+                            IsDeleted = false,
+                            Name = "خدمات ناخن",
+                            SubCategoryId = 12,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 24,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\24.jpg",
+                            IsDeleted = false,
+                            Name = "رنگ مو بانوان",
+                            SubCategoryId = 12,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 25,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\25.jpg",
+                            IsDeleted = false,
+                            Name = "مراقبت و نگهداری",
+                            SubCategoryId = 10,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 26,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\26.jpg",
+                            IsDeleted = false,
+                            Name = "پرستاری و تزریقات",
+                            SubCategoryId = 10,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 27,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\27.jpg",
+                            IsDeleted = false,
+                            Name = "خدمات شرکتی (ویژه شرکت های کوچک و متوسط)",
+                            SubCategoryId = 14,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 28,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\28.jpg",
+                            IsDeleted = false,
+                            Name = "پیشنهاد فروش خدمات آچاره به شرکت ها",
+                            SubCategoryId = 14,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 29,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\29.jpg",
+                            IsDeleted = false,
+                            Name = "استخدام خدمتکار",
+                            SubCategoryId = 15,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 30,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\30.jpg",
+                            IsDeleted = false,
+                            Name = "تعمیرات لباس",
+                            SubCategoryId = 16,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 31,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\31.jpg",
+                            IsDeleted = false,
+                            Name = "دوخت لباس زنانه",
+                            SubCategoryId = 16,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 32,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\32.jpg",
+                            IsDeleted = false,
+                            Name = "کیک و شیرینی",
+                            SubCategoryId = 17,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 33,
+                            BasePrice = 500m,
+                            ImagePath = "\\Images\\Services\\33.jpg",
+                            IsDeleted = false,
+                            Name = "ارسال هدیه",
+                            SubCategoryId = 17,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("HomeService.Domain.Core.HomeService.OfferEntity.Entities.Offer", b =>
@@ -261,6 +866,9 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.Property<int>("ExpertId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
@@ -268,6 +876,9 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                         .HasColumnType("decimal(18, 2)");
 
                     b.Property<DateTime?>("RequestTime")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("TimeCreated")
                         .HasColumnType("datetime2");
 
                     b.HasKey("Id");
@@ -287,6 +898,9 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CustomerId")
                         .HasColumnType("int");
 
@@ -300,13 +914,21 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.Property<int?>("ExpertId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<int>("ServiceId")
                         .HasColumnType("int");
 
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("TimeCreated")
+                        .HasColumnType("datetime2");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("CityId");
 
                     b.HasIndex("CustomerId");
 
@@ -332,16 +954,177 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
+
+                    b.Property<DateTime>("TimeCreated")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.ToTable("SubCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CategoryId = 1,
+                            ImagePath = "\\Images\\SubCategory\\1.jpg",
+                            IsDeleted = false,
+                            Name = "نظافت و پذیرایی",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CategoryId = 1,
+                            ImagePath = "\\Images\\SubCategory\\2.jpg",
+                            IsDeleted = false,
+                            Name = "شستشو",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CategoryId = 1,
+                            ImagePath = "\\Images\\SubCategory\\3.jpg",
+                            IsDeleted = false,
+                            Name = "کارواش و دیتیلینگ",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CategoryId = 2,
+                            ImagePath = "\\Images\\SubCategory\\4.jpg",
+                            IsDeleted = false,
+                            Name = "سرمایش و گرمایش",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CategoryId = 2,
+                            ImagePath = "\\Images\\SubCategory\\5.jpg",
+                            IsDeleted = false,
+                            Name = "تعمیرات ساختمان",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CategoryId = 2,
+                            ImagePath = "\\Images\\SubCategory\\6.jpg",
+                            IsDeleted = false,
+                            Name = "لوله کشی",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CategoryId = 3,
+                            ImagePath = "\\Images\\SubCategory\\7.jpg",
+                            IsDeleted = false,
+                            Name = "سرمایش و گرمایش",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CategoryId = 3,
+                            ImagePath = "\\Images\\SubCategory\\8.jpg",
+                            IsDeleted = false,
+                            Name = "نصب و تعمیر لوازم خانگی",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CategoryId = 3,
+                            ImagePath = "\\Images\\SubCategory\\9.jpg",
+                            IsDeleted = false,
+                            Name = "خدمات کامپیوتریی",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CategoryId = 4,
+                            ImagePath = "\\Images\\SubCategory\\10.jpg",
+                            IsDeleted = false,
+                            Name = "سباب‌کشی و حمل‌",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CategoryId = 5,
+                            ImagePath = "\\Images\\SubCategory\\11.jpg",
+                            IsDeleted = false,
+                            Name = "خدمات و تعمیرات خودرو",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CategoryId = 6,
+                            ImagePath = "\\Images\\SubCategory\\12.jpg",
+                            IsDeleted = false,
+                            Name = "زیبایی بانوان",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 13,
+                            CategoryId = 6,
+                            ImagePath = "\\Images\\SubCategory\\13.jpg",
+                            IsDeleted = false,
+                            Name = "پزشکی و پرستاری",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 14,
+                            CategoryId = 7,
+                            ImagePath = "\\Images\\SubCategory\\14.jpg",
+                            IsDeleted = false,
+                            Name = "خدمات شرکتی",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 15,
+                            CategoryId = 7,
+                            ImagePath = "\\Images\\SubCategory\\15.jpg",
+                            IsDeleted = false,
+                            Name = "تامین نیروی انسانی",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 16,
+                            CategoryId = 8,
+                            ImagePath = "\\Images\\SubCategory\\16.jpg",
+                            IsDeleted = false,
+                            Name = "خیاطی و تعمیرات لباس",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 17,
+                            CategoryId = 8,
+                            ImagePath = "\\Images\\SubCategory\\17.jpg",
+                            IsDeleted = false,
+                            Name = "مجالس و رویدادها",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("HomeService.Domain.Core.HomeService.Users.Entities.User", b =>
@@ -410,6 +1193,42 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "49533cdb-aeb8-452f-b2ac-64043551b8b3",
+                            Email = "Reza@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "REZA@GMAIL.COM",
+                            NormalizedUserName = "REZA",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPTvt7crCAFK/Q8+kIs/BDz8NS4sXLVTXvDH6qqrVr8YoTfdezBEWgyK9fVQMwNFvA==",
+                            PhoneNumber = "09909169328",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "025231bf-ced2-4d43-9b8b-54d97e9473ea",
+                            TwoFactorEnabled = false,
+                            UserName = "reza"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "49533cdb-aeb8-452f-b2ac-64043551b8b3",
+                            Email = "Mohsen@gmail.com",
+                            EmailConfirmed = false,
+                            LockoutEnabled = false,
+                            NormalizedEmail = "MOHSEN@GMAIL.COM",
+                            NormalizedUserName = "MOHSEN",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPTvt7crCAFK/Q8+kIs/BDz8NS4sXLVTXvDH6qqrVr8YoTfdezBEWgyK9fVQMwNFvA==",
+                            PhoneNumber = "09909169327",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "025231bf-ced2-4d43-9b8b-54d97e9473ea",
+                            TwoFactorEnabled = false,
+                            UserName = "Mohsen"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole<int>", b =>
@@ -440,6 +1259,26 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Customer",
+                            NormalizedName = "CUSTOMER"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Expert",
+                            NormalizedName = "EXPERT"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -524,6 +1363,13 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.HasIndex("RoleId");
 
                     b.ToTable("AspNetUserRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            UserId = 1,
+                            RoleId = 1
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
@@ -658,6 +1504,12 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
 
             modelBuilder.Entity("HomeService.Domain.Core.HomeService.OrderEntity.Entities.Order", b =>
                 {
+                    b.HasOne("HomeService.Domain.Core.HomeService.CityEntity.Entities.City", "City")
+                        .WithMany()
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("HomeService.Domain.Core.HomeService.CustomerEntity.Entities.Customer", "Customer")
                         .WithMany("Orders")
                         .HasForeignKey("CustomerId")
@@ -674,6 +1526,8 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
+
+                    b.Navigation("City");
 
                     b.Navigation("Customer");
 

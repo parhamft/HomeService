@@ -11,6 +11,8 @@ namespace HomeService.Domain.Core.HomeService.CategoryEntity.Entities
         [MaxLength(100)]
         public string Name { get; set; }
         public string ImagePath { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime TimeCreated { get; set; }
 
         #endregion
 

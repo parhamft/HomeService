@@ -1,4 +1,5 @@
-﻿using HomeService.Domain.Core.HomeService.CommentEntity.Entities;
+﻿using HomeService.Domain.Core.HomeService.CityEntity.Entities;
+using HomeService.Domain.Core.HomeService.CommentEntity.Entities;
 using HomeService.Domain.Core.HomeService.CustomerEntity.Entities;
 using HomeService.Domain.Core.HomeService.ExpertEntity.Entities;
 using HomeService.Domain.Core.HomeService.HomeServiceEntity.Entities;
@@ -22,6 +23,9 @@ namespace HomeService.Domain.Core.HomeService.OrderEntity.Entities
         public int ServiceId { get; set; }
         public StatusEnum Status { get; set; }
         public int? ExpertId { get; set; }
+        public bool IsDeleted { get; set; }
+        public int CityId { get; set; }
+        public DateTime TimeCreated { get; set; }
         #endregion
 
         #region NavigationProperties
@@ -31,9 +35,10 @@ namespace HomeService.Domain.Core.HomeService.OrderEntity.Entities
         public Expert? Expert { get; set; }
 
         public List<Offer>? Offers { get; set; }
+        public City City { get; set; }
 
         #endregion
- 
+
 
     }
 }

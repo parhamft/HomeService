@@ -48,17 +48,13 @@ namespace App.Infra.DB.SQLServer.EF
 
             UserConfig.SeedUsers(builder);
 
-            //builder.Entity<IdentityUserLogin<int>>()
-            //.HasKey(l => new { l.LoginProvider, l.ProviderKey });
-
-            //builder.Entity<iden<int>>().HasNoKey();
             base.OnModelCreating(builder);
 
 
 
 
         }
-        //public DbSet<User> users { get; set; }
+
         public DbSet<Admin> Admins { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<City> Cities { get; set; }

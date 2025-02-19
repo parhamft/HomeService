@@ -19,10 +19,14 @@ namespace App.Infra.DB.SQLServer.EF.Configuration.AdminConfigs
             builder.Property(x => x.Balance)
                    .HasColumnType("decimal(18, 2)");
 
-            //builder.HasOne(x => x.User)
-            //       .WithOne(x=>x.Admin)
-            //       .HasForeignKey<Admin>(x => x.UserId)
-            //       .OnDelete(DeleteBehavior.NoAction);
+
+            builder.HasData(new Admin
+            {
+                Id = 1,
+                Balance = 0,
+                UserId = 1,
+                TimeCreated = new DateTime(2025, 10, 2),
+            });
         }
     }
 }

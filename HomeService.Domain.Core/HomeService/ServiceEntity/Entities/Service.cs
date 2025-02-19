@@ -19,6 +19,9 @@ namespace HomeService.Domain.Core.HomeService.HomeServiceEntity.Entities
         public string Name { get; set; }
         public int SubCategoryId { get; set; }
         public decimal BasePrice { get; set; }
+        public string ImagePath { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime TimeCreated { get; set; }
         #endregion
 
         #region NavigationProperties

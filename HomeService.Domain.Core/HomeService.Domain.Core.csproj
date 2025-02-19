@@ -8,63 +8,46 @@
 
   <ItemGroup>
     <Folder Include="HomeService\AdminEntity\AppServices\" />
-    <Folder Include="HomeService\AdminEntity\Data\" />
-    <Folder Include="HomeService\AdminEntity\DTO\" />
     <Folder Include="HomeService\AdminEntity\Enums\" />
     <Folder Include="HomeService\AdminEntity\Services\" />
-    <Folder Include="HomeService\CategoryEntity\AppServices\" />
-    <Folder Include="HomeService\CategoryEntity\Data\" />
-    <Folder Include="HomeService\CategoryEntity\DTO\" />
     <Folder Include="HomeService\CategoryEntity\Enums\" />
-    <Folder Include="HomeService\CategoryEntity\Services\" />
     <Folder Include="HomeService\CityEntity\AppServices\" />
-    <Folder Include="HomeService\CityEntity\Data\" />
     <Folder Include="HomeService\CityEntity\DTO\" />
     <Folder Include="HomeService\CityEntity\Enums\" />
     <Folder Include="HomeService\CityEntity\Services\" />
     <Folder Include="HomeService\CommentEntity\AppServices\" />
-    <Folder Include="HomeService\CommentEntity\Data\" />
     <Folder Include="HomeService\CommentEntity\DTO\" />
     <Folder Include="HomeService\CommentEntity\Enums\" />
     <Folder Include="HomeService\CommentEntity\Services\" />
     <Folder Include="HomeService\CustomerEntity\AppServices\" />
-    <Folder Include="HomeService\CustomerEntity\Data\" />
     <Folder Include="HomeService\CustomerEntity\DTO\" />
     <Folder Include="HomeService\CustomerEntity\Enums\" />
     <Folder Include="HomeService\CustomerEntity\Services\" />
     <Folder Include="HomeService\ExpertEntity\AppServices\" />
-    <Folder Include="HomeService\ExpertEntity\Data\" />
     <Folder Include="HomeService\ExpertEntity\DTO\" />
     <Folder Include="HomeService\ExpertEntity\Enums\" />
     <Folder Include="HomeService\ExpertEntity\Services\" />
-    <Folder Include="HomeService\ServiceEntity\AppServices\" />
-    <Folder Include="HomeService\ServiceEntity\Data\" />
-    <Folder Include="HomeService\ServiceEntity\DTO\" />
     <Folder Include="HomeService\ServiceEntity\Enums\" />
-    <Folder Include="HomeService\ServiceEntity\Services\" />
     <Folder Include="HomeService\OfferEntity\AppServices\" />
-    <Folder Include="HomeService\OfferEntity\Data\" />
     <Folder Include="HomeService\OfferEntity\DTO\" />
     <Folder Include="HomeService\OfferEntity\Enums\" />
     <Folder Include="HomeService\OfferEntity\Services\" />
     <Folder Include="HomeService\OrderEntity\AppServices\" />
-    <Folder Include="HomeService\OrderEntity\Data\" />
     <Folder Include="HomeService\OrderEntity\DTO\" />
     <Folder Include="HomeService\OrderEntity\Services\" />
-    <Folder Include="HomeService\SubCategoryEntity\AppServices\" />
-    <Folder Include="HomeService\SubCategoryEntity\Data\" />
-    <Folder Include="HomeService\SubCategoryEntity\DTO\" />
     <Folder Include="HomeService\SubCategoryEntity\Enums\" />
-    <Folder Include="HomeService\SubCategoryEntity\Services\" />
     <Folder Include="HomeService\UserEntity\AppServices\" />
-    <Folder Include="HomeService\UserEntity\Data\" />
     <Folder Include="HomeService\UserEntity\DTO\" />
     <Folder Include="HomeService\UserEntity\Services\" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.1" />
-    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="9.0.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="9.0.2" />
+    <PackageReference Include="Microsoft.Extensions.Identity.Core" Version="9.0.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FrameWorks\FrameWorks.csproj" />
   </ItemGroup>
 
 </Project>

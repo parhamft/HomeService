@@ -12,6 +12,7 @@ namespace HomeService.Domain.Core.HomeService.CityEntity.Entities
         #region Properties
         public int Id { get; set; }
         public string Titel { get; set; }
+
         #endregion
 
         #region NavigationProperties

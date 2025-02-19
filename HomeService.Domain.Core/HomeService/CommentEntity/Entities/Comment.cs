@@ -14,12 +14,13 @@ namespace HomeService.Domain.Core.HomeService.CommentEntity.Entities
         public string Description { get; set; }
         public decimal Score { get; set; }
         public int CustomerId { get; set; }
-
-
         public int OfferId { get; set; }
         public bool Approved { get; set; }
         public int ExpertId { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime TimeCreated { get; set; }
         #endregion
+
         #region NavigationProperties
         public Customer Customer { get; set; }
         public Expert Expert { get; set; }

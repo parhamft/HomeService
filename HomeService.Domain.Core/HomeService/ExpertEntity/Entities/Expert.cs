@@ -20,8 +20,11 @@ namespace HomeService.Domain.Core.HomeService.ExpertEntity.Entities
         public GenderEnum? Gender { get; set; }
         public decimal Balance { get; set; }
         public int UserId { get; set; }
+        [Range(1,5)]
         public decimal? Rating { get; set; }
         public string? ImagePath { get; set; }
+        public bool IsDeleted { get; set; }
+        public DateTime TimeCreated { get; set; }
         #endregion
 
         #region NavigationProperties
