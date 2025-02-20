@@ -25,21 +25,24 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.ServiceEntity
 
         public async Task<UpdateServiceDTO> GetUpdate(int Id, CancellationToken cancellationToken)
         {
-            var cat = await _appDbContext.Services.Select(x => new UpdateServiceDTO
+            var cat = await _appDbContext.Services.Where(x=>x.Id==Id).Select(x => new UpdateServiceDTO
             {
                 Id = Id,
                 BasePrice = x.BasePrice,
                 ImagePath = x.ImagePath,
-                Name = x.Name
+                Name = x.Name,
+                SubCategoryId =x.SubCategoryId
+                
             }).FirstOrDefaultAsync(x => x.Id == Id);
             return cat;
         }
         public async Task<List<GetServiceDTO>> GetAll(CancellationToken cancellationToken)
         {
-            var result = await _appDbContext.Services.AsNoTracking().Select(x => new GetServiceDTO
+            var result = await _appDbContext.Services.AsNoTracking().Where(x=>x.IsDeleted==false).Select(x => new GetServiceDTO
             {
                 Id= x.Id,
                 BasePrice = x.BasePrice,
+                SubCategory = x.SubCategory,
                 ImagePath = x.ImagePath,
                 Name = x.Name
                 
@@ -95,6 +98,7 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.ServiceEntity
             ser.Name = service.Name;
             ser.BasePrice = service.BasePrice;
             ser.SubCategoryId = service.SubCategoryId;
+            ser.ImagePath = service.ImagePath;
 
 
             _appDbContext.Services.Update(ser);

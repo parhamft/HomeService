@@ -26,17 +26,18 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CategoryEntity
     
         public async Task<UpdateCategoryDTO> GetUpdate(int Id, CancellationToken cancellationToken)
         {
-            var cat = await _appDbContext.Categories.Select(x => new UpdateCategoryDTO
+            var cat = await _appDbContext.Categories.Where(x=>x.IsDeleted==false).Select(x => new UpdateCategoryDTO
             {
                 Id = x.Id,
                 Name = x.Name,
                 ImagePath = x.ImagePath
+                
             }).FirstOrDefaultAsync(x=>x.Id==Id);
             return cat;
         }
         public async Task<List<GetCategoryDTO>> GetAll(CancellationToken cancellationToken)
         {
-             var result = await _appDbContext.Categories.AsNoTracking().Select(x=> new GetCategoryDTO
+             var result = await _appDbContext.Categories.AsNoTracking().Where(x => x.IsDeleted == false).Select(x=> new GetCategoryDTO
              {
                  Id = x.Id,
                  Name = x.Name,
@@ -50,7 +51,7 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CategoryEntity
 
         public async Task<GetCategoryDTO> GetById(int Id, CancellationToken cancellationToken)
         {
-            var result =  await _appDbContext.Categories.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken);
+            var result =  await _appDbContext.Categories.AsNoTracking().Where(x => x.IsDeleted == false).FirstOrDefaultAsync(x => x.Id == Id, cancellationToken);
             var cat = new GetCategoryDTO
             {
                 Id = result.Id,
@@ -61,7 +62,7 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CategoryEntity
         }
         public async Task<List<GetCategoryWithSubCategoryDTO>> GetCategoryAndSubCategoryAndService(CancellationToken cancellationToken)
         {
-            var category = await _appDbContext.Categories.Select(x => new GetCategoryWithSubCategoryDTO
+            var category = await _appDbContext.Categories.Where(x => x.IsDeleted == false).Select(x => new GetCategoryWithSubCategoryDTO
             {
                 Id = x.Id,
                 Name = x.Name,

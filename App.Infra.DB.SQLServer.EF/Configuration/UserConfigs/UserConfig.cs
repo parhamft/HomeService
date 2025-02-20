@@ -17,8 +17,9 @@ namespace App.Infra.DB.SQLServer.EF.Configuration.UserConfigs
             new User()
             {
                 Id = 1,
-                UserName = "reza",
-                NormalizedUserName = "REZA",
+                UserName = "Reza@gmail.com",
+                NormalizedUserName = "REZA@GMAIL.COM",
+                FullName = "Reza Ahmadi",
                 Email = "Reza@gmail.com",
                 NormalizedEmail = "REZA@GMAIL.COM",
                 LockoutEnabled = false,
@@ -27,13 +28,28 @@ namespace App.Infra.DB.SQLServer.EF.Configuration.UserConfigs
                 ConcurrencyStamp = "49533cdb-aeb8-452f-b2ac-64043551b8b3"
 
             },
-            new User()
+                        new User()
             {
                 Id = 2,
-                UserName = "Mohsen",
-                NormalizedUserName = "MOHSEN",
-                Email = "Mohsen@gmail.com",
-                NormalizedEmail = "MOHSEN@GMAIL.COM",
+                UserName = "Shahram@gmail.com",
+                NormalizedUserName = "SHAHRAM@GMAIL.COM",
+                FullName = "Shahram Moradi",
+                Email = "Shahram@gmail.com",
+                NormalizedEmail = "SHAHRAM@GMAIL.COM",
+                LockoutEnabled = false,
+                PhoneNumber = "09909169329",
+                SecurityStamp = "025231bf-ced2-4d43-9b8b-54d97e9473ea",
+                ConcurrencyStamp = "49533cdb-aeb8-452f-b2ac-64043551b8b3"
+
+            },
+                        new User()
+                                    {
+                Id = 3,
+                UserName = "Morad@gmail.com",
+                NormalizedUserName = "MORAD@GMAIL.COM",
+                FullName = "Morad Shahram",
+                Email = "Morad@gmail.com",
+                NormalizedEmail = "MORAD@GMAIL.COM",
                 LockoutEnabled = false,
                 PhoneNumber = "09909169327",
                 SecurityStamp = "025231bf-ced2-4d43-9b8b-54d97e9473ea",
@@ -57,7 +73,11 @@ namespace App.Infra.DB.SQLServer.EF.Configuration.UserConfigs
 
 
             builder.Entity<IdentityUserRole<int>>().HasData(
-            new IdentityUserRole<int>() { RoleId = 1, UserId = 1 });
+            new IdentityUserRole<int>() { RoleId = 1, UserId = 1 },
+            new IdentityUserRole<int>() { RoleId = 2, UserId = 2 },
+            new IdentityUserRole<int>() { RoleId = 3, UserId = 3 });
+
+
 
 
 

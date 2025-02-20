@@ -17,7 +17,7 @@
         </div><!-- /.portlet-heading -->
         <div class="portlet-body">
             <div class="top-buttons-box mb-2">
-                <a class="btn btn-success" href="#">
+                <a class="btn btn-success" asp-area="Admin" asp-controller="Category" asp-action="create">
                     <i class="icon-plus"></i>
                     افزودن
                     <div class="paper-ripple"><div class="paper-ripple__background"></div><div class="paper-ripple__waves"></div></div>
@@ -57,8 +57,8 @@
 
 
                                     <td>
-                                        <a asp-page="" asp-route-Id="@Cat.Id" class="btn btn-info">ویرایش</a>
-                                        <a onclick="return confirm('آیا از حذف این کاربر اطمینان دارید؟')" asp-page-handler="" asp-route-Id="@Cat.Id" class="btn btn-danger">حذف</a>
+                                        <a asp-area="Admin" asp-controller="Category" asp-action="UpdatePage" asp-route-Id="@Cat.Id" class="btn btn-info">ویرایش</a>
+                                        <a onclick="return confirm('آیا از حذف این کاربر اطمینان دارید؟')" asp-area="Admin" asp-controller="Category" asp-action="Delete" asp-route-Id="@Cat.Id" class="btn btn-danger">حذف</a>
                                     </td>
                                 </tr>
                             }

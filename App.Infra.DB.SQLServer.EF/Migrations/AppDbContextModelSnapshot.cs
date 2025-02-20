@@ -17,7 +17,7 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "9.0.1")
+                .HasAnnotation("ProductVersion", "9.0.2")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
@@ -48,8 +48,16 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.Property<decimal>("Balance")
                         .HasColumnType("decimal(18, 2)");
 
+                    b.Property<string>("FirstName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
+
+                    b.Property<string>("LastName")
+                        .HasMaxLength(100)
+                        .HasColumnType("nvarchar(100)");
 
                     b.Property<DateTime>("TimeCreated")
                         .HasColumnType("datetime2");
@@ -69,7 +77,9 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                         {
                             Id = 1,
                             Balance = 0m,
+                            FirstName = "reza",
                             IsDeleted = false,
+                            LastName = "ahmadi",
                             TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             UserId = 1
                         });
@@ -851,6 +861,28 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                         });
                 });
 
+            modelBuilder.Entity("HomeService.Domain.Core.HomeService.ImageEntity.Image", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("ImagePath")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("OrderId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("OrderId");
+
+                    b.ToTable("Image");
+                });
+
             modelBuilder.Entity("HomeService.Domain.Core.HomeService.OfferEntity.Entities.Offer", b =>
                 {
                     b.Property<int>("Id")
@@ -1149,6 +1181,10 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("bit");
 
@@ -1202,32 +1238,16 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                             ConcurrencyStamp = "49533cdb-aeb8-452f-b2ac-64043551b8b3",
                             Email = "Reza@gmail.com",
                             EmailConfirmed = false,
+                            FullName = "Reza Ahmadi",
                             LockoutEnabled = false,
                             NormalizedEmail = "REZA@GMAIL.COM",
-                            NormalizedUserName = "REZA",
+                            NormalizedUserName = "REZA@GMAIL.COM",
                             PasswordHash = "AQAAAAIAAYagAAAAEPTvt7crCAFK/Q8+kIs/BDz8NS4sXLVTXvDH6qqrVr8YoTfdezBEWgyK9fVQMwNFvA==",
                             PhoneNumber = "09909169328",
                             PhoneNumberConfirmed = false,
                             SecurityStamp = "025231bf-ced2-4d43-9b8b-54d97e9473ea",
                             TwoFactorEnabled = false,
-                            UserName = "reza"
-                        },
-                        new
-                        {
-                            Id = 2,
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "49533cdb-aeb8-452f-b2ac-64043551b8b3",
-                            Email = "Mohsen@gmail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "MOHSEN@GMAIL.COM",
-                            NormalizedUserName = "MOHSEN",
-                            PasswordHash = "AQAAAAIAAYagAAAAEPTvt7crCAFK/Q8+kIs/BDz8NS4sXLVTXvDH6qqrVr8YoTfdezBEWgyK9fVQMwNFvA==",
-                            PhoneNumber = "09909169327",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "025231bf-ced2-4d43-9b8b-54d97e9473ea",
-                            TwoFactorEnabled = false,
-                            UserName = "Mohsen"
+                            UserName = "Reza@gmail.com"
                         });
                 });
 
@@ -1483,6 +1503,17 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.Navigation("SubCategory");
                 });
 
+            modelBuilder.Entity("HomeService.Domain.Core.HomeService.ImageEntity.Image", b =>
+                {
+                    b.HasOne("HomeService.Domain.Core.HomeService.OrderEntity.Entities.Order", "Order")
+                        .WithMany("Images")
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Order");
+                });
+
             modelBuilder.Entity("HomeService.Domain.Core.HomeService.OfferEntity.Entities.Offer", b =>
                 {
                     b.HasOne("HomeService.Domain.Core.HomeService.ExpertEntity.Entities.Expert", "Expert")
@@ -1626,6 +1657,8 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
 
             modelBuilder.Entity("HomeService.Domain.Core.HomeService.OrderEntity.Entities.Order", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("Offers");
                 });
 

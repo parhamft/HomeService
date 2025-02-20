@@ -1,7 +1,10 @@
+using App.Domain.AppService.HomeService.AdminEntity;
 using App.Domain.AppService.HomeService.CategoryEntity;
 using App.Domain.AppService.HomeService.ServiceEntity;
 using App.Domain.AppService.HomeService.SubCategoryEntity;
+using App.Domain.Service.HomeService.BaseDataService;
 using App.Domain.Service.HomeService.CategoryEntity;
+using App.Domain.Service.HomeService.OrderEntity;
 using App.Domain.Service.HomeService.ServiceEntity;
 using App.Domain.Service.HomeService.SubCategoryEntity;
 using App.Infra.DataAccess.Repo.EF.HomeService.AdminEntity;
@@ -11,11 +14,14 @@ using App.Infra.DataAccess.Repo.EF.HomeService.CommentEntity;
 using App.Infra.DataAccess.Repo.EF.HomeService.CustomerEntity;
 using App.Infra.DataAccess.Repo.EF.HomeService.ExpertEntity;
 using App.Infra.DataAccess.Repo.EF.HomeService.OfferEntity;
+using App.Infra.DataAccess.Repo.EF.HomeService.OrderEntity;
 using App.Infra.DataAccess.Repo.EF.HomeService.ServiceEntity;
 using App.Infra.DataAccess.Repo.EF.HomeService.SubCategoryEntity;
 using App.Infra.DataAccess.Repo.EF.HomeService.UserEntity;
 using App.Infra.DB.SQLServer.EF;
+using HomeService.Domain.Core.HomeService.AdminEntity.AppServices;
 using HomeService.Domain.Core.HomeService.AdminEntity.Data;
+using HomeService.Domain.Core.HomeService.BaseData.Service;
 using HomeService.Domain.Core.HomeService.CategoryEntity.AppServices;
 using HomeService.Domain.Core.HomeService.CategoryEntity.Data;
 using HomeService.Domain.Core.HomeService.CategoryEntity.Services;
@@ -25,6 +31,8 @@ using HomeService.Domain.Core.HomeService.Configs.Entities;
 using HomeService.Domain.Core.HomeService.CustomerEntity.Data;
 using HomeService.Domain.Core.HomeService.ExpertEntity.Data;
 using HomeService.Domain.Core.HomeService.OfferEntity.Data;
+using HomeService.Domain.Core.HomeService.OrderEntity.Data;
+using HomeService.Domain.Core.HomeService.OrderEntity.Services;
 using HomeService.Domain.Core.HomeService.ServiceEntity.AppServices;
 using HomeService.Domain.Core.HomeService.ServiceEntity.Data;
 using HomeService.Domain.Core.HomeService.ServiceEntity.Services;
@@ -78,6 +86,7 @@ builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<IExpertRepository, ExpertRepository>();
 builder.Services.AddScoped<IOfferRepository, OfferRepository>();
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
 builder.Services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
 builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
@@ -85,10 +94,14 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICategoryService,CategoryService>();
 builder.Services.AddScoped<ISubCategoryService,SubCategoryService>();
 builder.Services.AddScoped<IServiceService,ServiceService>();
+builder.Services.AddScoped<IBaseDataService, BaseDataService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
+builder.Services.AddScoped<IAdminAppService,AdminAppServie>();
 builder.Services.AddScoped<ICategoryAppService, CategoryAppService>();
 builder.Services.AddScoped<IServiceAppService, ServiceAppService>();
 builder.Services.AddScoped<ISubCategoryAppService, SubCategoryAppService>();
+
 
 var app = builder.Build();
 
@@ -103,6 +116,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();

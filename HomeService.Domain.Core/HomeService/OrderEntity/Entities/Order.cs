@@ -3,6 +3,7 @@ using HomeService.Domain.Core.HomeService.CommentEntity.Entities;
 using HomeService.Domain.Core.HomeService.CustomerEntity.Entities;
 using HomeService.Domain.Core.HomeService.ExpertEntity.Entities;
 using HomeService.Domain.Core.HomeService.HomeServiceEntity.Entities;
+using HomeService.Domain.Core.HomeService.ImageEntity;
 using HomeService.Domain.Core.HomeService.OfferEntity.Entities;
 using HomeService.Domain.Core.HomeService.OrderEntity.Enums;
 using System;
@@ -33,7 +34,7 @@ namespace HomeService.Domain.Core.HomeService.OrderEntity.Entities
         public Service Service { get; set; }
 
         public Expert? Expert { get; set; }
-
+        public List<Image> Images{ get; set; }
         public List<Offer>? Offers { get; set; }
         public City City { get; set; }
 

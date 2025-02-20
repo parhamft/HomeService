@@ -10,6 +10,8 @@ namespace HomeService.Domain.Core.HomeService.Users.Entities
     public class User : IdentityUser<int>
     {
 
+        public string FullName { get; set; }
+
         #region NavigationProperties
         public Customer? Customer { get; set; }
         public Admin? Admin{ get; set; }

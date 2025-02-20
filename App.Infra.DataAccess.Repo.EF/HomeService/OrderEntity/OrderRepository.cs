@@ -4,6 +4,8 @@ using HomeService.Domain.Core.HomeService.CityEntity.Entities;
 using HomeService.Domain.Core.HomeService.CustomerEntity.Entities;
 using HomeService.Domain.Core.HomeService.ExpertEntity.Entities;
 using HomeService.Domain.Core.HomeService.HomeServiceEntity.Entities;
+using HomeService.Domain.Core.HomeService.OrderEntity.Data;
+using HomeService.Domain.Core.HomeService.OrderEntity.DTO;
 using HomeService.Domain.Core.HomeService.OrderEntity.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -14,7 +16,7 @@ using System.Threading.Tasks;
 
 namespace App.Infra.DataAccess.Repo.EF.HomeService.OrderEntity
 {
-    public class OrderRepository
+    public class OrderRepository : IOrderRepository
     {
         private readonly AppDbContext _appDbContext;
 
@@ -23,9 +25,40 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.OrderEntity
             _appDbContext = appDbContext;
         }
 
-        public async Task<List<Order>> GetAll(CancellationToken cancellationToken) => await _appDbContext.Orders.AsNoTracking().Where(x => x.IsDeleted != true).ToListAsync(cancellationToken);
-        public async Task<Order> GetById(int Id, CancellationToken cancellationToken) => await _appDbContext.Orders.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken);
-        public async Task<bool> Create(Order order, CancellationToken cancellationToken)
+        public async Task<List<GetOrderDTO>> GetAll(CancellationToken cancellationToken)
+        {
+            var result =  await _appDbContext.Orders.AsNoTracking().Where(x => x.IsDeleted != true).Select(x=> new GetOrderDTO
+            {
+                Description = x.Description,
+                Id = x.Id,
+                DateFor = x.DateFor,
+                Status = x.Status,
+
+            }
+            ).ToListAsync(cancellationToken);
+            return result;
+        }
+        public async Task<GetOrderDTO> GetById(int Id, CancellationToken cancellationToken)
+        {
+
+            var result = await _appDbContext.Orders.AsNoTracking().Where(x => x.IsDeleted != true).Select(x => new GetOrderDTO
+            {
+                Description = x.Description,
+                Id = x.Id,
+                DateFor = x.DateFor,
+                Status = x.Status,
+                Customer = x.Customer,
+                Expert = x.Expert,
+                Service = x.Service,
+            }
+            ).FirstOrDefaultAsync(x=>x.Id ==Id ,cancellationToken);
+            if (result == null)
+            {
+                throw new Exception("That Object Does Not Exist");
+            }
+            return result;
+        }
+        public async Task<bool> Create(AddOrderDTO order, CancellationToken cancellationToken)
         {
             var newOrder = new Order
             {
@@ -33,11 +66,11 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.OrderEntity
             CityId = order.CityId,
             CustomerId = order.CustomerId,
             DateFor=order.DateFor,
-            IsDeleted = order.IsDeleted,
+
             ServiceId = order.ServiceId,
             Status = order.Status,
             TimeCreated = order.TimeCreated,
-            ExpertId = order.ExpertId,
+
             
 
             };
@@ -52,22 +85,17 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.OrderEntity
                 return false;
             }
         }
-        public async Task<bool> Update(Order order, CancellationToken cancellationToken)
+        public async Task<bool> Update(OrderStatusUpdateDTO order, CancellationToken cancellationToken)
         {
             var ord = await _appDbContext.Orders.FirstOrDefaultAsync(x => x.Id == order.Id, cancellationToken);
             if (ord == null)
             {
                 throw new Exception("That Object Does Not Exist");
             }
-            ord.Description = order.Description;
-            ord.CityId = order.CityId;
-            ord.CustomerId = order.CustomerId;
-            ord.DateFor = order.DateFor;
-            ord.IsDeleted = order.IsDeleted;
-            ord.ServiceId = order.ServiceId;
             ord.Status = order.Status;
-            ord.TimeCreated = order.TimeCreated;
-            ord.ExpertId = order.ExpertId;
+            ord.Offers = order.Offers;
+            ord.Expert = order.Expert;
+
 
             _appDbContext.Orders.Update(ord);
             await _appDbContext.SaveChangesAsync(cancellationToken);
@@ -82,7 +110,7 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.OrderEntity
             {
                 throw new Exception("That Object Does Not Exist");
             }
-            _appDbContext.Orders.Remove(ord);
+            ord.IsDeleted = true;
             await _appDbContext.SaveChangesAsync(cancellationToken);
             return true;
 

@@ -1,4 +1,5 @@
-﻿using HomeService.Domain.Core.HomeService.CategoryEntity.AppServices;
+﻿using HomeService.Domain.Core.HomeService.BaseData.Service;
+using HomeService.Domain.Core.HomeService.CategoryEntity.AppServices;
 using HomeService.Domain.Core.HomeService.CategoryEntity.DTO;
 using HomeService.Domain.Core.HomeService.CategoryEntity.Services;
 using System;
@@ -12,10 +13,12 @@ namespace App.Domain.Service.HomeService.CategoryEntity
     public class CategoryAppService :ICategoryAppService
     {
         private readonly ICategoryService _categoryService;
+        private readonly IBaseDataService _baseDataService;
 
-        public CategoryAppService(ICategoryService categoryService)
+        public CategoryAppService(ICategoryService categoryService, IBaseDataService baseDataService)
         {
             _categoryService = categoryService;
+            _baseDataService = baseDataService;
         }
 
         public async Task<UpdateCategoryDTO> GetUpdate(int id, CancellationToken cancellationToken)
@@ -41,11 +44,17 @@ namespace App.Domain.Service.HomeService.CategoryEntity
         }
         public async Task<bool> Update(UpdateCategoryDTO updateCategoryDTO, CancellationToken cancellationToken)
         {
+            if (updateCategoryDTO.ProfileImgFile!=null)
+            {
+                updateCategoryDTO.ImagePath = await _baseDataService.UploadImage(updateCategoryDTO.ProfileImgFile!, "Category", cancellationToken);
+            }
+            
             var result = await _categoryService.Update(updateCategoryDTO, cancellationToken);
             return result;
         }
         public async Task<bool> Add(AddCategoryDTO addCategoryDTO, CancellationToken cancellationToken)
         {
+            addCategoryDTO.ImagePath = await _baseDataService.UploadImage(addCategoryDTO.ProfileImgFile!, "Category", cancellationToken);
             var result = await _categoryService.Add(addCategoryDTO, cancellationToken);
             return result;
         }

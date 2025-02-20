@@ -1,0 +1,25 @@
+﻿
+<section id="main" class="clearfix user-page">
+    <div class="container">
+        <div class="row text-center">
+            <!-- user-login -->
+            <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3">
+                <div class="user-account">
+                    <h2>فرم ورود</h2>
+                    <!-- form -->
+                    <form asp-area="Account" asp-controller="Login" asp-action="login" method="post">
+                        <div class="form-group">
+                            <input type="text" name="Email" class="form-control" placeholder="نام کاربری">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="Password" class="form-control" placeholder="رمزعبور">
+                        </div>
+                        <button type="submit" class="btn">ورود</button>
+                    </form><!-- form -->
+                    <!-- forgot-password -->
+                </div>
+                <a class="btn-primary">ساخت اکانت جدید</a>
+            </div><!-- user-login -->
+        </div><!-- row -->
+    </div><!-- container -->
+</section><!-- signin-page -->

@@ -13,7 +13,6 @@
     <Folder Include="HomeService\CustomerEntity\" />
     <Folder Include="HomeService\ExpertEntity\" />
     <Folder Include="HomeService\OfferEntity\" />
-    <Folder Include="HomeService\OrderEntity\" />
     <Folder Include="HomeService\UserEntity\" />
   </ItemGroup>
 

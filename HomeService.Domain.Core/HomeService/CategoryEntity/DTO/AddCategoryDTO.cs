@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -11,7 +12,9 @@ namespace HomeService.Domain.Core.HomeService.CategoryEntity.DTO
     {
         [MaxLength(100)]
         public string Name { get; set; }
-        public string ImagePath { get; set; }
+        public IFormFile? ProfileImgFile { get; set; }
+        public string? ImagePath { get; set; }
+
         public DateTime TimeCreated { get; set; } = DateTime.Now;
     }
 }

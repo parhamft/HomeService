@@ -34,6 +34,7 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -110,6 +111,8 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    FirstName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
+                    LastName = table.Column<string>(type: "nvarchar(100)", maxLength: 100, nullable: true),
                     UserId = table.Column<int>(type: "int", nullable: false),
                     Balance = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
@@ -380,6 +383,26 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Image",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ImagePath = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    OrderId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Image", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Image_Orders_OrderId",
+                        column: x => x.OrderId,
+                        principalTable: "Orders",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Offers",
                 columns: table => new
                 {
@@ -457,12 +480,8 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
 
             migrationBuilder.InsertData(
                 table: "AspNetUsers",
-                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
-                values: new object[,]
-                {
-                    { 1, 0, "49533cdb-aeb8-452f-b2ac-64043551b8b3", "Reza@gmail.com", false, false, null, "REZA@GMAIL.COM", "REZA", "AQAAAAIAAYagAAAAEPTvt7crCAFK/Q8+kIs/BDz8NS4sXLVTXvDH6qqrVr8YoTfdezBEWgyK9fVQMwNFvA==", "09909169328", false, "025231bf-ced2-4d43-9b8b-54d97e9473ea", false, "reza" },
-                    { 2, 0, "49533cdb-aeb8-452f-b2ac-64043551b8b3", "Mohsen@gmail.com", false, false, null, "MOHSEN@GMAIL.COM", "MOHSEN", "AQAAAAIAAYagAAAAEPTvt7crCAFK/Q8+kIs/BDz8NS4sXLVTXvDH6qqrVr8YoTfdezBEWgyK9fVQMwNFvA==", "09909169327", false, "025231bf-ced2-4d43-9b8b-54d97e9473ea", false, "Mohsen" }
-                });
+                columns: new[] { "Id", "AccessFailedCount", "ConcurrencyStamp", "Email", "EmailConfirmed", "FullName", "LockoutEnabled", "LockoutEnd", "NormalizedEmail", "NormalizedUserName", "PasswordHash", "PhoneNumber", "PhoneNumberConfirmed", "SecurityStamp", "TwoFactorEnabled", "UserName" },
+                values: new object[] { 1, 0, "49533cdb-aeb8-452f-b2ac-64043551b8b3", "Reza@gmail.com", false, "Reza Ahmadi", false, null, "REZA@GMAIL.COM", "REZA@GMAIL.COM", "AQAAAAIAAYagAAAAEPTvt7crCAFK/Q8+kIs/BDz8NS4sXLVTXvDH6qqrVr8YoTfdezBEWgyK9fVQMwNFvA==", "09909169328", false, "025231bf-ced2-4d43-9b8b-54d97e9473ea", false, "Reza@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "Categories",
@@ -519,8 +538,8 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
 
             migrationBuilder.InsertData(
                 table: "Admins",
-                columns: new[] { "Id", "Balance", "IsDeleted", "TimeCreated", "UserId" },
-                values: new object[] { 1, 0m, false, new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 });
+                columns: new[] { "Id", "Balance", "FirstName", "IsDeleted", "LastName", "TimeCreated", "UserId" },
+                values: new object[] { 1, 0m, "reza", false, "ahmadi", new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified), 1 });
 
             migrationBuilder.InsertData(
                 table: "AspNetUserRoles",
@@ -674,6 +693,11 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                 column: "ServicesId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Image_OrderId",
+                table: "Image",
+                column: "OrderId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Offers_ExpertId",
                 table: "Offers",
                 column: "ExpertId");
@@ -740,6 +764,9 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
 
             migrationBuilder.DropTable(
                 name: "ExpertService");
+
+            migrationBuilder.DropTable(
+                name: "Image");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");

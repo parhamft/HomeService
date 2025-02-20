@@ -28,18 +28,22 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.SubCategoryEntity
             {
                 Id = x.Id,
                 Name = x.Name,
-                ImagePath = x.ImagePath
+                ImagePath = x.ImagePath,
+                CategoryId =x.CategoryId
+                
             }).FirstOrDefaultAsync(x=>x.Id==Id);
             return cat;
         }
         public async Task<List<GetSubCategoryDTO>> GetAll(CancellationToken cancellationToken)
         {
-            var result = await _appDbContext.SubCategories.AsNoTracking().Select(x => new GetSubCategoryDTO
+            var result = await _appDbContext.SubCategories.AsNoTracking().Where(x=>x.IsDeleted!=true).Select(x => new GetSubCategoryDTO
             {
                 Id = x.Id,
                 Name = x.Name,
                 CategoryId= x.CategoryId,
-                ImagePath = x.ImagePath
+                ImagePath = x.ImagePath,
+                Category = x.Category
+                
 
             }
             ).ToListAsync(cancellationToken);
@@ -91,6 +95,7 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.SubCategoryEntity
 
             sub.Name = subCategory.Name;
             sub.ImagePath = subCategory.ImagePath;
+            sub.CategoryId = subCategory.CategoryId;
 
             
 

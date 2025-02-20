@@ -1,4 +1,5 @@
-﻿using HomeService.Domain.Core.HomeService.SubCategoryEntity.AppServices;
+﻿using HomeService.Domain.Core.HomeService.BaseData.Service;
+using HomeService.Domain.Core.HomeService.SubCategoryEntity.AppServices;
 using HomeService.Domain.Core.HomeService.SubCategoryEntity.Data;
 using HomeService.Domain.Core.HomeService.SubCategoryEntity.DTO;
 using HomeService.Domain.Core.HomeService.SubCategoryEntity.Services;
@@ -13,10 +14,12 @@ namespace App.Domain.Service.HomeService.SubCategoryEntity
     public class SubCategoryAppService : ISubCategoryAppService
     {
         private readonly ISubCategoryService _categoryService;
+        private readonly IBaseDataService _baseDataService;
 
-        public SubCategoryAppService(ISubCategoryService categoryService)
+        public SubCategoryAppService(ISubCategoryService categoryService, IBaseDataService baseDataService)
         {
             _categoryService = categoryService;
+            _baseDataService = baseDataService;
         }
 
 
@@ -43,6 +46,7 @@ namespace App.Domain.Service.HomeService.SubCategoryEntity
         }
         public async Task<bool> Add(AddSubCategoryDTO addCategoryDTO, CancellationToken cancellationToken)
         {
+            addCategoryDTO.ImagePath = await _baseDataService.UploadImage(addCategoryDTO.ProfileImgFile!, "SubCategories", cancellationToken);
             var result = await _categoryService.Add(addCategoryDTO, cancellationToken);
             return result;
         }

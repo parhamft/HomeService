@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -14,6 +15,7 @@ namespace HomeService.Domain.Core.HomeService.ServiceEntity.DTO
         public string Name { get; set; }
         public decimal BasePrice { get; set; }
         public int SubCategoryId { get; set; }
+        public IFormFile? ProfileImgFile { get; set; }
         public string ImagePath { get; set; }
     }
 }

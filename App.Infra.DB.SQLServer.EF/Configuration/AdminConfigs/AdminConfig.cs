@@ -23,6 +23,8 @@ namespace App.Infra.DB.SQLServer.EF.Configuration.AdminConfigs
             builder.HasData(new Admin
             {
                 Id = 1,
+                FirstName = "reza",
+                LastName = "ahmadi",
                 Balance = 0,
                 UserId = 1,
                 TimeCreated = new DateTime(2025, 10, 2),
