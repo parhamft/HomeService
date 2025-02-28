@@ -1,7 +1,4 @@
-﻿using App.Domain.AppService.HomeService.Account;
-using HomeService.Domain.Core.HomeService.Account.AppService;
-using HomeService.Domain.Core.HomeService.AdminEntity.AppServices;
-using HomeService.Domain.Core.HomeService.Users.Entities;
+﻿using HomeService.Domain.Core.HomeService.Account.AppService;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomeService.EndPoint.MVC.Areas.Account.Controllers

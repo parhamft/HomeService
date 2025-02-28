@@ -23,8 +23,8 @@ namespace HomeService.EndPoint.MVC.Areas.Customer.Controllers
         }
         public async Task<IActionResult> GetOffers(int Id, CancellationToken cancellationToken)
         {
-            var Services = await _offerAppService.GetAll(Id, cancellationToken);
-            ViewBag.Services = Services;
+            var Offers = await _offerAppService.GetAll(Id, cancellationToken);
+            ViewBag.Offers = Offers;
             return View();
         }
     }

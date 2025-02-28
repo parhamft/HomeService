@@ -30,6 +30,7 @@ namespace App.Domain.AppService.HomeService.OrderEntity
             var result = await _orderService.GetAll(cancellationToken);
             return result;
         }
+
         public async Task<GetOrderDTO> GetById(int id, CancellationToken cancellationToken)
         {
             var result = await _orderService.GetById(id, cancellationToken);

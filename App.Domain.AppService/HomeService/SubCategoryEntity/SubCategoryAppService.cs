@@ -46,7 +46,7 @@ namespace App.Domain.Service.HomeService.SubCategoryEntity
         }
         public async Task<bool> Add(AddSubCategoryDTO addCategoryDTO, CancellationToken cancellationToken)
         {
-            addCategoryDTO.ImagePath = await _baseDataService.UploadImage(addCategoryDTO.ProfileImgFile!, "SubCategories", cancellationToken);
+            addCategoryDTO.ImagePath = await _baseDataService.UploadImage(addCategoryDTO.ProfileImgFile!, "SubCategory", cancellationToken);
             var result = await _categoryService.Add(addCategoryDTO, cancellationToken);
             return result;
         }

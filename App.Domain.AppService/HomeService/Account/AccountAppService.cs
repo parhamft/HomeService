@@ -38,6 +38,7 @@ namespace App.Domain.AppService.HomeService.Account
                     TimeCreated = DateTime.Now
                 };
             }
+
             if (createUserDTO.Role == RoleEnum.Customer) 
             {
                 Role = "Customer";
