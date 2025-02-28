@@ -1,11 +1,8 @@
-﻿using HomeService.Domain.Core.HomeService.ExpertEntity.Entities;
+﻿using HomeService.Domain.Core.HomeService.CustomerEntity.Entities;
+using HomeService.Domain.Core.HomeService.ExpertEntity.Entities;
+using HomeService.Domain.Core.HomeService.UserEntity.Enums;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace App.Infra.DB.SQLServer.EF.Configuration.ExpertConfigs
 {
@@ -37,6 +34,19 @@ namespace App.Infra.DB.SQLServer.EF.Configuration.ExpertConfigs
                    .WithOne(x => x.Expert)
                    .HasForeignKey(x => x.ExpertId)
                    .OnDelete(DeleteBehavior.NoAction);
+            builder.HasData(
+            new Customer
+            {
+                Id = 1,
+                Balance = 0,
+                 
+                FirstName = "Morad",
+                LastName = "Shahram",
+                Gender = GenderEnum.Male,
+                ImagePath = "/Images/Users/matin.jpg",
+                UserId = 3,
+                TimeCreated = new DateTime(2025, 10, 2)
+            });
         }
-    }
+    } 
 }

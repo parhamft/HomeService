@@ -32,9 +32,15 @@ namespace App.Domain.Service.HomeService.OrderEntity
             var result =  await _orderRepository.GetById(id, cancellationToken);
             return result;
         }
-        public async Task<bool> Update(OrderStatusUpdateDTO orderStatusUpdateDTO, CancellationToken cancellationToken)
+        public async Task<bool> Update(GetOrderDTO getOrderDTO, CancellationToken cancellationToken)
         {
-            var result = await _orderRepository.Update(orderStatusUpdateDTO, cancellationToken);
+            var order = new OrderStatusUpdateDTO
+            {
+                Expert = getOrderDTO.Expert,
+                Status = getOrderDTO.Status,
+                Id = getOrderDTO.Id
+            };
+            var result = await _orderRepository.Update(order, cancellationToken);
             return result;
 
         }
@@ -42,6 +48,24 @@ namespace App.Domain.Service.HomeService.OrderEntity
         {
             var result = await _orderRepository.Delete(id, cancellationToken);
             return result;
-        } 
+        }
+        public async Task<bool> CheckIfOffersExist(int id, CancellationToken cancellationToken)
+        {
+            var result = await _orderRepository.GetById(id,cancellationToken);
+            if (result.Offers == null)
+            {
+                return false;
+            }
+            return true;
+        }
+        public async Task<bool> CheckExpert(int id, CancellationToken cancellationToken)
+        {
+            var result = await _orderRepository.GetById(id, cancellationToken);
+            if (result.Expert == null)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

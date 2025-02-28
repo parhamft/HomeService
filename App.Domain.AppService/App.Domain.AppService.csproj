@@ -7,12 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="HomeService\CityEntity\" />
-    <Folder Include="HomeService\CommentEntity\" />
-    <Folder Include="HomeService\OfferEntity\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.3.0" />
   </ItemGroup>
 

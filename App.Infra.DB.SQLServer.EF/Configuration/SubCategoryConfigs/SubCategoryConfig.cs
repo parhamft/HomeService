@@ -36,7 +36,7 @@ new SubCategory { Id = 13, Name = "پزشکی و پرستاری", CategoryId = 6
 new SubCategory { Id = 14, Name = "خدمات شرکتی", CategoryId = 7, ImagePath = "\\Images\\SubCategory\\14.jpg", TimeCreated = new DateTime(2025, 10, 2), },
 new SubCategory { Id = 15, Name = "تامین نیروی انسانی", CategoryId = 7, ImagePath = "\\Images\\SubCategory\\15.jpg", TimeCreated = new DateTime(2025, 10, 2), },
 new SubCategory { Id = 16, Name = "خیاطی و تعمیرات لباس", CategoryId = 8, ImagePath = "\\Images\\SubCategory\\16.jpg", TimeCreated = new DateTime(2025, 10, 2), },
-new SubCategory { Id = 17, Name = "مجالس و رویدادها", CategoryId = 8, ImagePath = "\\Images\\SubCategory\\17.jpg", TimeCreated = new DateTime(2025, 10, 2), }
+new SubCategory { Id = 17, Name = "مجالس و رویدادها", CategoryId = 8, ImagePath = "\\   Images\\SubCategory\\17.jpg", TimeCreated = new DateTime(2025, 10, 2), }
 
 
                 );

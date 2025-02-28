@@ -1,8 +1,89 @@
-﻿@{
+﻿
+
+@{
+	Layout = "_layout";
     ViewData["Title"] = "Home Page";
+
 }
 
-<div class="text-center" >
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="main-wrapper">
+	<!-- ======================= Home Banner ======================== -->
+	<div class="home-banner margin-bottom-0" style="background:#f41b3b url(/assets/img/banner-6.jpg) no-repeat;" data-overlay="5">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-xl-11 col-lg-12 col-md-12 col-sm-12 col-12">
+
+					<div class="banner_caption text-center mb-5">
+						<h1 class="banner_title ft-bold mb-1">خدمات عالی توسط بهترین متخصص ها</h1>
+						<p class="fs-md ft-medium">با ******* بهترین خدمات رو برای خودت و خانوادت پیدا کن.</p>
+					</div>
+
+					<div class="Goodup-top-cates">
+						<ul>
+							@foreach (var Cat in ViewBag.Categories)
+							{
+								<li><a href="half-map-search-2.html" class="Goodup-top-cat-box"><div class="Goodup-tp-ico"></div><div class="Goodup-tp-title"><h5>@Cat.Name</h5></div></a></li>
+							}
+
+						</ul>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ======================= Home Banner ======================== -->
+	<!-- ======================= Listing Categories ======================== -->
+	<section class="space min gray">
+
+		<div class="container">
+
+			<div class="row justify-content-center">
+				<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+					<div class="sec_title position-relative text-center mb-5">
+						<h6 class="theme-cl">دسته بندی های محبوب</h6>
+						<h4 class="ft-bold">انتخاب دسته بندی انتخابی شما</h4>
+					</div>
+				</div>
+			</div>
+
+			<!-- row -->
+
+
+			<div class="row align-items-center">
+				@{
+					int counter = 0;
+				}
+					@foreach (var Cat in ViewBag.SubCategories)
+					{
+					if (counter >= 12) // Stop the loop after 12 iterations
+					{
+						break;
+					}
+						
+						<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
+							<div class="cats-wrap text-center">
+								<a href="listing-search-v1.html" class="Goodup-catg-wrap">
+									<!-- Image Container -->
+									<div class="Goodup-catg-icon">
+										<img src="@Cat.ImagePath" alt="@Cat.Name" class="cat-image" />
+									</div>
+									<br />
+									<!-- Name Container -->
+									<div class="Goodup-catg-caption">
+										<h4 class="fs-md mb-0 ft-medium m-catrio">@Cat.Name</h4>
+									</div>
+								</a>
+							</div>
+						</div>
+					counter++;
+					}
+			</div>
+			<!-- row -->
+
+		</div>
+	</section>
+	<!-- ======================= Listing Categories End ======================== -->
 </div>
+
+

@@ -7,6 +7,14 @@
     ViewData["Title"] = "Add SubCategory";
 }
 
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-@TempData["AlertType"] alert-dismissible fade show" role="alert">
+        @TempData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
 <div class="col-lg-12">
     <div class="portlet box shadow">
         <div class="portlet-heading">
@@ -31,7 +39,7 @@
                                     <option value="">-- Select a Category --</option>
                                     @foreach (var category in ViewBag.Categories)
                                     {
-                                        <option value="@category.Id">@category.Name</option>
+                                        <option value="@category.id">@category.name</option>
                                     }
                                 </select>
                                 <span asp-validation-for="CategoryId" class="text-danger"></span>

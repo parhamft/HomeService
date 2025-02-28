@@ -1,9 +1,11 @@
 ﻿using App.Infra.DB.SQLServer.EF;
 using HomeService.Domain.Core.HomeService.CategoryEntity.Entities;
 using HomeService.Domain.Core.HomeService.CommentEntity.Data;
+using HomeService.Domain.Core.HomeService.CommentEntity.DTO;
 using HomeService.Domain.Core.HomeService.CommentEntity.Entities;
 using HomeService.Domain.Core.HomeService.CustomerEntity.Entities;
 using HomeService.Domain.Core.HomeService.ExpertEntity.Entities;
+using HomeService.Domain.Core.HomeService.OfferEntity.DTO;
 using HomeService.Domain.Core.HomeService.OfferEntity.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -23,8 +25,77 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CommentEntity
             _appDbContext = appDbContext;
         }
 
-        public async Task<List<Comment>> GetAll(CancellationToken cancellationToken) => await _appDbContext.Comments.AsNoTracking().Where(x => x.IsDeleted != true).ToListAsync(cancellationToken);
-        public async Task<Comment> GetById(int Id, CancellationToken cancellationToken) => await _appDbContext.Comments.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken);
+        public async Task<List<GetCommentDTO>> GetPendings(CancellationToken cancellationToken)
+        {
+            var result = await _appDbContext.Comments.AsNoTracking().Where(x => x.IsDeleted != true && x.Approved==false).Select(x => new GetCommentDTO
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Description = x.Description,
+               Score = x.Score,
+               Approved = x.Approved,
+               Customer = x.Customer,
+               Expert = x.Expert,
+               Offer = x.Offer,
+               TimeCreated = x.TimeCreated,
+               IsDeleted = x.IsDeleted,
+                
+            }).ToListAsync(cancellationToken);
+            return result;
+        }
+        public async Task<List<GetCommentDTO>> GetApproved(CancellationToken cancellationToken)
+        {
+            var result = await _appDbContext.Comments.AsNoTracking().Where(x => x.IsDeleted != true && x.Approved == true).Select(x => new GetCommentDTO
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Description = x.Description,
+                Score = x.Score,
+                Approved = x.Approved,
+                Customer = x.Customer,
+                Expert = x.Expert,
+                Offer = x.Offer,
+                TimeCreated = x.TimeCreated,
+                IsDeleted = x.IsDeleted,
+
+            }).ToListAsync(cancellationToken);
+            return result;
+        }
+        public async Task<List<GetCommentDTO>> GetDissaproved(CancellationToken cancellationToken)
+        {
+            var result = await _appDbContext.Comments.AsNoTracking().Where(x => x.IsDeleted != false).Select(x => new GetCommentDTO
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Description = x.Description,
+                Score = x.Score,
+                Approved = x.Approved,
+                Customer = x.Customer,
+                Expert = x.Expert,
+                Offer = x.Offer,
+                TimeCreated = x.TimeCreated,
+                IsDeleted = x.IsDeleted,
+
+            }).ToListAsync(cancellationToken);
+            return result;
+        }
+        public async Task<GetCommentDTO> GetById(int Id, CancellationToken cancellationToken)
+        {
+            var result = await _appDbContext.Comments.AsNoTracking().Select(x => new GetCommentDTO
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Description = x.Description,
+                Score = x.Score,
+                Approved = x.Approved,
+                Customer = x.Customer,
+                Expert = x.Expert,
+                Offer = x.Offer,
+                TimeCreated = x.TimeCreated,
+                IsDeleted = x.IsDeleted,
+            }).FirstOrDefaultAsync(x=>x.Id==Id, cancellationToken);
+            return result;
+        }
         public async Task<bool> Create(Comment comment, CancellationToken cancellationToken)
         {
             var newComment = new Comment
@@ -62,9 +133,7 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CommentEntity
             com.Score = comment.Score;
             com.Description = comment.Description;
             com.Approved = comment.Approved;
-            //com.CustomerId = comment.CustomerId;
-            //com.ExpertId = comment.ExpertId;
-            //com.OfferId = comment.OfferId;
+
             com.IsDeleted = comment.IsDeleted;
             com.TimeCreated = comment.TimeCreated;
 
@@ -72,6 +141,19 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CommentEntity
             await _appDbContext.SaveChangesAsync(cancellationToken);
             return true;
 
+        }
+        public async Task<bool> ChangeStatus(UpdateStatusCommentDTO updateStatusCommentDTO, CancellationToken cancellationToken)
+        {
+            var comment = await _appDbContext.Comments.FirstOrDefaultAsync(x => x.Id == updateStatusCommentDTO.Id, cancellationToken);
+            if (comment == null)
+            {
+                throw new Exception("That Object Does Not Exist");
+            }
+            comment.Approved= updateStatusCommentDTO.Approved;
+            comment.IsDeleted= updateStatusCommentDTO.IsDeleted;
+
+            await _appDbContext.SaveChangesAsync(cancellationToken);
+            return true;
         }
         public async Task<bool> Delete(int Id, CancellationToken cancellationToken)
         {

@@ -1,6 +1,8 @@
 ﻿using App.Infra.DB.SQLServer.EF;
 using HomeService.Domain.Core.HomeService.CityEntity.Entities;
+using HomeService.Domain.Core.HomeService.CustomerEntity.DTO;
 using HomeService.Domain.Core.HomeService.ExpertEntity.Data;
+using HomeService.Domain.Core.HomeService.ExpertEntity.DTO;
 using HomeService.Domain.Core.HomeService.ExpertEntity.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,9 +16,63 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.ExpertEntity
         {
             _appDbContext = appDbContext;
         }
+        public async Task<UpdateExpertDTO> GetUpdate(int id,CancellationToken cancellationToken)
+        {
+            var result = await _appDbContext.Experts
+                .AsNoTracking()
+                .Include(x=>x.User)
 
-        public async Task<List<Expert>> GetAll(CancellationToken cancellationToken) => await _appDbContext.Experts.AsNoTracking().Where(x => x.IsDeleted != true).ToListAsync(cancellationToken);
-        public async Task<Expert> GetById(int Id, CancellationToken cancellationToken) => await _appDbContext.Experts.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken);
+        .Where(x => x.IsDeleted == false && x.Id == id)
+                .Select(x => new UpdateExpertDTO
+            {
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Balance = x.Balance,
+                CityId = x.CityId,
+                User =x.User,
+                Gender = x.Gender,
+                ImagePath = x.ImagePath,
+                Rating = x.Rating,
+
+            }).FirstOrDefaultAsync(cancellationToken);
+            return result;
+        }
+        public async Task<List<GetExpertDTO>> GetAll(CancellationToken cancellationToken)
+        {
+
+            var result = await _appDbContext.Experts.AsNoTracking().Where(x => x.IsDeleted != true).Select(x => new GetExpertDTO
+            {
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Balance = x.Balance,
+                Gender = x.Gender,
+                Rating = x.Rating,
+                Id = x.Id,
+                User = x.User,
+                ImagePath = x.ImagePath,
+                TimeCreated = x.TimeCreated,
+
+            }).ToListAsync(cancellationToken);
+            return result;
+        }
+        public async Task<GetExpertDTO> GetById(int Id, CancellationToken cancellationToken)
+        {
+
+            var result = await _appDbContext.Experts.AsNoTracking().Where(x => x.IsDeleted != true).Select(x => new GetExpertDTO
+            {
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Balance = x.Balance,
+                Gender = x.Gender,
+                User = x.User,
+                Rating = x.Rating,
+                Id = x.Id,
+                ImagePath = x.ImagePath,
+                TimeCreated = x.TimeCreated,
+
+            }).FirstOrDefaultAsync(x=>x.Id==Id, cancellationToken);
+            return result;
+        }
         public async Task<bool> Create(Expert expert, CancellationToken cancellationToken)
         {
             var newExpert = new Expert
@@ -45,9 +101,9 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.ExpertEntity
                 return false;
             }
         }
-        public async Task<bool> Update(Expert expert, CancellationToken cancellationToken)
+        public async Task<bool> Update(UpdateExpertDTO expert, CancellationToken cancellationToken)
         {
-            var exp = await _appDbContext.Experts.FirstOrDefaultAsync(x => x.Id == expert.Id, cancellationToken);
+            var exp = await _appDbContext.Experts.Include(x=>x.User).FirstOrDefaultAsync(x => x.Id == expert.Id, cancellationToken);
             if (exp == null)
             {
                 throw new Exception("That Object Does Not Exist");
@@ -55,14 +111,12 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.ExpertEntity
             exp.FirstName = expert.FirstName;
             exp.LastName = expert.LastName;
             exp.Balance = expert.Balance;
-            exp.City = expert.City;
+            exp.CityId = expert.CityId;
+            exp.User.Email = expert.User.Email;
             exp.Gender = expert.Gender;
             exp.ImagePath = expert.ImagePath;
             exp.Rating = expert.Rating;
-            exp.UserId = expert.UserId;
-            exp.IsDeleted = expert.IsDeleted;
-            exp.TimeCreated = expert.TimeCreated;
-
+            
             _appDbContext.Experts.Update(exp);
             await _appDbContext.SaveChangesAsync(cancellationToken);
             return true;
@@ -76,7 +130,7 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.ExpertEntity
             {
                 throw new Exception("That Object Does Not Exist");
             }
-            _appDbContext.Experts.Remove(exp);
+            exp.IsDeleted = true;
             await _appDbContext.SaveChangesAsync(cancellationToken);
             return true;
 

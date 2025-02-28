@@ -1,0 +1,96 @@
+﻿@using HomeService.Domain.Core.HomeService.CustomerEntity.DTO
+
+@using HomeService.Domain.Core.HomeService.UserEntity.Enums
+
+@model UpdateCustomerDTO
+@{
+    ViewData["Title"] = "دیوارچه > مدیریت کاربران > ایجاد کاربران";
+
+}
+
+<div class="col-lg-12">
+    <div class="portlet box shadow">
+        <div class="portlet-heading">
+            <div class="portlet-title">
+                <h3 class="title">
+                     مشتریان < کاربران
+                </h3>
+            </div><!-- /.portlet-title -->
+        </div><!-- /.portlet-heading -->
+        <div class="portlet-body">
+            <div class="top-buttons-box mb-2">
+            </div>
+            <div class="row">
+                <form enctype="multipart/form-data" asp-area="Admin" asp-controller="User" asp-action="Customerupdate" id="simple-form" role="form" method="post">
+                    <div class="form-body">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="ImagePath" />
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input asp-for="FirstName" class="form-control" type="text" placeholder="نام">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input asp-for="LastName" class="form-control" type="text" placeholder="نام خانوادگی">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input asp-for="User.Email" class="form-control" type="email" placeholder="ایمیل" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input asp-for="Balance" class="form-control" type="number" placeholder="موجودی" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <select asp-for="Gender" class="form-select">
+                                    <option value="@GenderEnum.Male">مرد</option>
+                                    <option value="@GenderEnum.Female">زن</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group relative">
+                            <input asp-for="ProfileImgFile" type="file" class="form-control">
+                            <label>آپلود عکس</label>
+                            <div class="input-group round">
+                                <input type="text" class="form-control file-input" placeholder="برای آپلود کلیک کنید">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-success">
+                                        <i class="icon-picture"></i>
+                                        آپلود عکس
+                                        <div class="paper-ripple"><div class="paper-ripple__background"></div><div class="paper-ripple__waves"></div></div>
+                                    </button>
+                                </span>
+                            </div>
+                            <span asp-validation-for="ProfileImgFile" class="text-danger"></span>
+                        </div>
+
+
+
+
+                    </div>
+                    <hr>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">
+                            <i class="icon-check"></i>
+                            ذخیره
+                        </button>
+                        <a  class="btn btn-warning">
+                            بازگشت
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.portlet-body -->
+    </div><!-- /.portlet -->
+</div><!-- /.col-lg-12 -->

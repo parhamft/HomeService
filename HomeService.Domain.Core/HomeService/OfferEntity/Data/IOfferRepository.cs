@@ -1,4 +1,5 @@
-﻿using HomeService.Domain.Core.HomeService.OfferEntity.Entities;
+﻿using HomeService.Domain.Core.HomeService.OfferEntity.DTO;
+using HomeService.Domain.Core.HomeService.OfferEntity.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,11 +10,11 @@ namespace HomeService.Domain.Core.HomeService.OfferEntity.Data
 {
     public interface IOfferRepository
     {
-         Task<List<Offer>> GetAll(CancellationToken cancellationToken);
-         Task<Offer> GetById(int Id, CancellationToken cancellationToken) ;
-         Task<bool> Create(Offer offer, CancellationToken cancellationToken);
-         Task<bool> Update(Offer offer, CancellationToken cancellationToken);
-         Task<bool> Delete(int Id, CancellationToken cancellationToken);
+        Task<List<GetOfferDTO>> GetAll(int id, CancellationToken cancellationToken);
+        Task<GetOfferDTO> GetById(int Id, CancellationToken cancellationToken);
+        Task<bool> Create(Offer offer, CancellationToken cancellationToken);
+        Task<bool> Update(Offer offer, CancellationToken cancellationToken);
+        Task<bool> Delete(int Id, CancellationToken cancellationToken);
     }
 }
 

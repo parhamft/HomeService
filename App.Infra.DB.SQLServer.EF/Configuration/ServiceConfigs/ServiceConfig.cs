@@ -27,7 +27,7 @@ namespace App.Infra.DB.SQLServer.EF.Configuration.ServiceConfigs
                    .HasForeignKey(s => s.SubCategoryId)
                    .OnDelete(DeleteBehavior.NoAction);
             builder.HasData(
-                new Service { Id = 1, BasePrice = 500, Name = ">سرویس عادی نظافت", SubCategoryId = 1, ImagePath = "\\Images\\Services\\1.jpg", TimeCreated = new DateTime(2025, 10, 2) },
+                new Service { Id = 1, BasePrice = 500, Name = "سرویس عادی نظافت", SubCategoryId = 1, ImagePath = "\\Images\\Services\\1.jpg", TimeCreated = new DateTime(2025, 10, 2) },
                 new Service { Id = 2, BasePrice = 500, Name = "سرویس ویژه نظافت", SubCategoryId = 1, ImagePath = "\\Images\\Services\\2.jpg", TimeCreated = new DateTime(2025, 10, 2) },
                 new Service { Id = 3, BasePrice = 500, Name = "قالیشویی", SubCategoryId = 2, ImagePath = "\\Images\\Services\\3.jpg", TimeCreated = new DateTime(2025, 10, 2) },
                 new Service { Id = 4, BasePrice = 500, Name = "خشکشویی", SubCategoryId = 2, ImagePath = "\\Images\\Services\\4.jpg", TimeCreated = new DateTime(2025, 10, 2) },

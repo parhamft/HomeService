@@ -1,4 +1,5 @@
-﻿using HomeService.Domain.Core.HomeService.CustomerEntity.Entities;
+﻿using HomeService.Domain.Core.HomeService.CityEntity.Entities;
+using HomeService.Domain.Core.HomeService.CustomerEntity.Entities;
 using HomeService.Domain.Core.HomeService.ExpertEntity.Entities;
 using HomeService.Domain.Core.HomeService.HomeServiceEntity.Entities;
 using HomeService.Domain.Core.HomeService.ImageEntity;
@@ -20,8 +21,10 @@ namespace HomeService.Domain.Core.HomeService.OrderEntity.DTO
         public Customer Customer { get; set; }
         public Service Service { get; set; }
         public Expert? Expert { get; set; }
+        public City City { get; set; }
         public List<Offer>? Offers { get; set; }
         public StatusEnum Status { get; set; }
         public List<Image>? Images { get; set; }
+        public DateTime TimeCreated { get; set; }
     }
 }

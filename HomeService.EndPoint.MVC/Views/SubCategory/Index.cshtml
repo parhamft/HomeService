@@ -1,0 +1,44 @@
+﻿<section class="space min gray">
+
+	<div class="container">
+
+		<div class="row justify-content-center">
+			<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+				<div class="sec_title position-relative text-center mb-5">
+					<h6 class="theme-cl">دسته بندی های محبوب</h6>
+					<h4 class="ft-bold">انتخاب دسته بندی انتخابی شما</h4>
+				</div>
+			</div>
+		</div>
+
+		<!-- row -->
+
+
+		<div class="row align-items-center">
+
+			@foreach (var Cat in ViewBag.SubCategories)
+			{
+
+
+				<div class="col-xl-2 col-lg-3 col-md-4 col-sm-6 col-6">
+					<div class="cats-wrap text-center">
+						<a href="listing-search-v1.html" class="Goodup-catg-wrap">
+							<!-- Image Container -->
+							<div class="Goodup-catg-icon">
+								<img src="@Cat.ImagePath" alt="@Cat.Name" class="cat-image" />
+							</div>
+							<br />
+							<!-- Name Container -->
+							<div class="Goodup-catg-caption">
+								<h4 class="fs-md mb-0 ft-medium m-catrio">@Cat.Name</h4>
+							</div>
+						</a>
+					</div>
+				</div>
+
+			}
+		</div>
+		<!-- row -->
+
+	</div>
+</section>

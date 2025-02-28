@@ -441,6 +441,20 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                         .IsUnique();
 
                     b.ToTable("Customers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Balance = 0m,
+                            FirstName = "Shahram",
+                            Gender = 1,
+                            ImagePath = "/Images/Users/matin.jpg",
+                            IsDeleted = false,
+                            LastName = "Moradi",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 2
+                        });
                 });
 
             modelBuilder.Entity("HomeService.Domain.Core.HomeService.ExpertEntity.Entities.Expert", b =>
@@ -491,6 +505,20 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                         .IsUnique();
 
                     b.ToTable("Experts");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Balance = 0m,
+                            FirstName = "Morad",
+                            Gender = 1,
+                            ImagePath = "/Images/Users/matin.jpg",
+                            IsDeleted = false,
+                            LastName = "Shahram",
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            UserId = 3
+                        });
                 });
 
             modelBuilder.Entity("HomeService.Domain.Core.HomeService.HomeServiceEntity.Entities.Service", b =>
@@ -535,7 +563,7 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                             BasePrice = 500m,
                             ImagePath = "\\Images\\Services\\1.jpg",
                             IsDeleted = false,
-                            Name = ">سرویس عادی نظافت",
+                            Name = "سرویس عادی نظافت",
                             SubCategoryId = 1,
                             TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         },
@@ -880,7 +908,15 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.ToTable("Image");
+                    b.ToTable("Images");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ImagePath = "Images/Orders/wall.jpg",
+                            OrderId = 1
+                        });
                 });
 
             modelBuilder.Entity("HomeService.Domain.Core.HomeService.OfferEntity.Entities.Offer", b =>
@@ -969,6 +1005,20 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.HasIndex("ServiceId");
 
                     b.ToTable("Orders");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CityId = 1,
+                            CustomerId = 1,
+                            DateFor = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Description = "کاغذ دیواری خانه رو عوض کنید",
+                            IsDeleted = false,
+                            ServiceId = 1,
+                            Status = 1,
+                            TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("HomeService.Domain.Core.HomeService.SubCategoryEntity.Entities.SubCategory", b =>
@@ -1152,7 +1202,7 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                         {
                             Id = 17,
                             CategoryId = 8,
-                            ImagePath = "\\Images\\SubCategory\\17.jpg",
+                            ImagePath = "\\   Images\\SubCategory\\17.jpg",
                             IsDeleted = false,
                             Name = "مجالس و رویدادها",
                             TimeCreated = new DateTime(2025, 10, 2, 0, 0, 0, 0, DateTimeKind.Unspecified)
@@ -1248,6 +1298,42 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                             SecurityStamp = "025231bf-ced2-4d43-9b8b-54d97e9473ea",
                             TwoFactorEnabled = false,
                             UserName = "Reza@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "49533cdb-aeb8-452f-b2ac-64043551b8b3",
+                            Email = "Shahram@gmail.com",
+                            EmailConfirmed = false,
+                            FullName = "Shahram Moradi",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "SHAHRAM@GMAIL.COM",
+                            NormalizedUserName = "SHAHRAM@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPTvt7crCAFK/Q8+kIs/BDz8NS4sXLVTXvDH6qqrVr8YoTfdezBEWgyK9fVQMwNFvA==",
+                            PhoneNumber = "09909169329",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "025231bf-ced2-4d43-9b8b-54d97e9473ea",
+                            TwoFactorEnabled = false,
+                            UserName = "Shahram@gmail.com"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            AccessFailedCount = 0,
+                            ConcurrencyStamp = "49533cdb-aeb8-452f-b2ac-64043551b8b3",
+                            Email = "Morad@gmail.com",
+                            EmailConfirmed = false,
+                            FullName = "Morad Shahram",
+                            LockoutEnabled = false,
+                            NormalizedEmail = "MORAD@GMAIL.COM",
+                            NormalizedUserName = "MORAD@GMAIL.COM",
+                            PasswordHash = "AQAAAAIAAYagAAAAEPTvt7crCAFK/Q8+kIs/BDz8NS4sXLVTXvDH6qqrVr8YoTfdezBEWgyK9fVQMwNFvA==",
+                            PhoneNumber = "09909169327",
+                            PhoneNumberConfirmed = false,
+                            SecurityStamp = "025231bf-ced2-4d43-9b8b-54d97e9473ea",
+                            TwoFactorEnabled = false,
+                            UserName = "Morad@gmail.com"
                         });
                 });
 
@@ -1389,6 +1475,16 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                         {
                             UserId = 1,
                             RoleId = 1
+                        },
+                        new
+                        {
+                            UserId = 2,
+                            RoleId = 2
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            RoleId = 3
                         });
                 });
 
@@ -1508,7 +1604,7 @@ namespace App.Infra.DB.SQLServer.EF.Migrations
                     b.HasOne("HomeService.Domain.Core.HomeService.OrderEntity.Entities.Order", "Order")
                         .WithMany("Images")
                         .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("Order");

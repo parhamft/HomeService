@@ -3,11 +3,13 @@ using HomeService.Domain.Core.HomeService.CategoryEntity.AppServices;
 using HomeService.Domain.Core.HomeService.CategoryEntity.DTO;
 using HomeService.Domain.Core.HomeService.SubCategoryEntity.AppServices;
 using HomeService.Domain.Core.HomeService.SubCategoryEntity.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomeService.EndPoint.MVC.Areas.Admin.Controllers
 {
     [Area(areaName: "Admin")]
+    [Authorize(Roles = "Admin")]
     public class SubCategoryController : Controller
     {
         private readonly ISubCategoryAppService _subCategoryAppService;
@@ -56,7 +58,7 @@ namespace HomeService.EndPoint.MVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Update(UpdateSubCategoryDTO updateSubCategoryDTO, CancellationToken cancellationToken)
         {
-            updateSubCategoryDTO.ImagePath = await _baseDataService.UploadImage(updateSubCategoryDTO.ProfileImgFile!, "SubCategories", cancellationToken);
+            updateSubCategoryDTO.ImagePath = await _baseDataService.UploadImage(updateSubCategoryDTO.ProfileImgFile!, "SubCategory", cancellationToken);
             var result = await _subCategoryAppService.Update(updateSubCategoryDTO, cancellationToken);
             if (result == false)
             {

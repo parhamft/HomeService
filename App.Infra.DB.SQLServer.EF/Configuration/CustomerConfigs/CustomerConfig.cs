@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using HomeService.Domain.Core.HomeService.UserEntity.Enums;
 
 namespace App.Infra.DB.SQLServer.EF.Configuration.CustomerConfigs
 {
@@ -33,7 +34,20 @@ namespace App.Infra.DB.SQLServer.EF.Configuration.CustomerConfigs
                    .WithOne(x => x.Customer)
                    .HasForeignKey(x => x.CustomerId)
                    .OnDelete(DeleteBehavior.NoAction);
+            builder.HasData(
+                new Customer
+                {
+                    Id = 1,
+                    Balance = 0,
+                    FirstName = "Shahram",
+                    LastName = "Moradi",
+                    Gender = GenderEnum.Male,
+                    ImagePath = "/Images/Users/matin.jpg",
+                    UserId = 2,
+                    TimeCreated = new DateTime(2025, 10, 2)
 
+                }
+                );
         }
     }
 }

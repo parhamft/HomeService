@@ -3,11 +3,13 @@ using HomeService.Domain.Core.HomeService.ServiceEntity.AppServices;
 using HomeService.Domain.Core.HomeService.ServiceEntity.DTO;
 using HomeService.Domain.Core.HomeService.SubCategoryEntity.AppServices;
 using HomeService.Domain.Core.HomeService.SubCategoryEntity.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomeService.EndPoint.MVC.Areas.Admin.Controllers
 {
     [Area(areaName: "Admin")]
+    [Authorize(Roles = "Admin")]
     public class ServiceController : Controller
     {
         private readonly ISubCategoryAppService _subCategoryAppService;

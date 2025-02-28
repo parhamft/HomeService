@@ -43,7 +43,7 @@ namespace App.Infra.DB.SQLServer.EF.Configuration.UserConfigs
 
             },
                         new User()
-                                    {
+             {
                 Id = 3,
                 UserName = "Morad@gmail.com",
                 NormalizedUserName = "MORAD@GMAIL.COM",

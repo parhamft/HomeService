@@ -33,6 +33,14 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.OrderEntity
                 Id = x.Id,
                 DateFor = x.DateFor,
                 Status = x.Status,
+                Customer =x.Customer,
+                City = x.City,
+                Expert = x.Expert,
+                Service = x.Service,
+                Offers = x.Offers, 
+                Images = x.Images,
+                TimeCreated = x.TimeCreated
+
 
             }
             ).ToListAsync(cancellationToken);
@@ -50,6 +58,10 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.OrderEntity
                 Customer = x.Customer,
                 Expert = x.Expert,
                 Service = x.Service,
+                Offers = x.Offers,
+                Images = x.Images,
+                TimeCreated=x.TimeCreated
+                
             }
             ).FirstOrDefaultAsync(x=>x.Id ==Id ,cancellationToken);
             if (result == null)

@@ -24,6 +24,7 @@ namespace HomeService.Domain.Core.HomeService.ExpertEntity.Entities
         public decimal? Rating { get; set; }
         public string? ImagePath { get; set; }
         public bool IsDeleted { get; set; }
+        public int? CityId { get; set; }
         public DateTime TimeCreated { get; set; }
         #endregion
 

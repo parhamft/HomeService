@@ -1,4 +1,5 @@
-﻿using App.Infra.DB.SQLServer.EF.Configuration.AdminConfigs;
+﻿using App.Infra.DB.SQLServer.EF.Configuration;
+using App.Infra.DB.SQLServer.EF.Configuration.AdminConfigs;
 using App.Infra.DB.SQLServer.EF.Configuration.CategoryConfigs;
 using App.Infra.DB.SQLServer.EF.Configuration.CItyConfigs;
 using App.Infra.DB.SQLServer.EF.Configuration.CommentConfigs;
@@ -16,6 +17,7 @@ using HomeService.Domain.Core.HomeService.CommentEntity.Entities;
 using HomeService.Domain.Core.HomeService.CustomerEntity.Entities;
 using HomeService.Domain.Core.HomeService.ExpertEntity.Entities;
 using HomeService.Domain.Core.HomeService.HomeServiceEntity.Entities;
+using HomeService.Domain.Core.HomeService.ImageEntity;
 using HomeService.Domain.Core.HomeService.OfferEntity.Entities;
 using HomeService.Domain.Core.HomeService.OrderEntity.Entities;
 using HomeService.Domain.Core.HomeService.SubCategoryEntity.Entities;
@@ -45,6 +47,7 @@ namespace App.Infra.DB.SQLServer.EF
             builder.ApplyConfiguration(new OrderConfig());
             builder.ApplyConfiguration(new ServiceConfig());
             builder.ApplyConfiguration(new SubCategoryConfig());
+            builder.ApplyConfiguration(new ImageConfigs());
 
             UserConfig.SeedUsers(builder);
 
@@ -63,6 +66,7 @@ namespace App.Infra.DB.SQLServer.EF
         public DbSet<Expert> Experts { get; set; }
         public DbSet<Offer> Offers { get; set; }
         public DbSet<Order> Orders { get; set; }
+        public DbSet<Image> Images{ get; set; }
         public DbSet<Service> Services { get; set; }
         public DbSet<SubCategory> SubCategories { get; set; }
 

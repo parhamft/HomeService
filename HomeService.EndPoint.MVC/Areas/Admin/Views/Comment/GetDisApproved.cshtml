@@ -1,0 +1,100 @@
+﻿@using HomeService.Domain.Core.HomeService.CommentEntity.DTO
+
+@model List<GetCommentDTO>
+
+
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-@TempData["AlertType"] alert-dismissible fade show" role="alert">
+        @TempData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="col-lg-12">
+    <div class="portlet box shadow">
+        <div class="portlet-heading">
+            <div class="portlet-title">
+                <h3 class="title">
+                    نظرات
+                </h3>
+            </div><!-- /.portlet-title -->
+        </div><!-- /.portlet-heading -->
+        <div class="portlet-body">
+            <div class="top-buttons-box mb-2">
+                <a class="btn btn-success" asp-area="Admin" asp-controller="Comment" asp-action="GetApproved">
+
+                   قبول شده ها
+                    <div class="paper-ripple"><div class="paper-ripple__background"></div><div class="paper-ripple__waves"></div></div>
+                </a>
+                <a class="btn btn-primary" asp-area="Admin" asp-controller="Comment" asp-action="Index">
+                    در انتظار
+                    <div class="paper-ripple">
+                        <div class="paper-ripple__background"></div>
+                        <div class="paper-ripple__waves"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="row">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover table-striped" id="data-table">
+                        <thead>
+                            <tr>
+                                <th class="p-low"><input type="checkbox" id="btn-check-all-toggle"></th>
+                                <th>#</th>
+                                <th>موضوع</th>
+                                <th>توضیحات</th>
+                                <th>امتیاز</th>
+                                <th>وضعیت</th>
+                                <th>تاریخ ثبت</th>
+                                <th>برای</th>
+                                <th>آز طرف</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var Comments in @Model)
+                            {
+                                <tr>
+                                    <td><input type="checkbox"></td>
+
+                                    <td>@Comments.Id</td>
+
+
+
+                                    <td>@Comments.Title</td>
+                                    <td>@Comments.Description</td>
+                                    <td>@Comments.Score</td>
+                                    @if (Comments.IsDeleted == true)
+                                    {
+                                        <td>رد شده</td>
+                                    }
+                                    else if (@Comments.Approved == true)
+                                    {
+                                        <td>قبول شده</td>
+                                    }
+                                    else
+                                    {
+                                        <td>در انتظار</td>
+                                    }
+                                    <td>@Comments.TimeCreated</td>
+                                    <td>@Comments.Expert.FirstName @Comments.Expert.LastName</td>
+                                    <td>@Comments.Customer.FirstName @Comments.Customer.LastName</td>
+
+
+
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div><!-- /.portlet-body -->
+    </div><!-- /.portlet -->
+</div><!-- /.col-lg-12 -->
+@section Scripts
+{
+    <script src="~/AdminTemplate/plugins/data-table/js/jquery.dataTables.min.js"></script>
+    <script src="~/AdminTemplate/js/pages/datatable.js"></script>
+}

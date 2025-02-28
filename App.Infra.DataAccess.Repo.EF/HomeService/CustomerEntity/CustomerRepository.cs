@@ -11,6 +11,9 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using HomeService.Domain.Core.HomeService.CommentEntity.DTO;
+using HomeService.Domain.Core.HomeService.CustomerEntity.DTO;
+using System.Threading;
 
 namespace App.Infra.DataAccess.Repo.EF.HomeService.CustomerEntity
 {
@@ -23,36 +26,55 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CustomerEntity
             _appDbContext = appDbContext;
         }
 
-        public async Task<List<Customer>> GetAll(CancellationToken cancellationToken) => await _appDbContext.Customers.AsNoTracking().Where(x => x.IsDeleted != true).ToListAsync(cancellationToken);
-        public async Task<Customer> GetById(int Id, CancellationToken cancellationToken) => await _appDbContext.Customers.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken);
-        public async Task<bool> Create(Customer customer, CancellationToken cancellationToken)
+        public async Task<List<GetCustomerDTO>> GetAll(CancellationToken cancellationToken)
         {
-            var newCustomer = new Customer
+            
+            var result = await _appDbContext.Customers.AsNoTracking().Where(x => x.IsDeleted != true).Select(x => new GetCustomerDTO
             {
-                FirstName =customer.FirstName,
-                LastName =customer.LastName,
-                Balance = customer.Balance,
-                Gender = customer.Gender,
-                UserId = customer.UserId,
-                ImagePath = customer.ImagePath,
-                TimeCreated = customer.TimeCreated,
-                IsDeleted = customer.IsDeleted,
-
-            };
-            try
-            {
-                await _appDbContext.Customers.AddAsync(newCustomer, cancellationToken);
-                await _appDbContext.SaveChangesAsync(cancellationToken);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
+                FirstName= x.FirstName,
+                LastName= x.LastName,
+                Balance = x.Balance,
+                Gender = x.Gender,
+                Id= x.Id,
+                ImagePath= x.ImagePath,
+                TimeCreated= x.TimeCreated,
+                User =x.User,
+            }).ToListAsync(cancellationToken);
+            return result;
         }
-        public async Task<bool> Update(Customer customer, CancellationToken cancellationToken)
+        public async Task<GetCustomerDTO> GetById(int Id, CancellationToken cancellationToken)
         {
-            var cus = await _appDbContext.Customers.FirstOrDefaultAsync(x => x.Id == customer.Id, cancellationToken);
+            var result = await _appDbContext.Customers.AsNoTracking().Where(x => x.IsDeleted != true).Select(x => new GetCustomerDTO
+            {
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Balance = x.Balance,
+                Gender = x.Gender,
+                Id = x.Id,
+                ImagePath = x.ImagePath,
+                TimeCreated = x.TimeCreated,
+                User = x.User,
+            }).FirstOrDefaultAsync(x=>x.Id == Id,cancellationToken);
+            return result;
+        }
+        public async Task<UpdateCustomerDTO> GetUpdateDTO(int Id, CancellationToken cancellationToken)
+        {
+            var result = await _appDbContext.Customers.AsNoTracking().Where(x => x.IsDeleted != true).Select(x => new UpdateCustomerDTO
+            {
+                FirstName = x.FirstName,
+                LastName = x.LastName,
+                Balance = x.Balance,
+                Gender = x.Gender,
+                Id = x.Id,
+                ImagePath = x.ImagePath,
+
+                User = x.User,
+            }).FirstOrDefaultAsync(x => x.Id == Id, cancellationToken);
+            return result;
+        }
+        public async Task<bool> Update(UpdateCustomerDTO customer, CancellationToken cancellationToken)
+        {
+            var cus = await _appDbContext.Customers.Include(x=>x.User).FirstOrDefaultAsync(x => x.Id == customer.Id, cancellationToken);
             if (cus == null)
             {
                 throw new Exception("That Object Does Not Exist");
@@ -61,10 +83,9 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CustomerEntity
             cus.LastName = customer.LastName;
             cus.Balance = customer.Balance;
             cus.Gender = customer.Gender;
-            cus.UserId = customer.UserId;
+            cus.User.FullName = $"{customer.FirstName} {customer.LastName}";
             cus.ImagePath = customer.ImagePath;
-            cus.TimeCreated = customer.TimeCreated;
-            cus.IsDeleted = customer.IsDeleted;
+            
 
             _appDbContext.Customers.Update(cus);
             await _appDbContext.SaveChangesAsync(cancellationToken);
@@ -73,13 +94,13 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CustomerEntity
         }
         public async Task<bool> Delete(int Id, CancellationToken cancellationToken)
         {
-            var cus = await _appDbContext.Customers.FirstOrDefaultAsync(x => x.Id == Id);
+            var ord = await _appDbContext.Customers.FirstOrDefaultAsync(x => x.Id == Id);
 
-            if (cus == null)
+            if (ord == null)
             {
                 throw new Exception("That Object Does Not Exist");
             }
-            _appDbContext.Customers.Remove(cus);
+            ord.IsDeleted = true;
             await _appDbContext.SaveChangesAsync(cancellationToken);
             return true;
 

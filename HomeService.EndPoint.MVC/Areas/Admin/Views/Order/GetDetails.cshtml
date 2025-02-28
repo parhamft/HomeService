@@ -1,0 +1,174 @@
+﻿@using Framework
+@using HomeService.Domain.Core.HomeService.OrderEntity.DTO
+@using HomeService.Domain.Core.HomeService.OfferEntity.DTO
+@model GetOrderDTO
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-@TempData["AlertType"] alert-dismissible fade show" role="alert">
+        @TempData["Message"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="col-md-12">
+    <div class="row">
+        <!-- Top Section: Image Slider -->
+        <div class="col-md-12">
+            <div id="imageCarousel" class="carousel slide" data-bs-ride="carousel">
+                <!-- Carousel Inner (Images) -->
+                <div class="carousel-inner">
+                    @{
+                        var firstImage = true;
+                        foreach (var image in Model.Images)
+                        {
+                            <div class="carousel-item @(firstImage ? "active" : "")">
+                                <!-- Ensure all images have the same size -->
+                                <img src="@image.ImagePath" class="d-block w-100 carousel-image" alt="Order Image">
+                            </div>
+                            firstImage = false;
+                        }
+                    }
+                </div>
+                <!-- Carousel Controls (Previous/Next Buttons) -->
+                <a class="carousel-control-prev" href="#imageCarousel" role="button" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#imageCarousel" role="button" data-bs-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="visually-hidden">Next</span>
+                </a>
+            </div>
+        </div>
+
+        <!-- Detailed Information About an Object -->
+        <form asp-asp-controller="Order" asp-action="Update">
+        <div class="col-md-12">
+            <div class="card shadow">
+                <div class="card-header">
+                    <h4 class="card-title">@Model.Service.Name</h4>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                                <input type="hidden" name="OrderId" asp-for="Id" />
+                        <p><strong>شناسه:</strong> @Model.Id</p>
+
+                            <p><strong>سفارش دهنده:</strong> @Model.Customer.FirstName @Model.Customer.LastName</p>
+                            @{
+                                if (Model.Expert == null)
+                                {
+                                    <p><strong>متخصص:</strong> ----</p>
+                                }
+                                else
+                                {
+                                    <p><strong>متخصص:</strong> @Model.Expert.FirstName @Model.Expert.LastName</p>
+                                }
+                            }
+                        </div>
+                        <div class="col-md-4">
+                            <p><strong>تاریخ ایجاد:</strong> @Model.TimeCreated</p>
+                            <p><strong>برای تاریخ:</strong> @Model.DateFor</p>
+                                <p><strong>وضعیت:</strong>  @Model.Status.GetEnumDisplayName()</p>
+                        </div>
+                        <div class="col-md-4">
+                            <p><strong>توضیحات:</strong> @Model.Description</p>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <select name="Status" asp-for="Status" class="form-control">
+
+                                        <option value="1">-- در انتظار متخصص --</option>
+                                        <option value="2">-- در انتظار قبول کردن متخصص --</option>
+                                        <option value="3">-- متخصص انتخاب شد --</option>
+                                        <option value="4">-- در انتظار پرداخت --</option>
+                                        <option value="5">-- اتمام یافته --</option>
+
+                                    </select>
+                                    <span class="text-danger"></span>
+                                </div>
+                            </div>
+                                <button type="submit" class="btn btn-success">
+                                    <i class="icon-check"></i>
+                                    ثبت تعقیرات
+                                </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </form>
+
+        <div class="row">
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover table-striped" id="data-table">
+                    <thead>
+                        <tr>
+                            <th class="p-low"><input type="checkbox" id="btn-check-all-toggle"></th>
+                            <th>#</th>
+                            <th>توضیحات</th>
+                            
+                            <th>قیمت</th>
+                            <th>تاریخ برای</th>
+                            <th>متخصص</th>
+                            <th>تاریخ ثبت</th>
+                            <th>عملیات</th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @foreach (var Offer in ViewBag.Offers)
+                        {
+                            <tr>
+                                <td><input type="checkbox"></td>
+
+                                <td>@Offer.Id</td>
+
+                                <td>@Offer.Description</td>
+                                <td>@Offer.Price</td>
+                                <td>@Offer.RequestTime</td>
+                                <td>@Offer.Expert.FirstName @Offer.Expert.LastName</td>
+                                <td>@Offer.TimeCreated</td>
+                                <td>
+                                    @if (@Model.Expert!=null)
+                                    {
+                                        <button asp-area="Admin" asp-controller="Order" asp-action="Accept" asp-route-Id="@Offer.Id" class="btn btn-info" disabled>قبول کردن</button>
+                                    }
+
+                                    else
+                                    {
+                                    <a asp-area="Admin" asp-controller="Order" asp-action="Accept" asp-route-Id="@Offer.Id" class="btn btn-info">قبول کردن</a>
+                                       
+                                    }
+                                    @if (Model.Expert?.Id == Offer.Expert.Id)
+                                    {
+                                        <button onclick="return confirm('آیا از حذف این کاربر اطمینان دارید؟')" asp-area="Admin" asp-controller="Order" asp-action="DeleteOffer" asp-route-Id="@Offer.Id" class="btn btn-danger" disabled>حذف</button>
+                                    }
+                                    else{
+                                        <a onclick="return confirm('آیا از حذف این کاربر اطمینان دارید؟')" asp-area="Admin" asp-controller="Order" asp-action="DeleteOffer" asp-route-Id="@Offer.Id" class="btn btn-danger">حذف</a>
+                                    }
+
+                                    
+                                   
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div> 
+    </div>
+</div>
+
+<!-- Add custom CSS to ensure images are the same size -->
+<style>
+    /* Ensure all images in the carousel have the same size */
+    .carousel-image {
+        width: 100%; /* Make images fill the carousel width */
+        height: 400px; /* Set a fixed height for all images */
+        object-fit: cover; /* Ensure images cover the area without distortion */
+
+    }
+    
+</style>

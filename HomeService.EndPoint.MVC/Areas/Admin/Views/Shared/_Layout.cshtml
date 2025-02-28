@@ -40,7 +40,7 @@
     <!-- BEGIN HEADER -->
     <div class="navbar navbar-fixed-top" id="main-navbar">
         <div class="header-right">
-            <a href="dashboard.html" class="logo-con">
+            <a asp-area="admin" asp-controller="admin" asp-action="Index" class="logo-con">
                 <img src="~/AdminTemplate/images/logo.png" class="img-responsive center-block" alt="لوگو قالب مدیران">
             </a>
         </div><!-- /.header-right -->
@@ -298,31 +298,50 @@
                     <li class="open active conditional-bg">
                         <a href="#" class="dropdown-toggle">
                             <i class="icon-home"></i>
-                            <span>دیوارچه</span>
+                            <span>بی خانمان</span>
                         </a>
                         <ul>
                             <li>
-                                <a href="dashboard.html" class="current">
+                                <a asp-area="admin" asp-controller="User" asp-action="Customers" class="">
                                     <i class="icon-home"></i>
-                                    <span>آگهی ها</span>
+                                    <span>مشتری ها</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="dashboard2.html" class="">
+                                <a asp-area="admin" asp-controller="User" asp-action="experts" class="">
                                     <i class="icon-home"></i>
-                                    <span>کاربران</span>
+                                    <span>متخصص ها</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="parastoo.html" class="">
+                                <a asp-area="admin" asp-controller="Category" asp-action="Index" class="">
                                     <i class="icon-home"></i>
-                                    <span>دسته بندی ها </span>
+                                    <span>دسته بندی ها</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a asp-area="admin" asp-controller="SubCategory" asp-action="Index" class="">
+                                    <i class="icon-home"></i>
+                                    <span>زیر مجموعه ها</span>
                                 </a>
                             </li>
                             <li>
-                                <a href="yekan.html" class="">
+                                <a asp-area="admin" asp-controller="Service" asp-action="Index" class="">
                                     <i class="icon-home"></i>
-                                    <span>برندها</span>
+                                    <span>سرویس ها</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="admin" asp-controller="Order" asp-action="Index" class="">
+                                    <i class="icon-home"></i>
+                                    <span>سفارش ها</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a asp-area="admin" asp-controller="Comment" asp-action="Index" class="">
+                                    <i class="icon-home"></i>
+                                    <span>نظرات</span>
                                 </a>
                             </li>
                         </ul>

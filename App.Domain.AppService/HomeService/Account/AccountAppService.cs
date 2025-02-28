@@ -1,4 +1,5 @@
-﻿using HomeService.Domain.Core.HomeService.CustomerEntity.Entities;
+﻿using HomeService.Domain.Core.HomeService.Account.AppService;
+using HomeService.Domain.Core.HomeService.CustomerEntity.Entities;
 using HomeService.Domain.Core.HomeService.ExpertEntity.Entities;
 using HomeService.Domain.Core.HomeService.UserEntity.DTO;
 using HomeService.Domain.Core.HomeService.UserEntity.Enums;
@@ -10,7 +11,7 @@ using System.Security.Claims;
 
 namespace App.Domain.AppService.HomeService.Account
 {
-    public class AccountAppService
+    public class AccountAppService : IAccountAppService
     {
         private readonly UserManager<User> _userManager;
         private readonly SignInManager<User> _signInManager;
@@ -34,7 +35,7 @@ namespace App.Domain.AppService.HomeService.Account
                 {
                     FirstName= createUserDTO.FirstName,
                     LastName= createUserDTO.LastName,
-
+                    TimeCreated = DateTime.Now
                 };
             }
             if (createUserDTO.Role == RoleEnum.Customer) 
@@ -44,6 +45,7 @@ namespace App.Domain.AppService.HomeService.Account
                 {
                     FirstName = createUserDTO.FirstName,
                     LastName = createUserDTO.LastName,
+                    TimeCreated = DateTime.Now
                 };
 
             }
@@ -68,6 +70,11 @@ namespace App.Domain.AppService.HomeService.Account
             }
 
 
+            return result;
+        }
+        public async Task<SignInResult> Login(string Email, string password, CancellationToken cancellationToken)
+        {
+            var result = await _signInManager.PasswordSignInAsync(Email, password, true, false);
             return result;
         }
     }

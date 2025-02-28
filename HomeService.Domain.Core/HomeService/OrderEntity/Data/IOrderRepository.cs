@@ -15,5 +15,7 @@ namespace HomeService.Domain.Core.HomeService.OrderEntity.Data
         Task<bool> Create(AddOrderDTO order, CancellationToken cancellationToken);
         Task<bool> Update(OrderStatusUpdateDTO order, CancellationToken cancellationToken);
         Task<bool> Delete(int Id, CancellationToken cancellationToken);
+
     }
+
 }
