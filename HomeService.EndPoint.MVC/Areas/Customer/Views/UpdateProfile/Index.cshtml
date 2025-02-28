@@ -1,0 +1,139 @@
+﻿@using HomeService.Domain.Core.HomeService.CustomerEntity.DTO
+
+@using HomeService.Domain.Core.HomeService.UserEntity.Enums
+
+@model UpdateCustomerDTO
+@{
+    ViewData["Title"] = "دیوارچه > مدیریت کاربران > ایجاد کاربران";
+
+}
+
+<!-- ======================= dashboard Detail ======================== -->
+<div class="goodup-dashboard-wrap gray px-4 py-5">
+    <a class="mobNavigation" data-bs-toggle="collapse" href="#MobNav" role="button" aria-expanded="false" aria-controls="MobNav">
+        <i class="fas fa-bars ms-2"></i>منو
+    </a>
+    <div class="collapse" id="MobNav">
+        <div class="goodup-dashboard-nav sticky-top">
+            <div class="goodup-dashboard-inner">
+                <ul data-submenu-title="منو">
+                    <li><a href="dashboard.html"><i class="lni lni-dashboard ms-2"></i>داشبورد</a></li>
+                    <li class="active"><a href="dashboard-my-listings.html"><i class="lni lni-files ms-2"></i>آگهی های من</a></li>
+                    <li><a href="dashboard-add-listings.html"><i class="lni lni-add-files ms-2"></i>افزودن آگهی</a></li>
+                    <li><a href="dashboard-saved-listings.html"><i class="lni lni-bookmark ms-2"></i>آگهی های موردعلاقه</a></li>
+                    <li><a href="dashboard-my-bookings.html"><i class="lni lni-briefcase ms-2"></i>لیست رزروها<span class="count-tag bg-warning">4</span></a></li>
+                    <li><a href="dashboard-wallet.html"><i class="lni lni-mastercard ms-2"></i>کیف پول</a></li>
+                    <li><a href="dashboard-messages.html"><i class="lni lni-envelope ms-2"></i>پیام ها<span class="count-tag">4</span></a></li>
+                </ul>
+                <ul data-submenu-title="حساب کاربری">
+                    <li><a href="dashboard-my-profile.html"><i class="lni lni-user ms-2"></i>تنظیمات </a></li>
+                    <li><a href="dashboard-change-password.html"><i class="lni lni-lock-alt ms-2"></i>تغییر رمز عبور</a></li>
+                    <li><a href="javascript:void(0);"><i class="lni lni-trash-can ms-2"></i>حذف اکانت</a></li>
+                    <li><a href="login.html"><i class="lni lni-power-switch ms-2"></i>خروج</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="goodup-dashboard-content">
+        <div class="dashboard-tlbar d-block mb-5">
+            <div class="row">
+                <div class="colxl-12 col-lg-12 col-md-12">
+                    <h1 class="ft-medium fs-lg">آگهی های من</h1>
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item text-muted"><a href="#">خانه</a></li>
+                            <li class="breadcrumb-item text-muted"><a href="#">داشبورد</a></li>
+                            <li class="breadcrumb-item"><a href="#" class="theme-cl">آگهی های من</a></li>
+                        </ol>
+                    </nav>
+                </div>
+            </div>
+        </div>
+
+<div class="col-lg-12">
+    <div class="portlet box shadow">
+        <div class="portlet-heading">
+            <div class="portlet-title">
+                <h3 class="title">
+                    مشتریان < کاربران
+                </h3>
+            </div><!-- /.portlet-title -->
+        </div><!-- /.portlet-heading -->
+        <div class="portlet-body">
+            <div class="top-buttons-box mb-2">
+            </div>
+            <div class="row">
+                <form enctype="multipart/form-data" asp-area="Admin" asp-controller="User" asp-action="Customerupdate" id="simple-form" role="form" method="post">
+                    <div class="form-body">
+                        <input type="hidden" asp-for="Id" />
+                        <input type="hidden" asp-for="ImagePath" />
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input asp-for="FirstName" class="form-control" type="text" placeholder="نام">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input asp-for="LastName" class="form-control" type="text" placeholder="نام خانوادگی">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input asp-for="User.Email" class="form-control" type="email" placeholder="ایمیل" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input asp-for="Balance" class="form-control" type="number" placeholder="موجودی" required />
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="input-group">
+                                <select asp-for="Gender" class="form-select">
+                                    <option value="@GenderEnum.Male">مرد</option>
+                                    <option value="@GenderEnum.Female">زن</option>
+
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group relative">
+                            <input asp-for="ProfileImgFile" type="file" class="form-control">
+                            <label>آپلود عکس</label>
+                            <div class="input-group round">
+                                <input type="text" class="form-control file-input" placeholder="برای آپلود کلیک کنید">
+                                <span class="input-group-btn">
+                                    <button type="button" class="btn btn-success">
+                                        <i class="icon-picture"></i>
+                                        آپلود عکس
+                                        <div class="paper-ripple"><div class="paper-ripple__background"></div><div class="paper-ripple__waves"></div></div>
+                                    </button>
+                                </span>
+                            </div>
+                            <span asp-validation-for="ProfileImgFile" class="text-danger"></span>
+                        </div>
+
+
+
+
+                    </div>
+                    <hr>
+                    <div class="form-actions">
+                        <button type="submit" class="btn btn-success">
+                            <i class="icon-check"></i>
+                            ذخیره
+                        </button>
+                        <a class="btn btn-warning">
+                            بازگشت
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div><!-- /.portlet-body -->
+    </div><!-- /.portlet -->
+</div><!-- /.col-lg-12 -->

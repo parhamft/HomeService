@@ -9,13 +9,13 @@ namespace HomeService.EndPoint.MVC.Areas.Account.Controllers
     [Area(areaName: "Account")]
     public class LoginController : Controller
     {
-        private readonly IAdminAppService _adminAppService;
+
         private readonly IAccountAppService _accountAppService;
         private readonly ILogger<LoginController> _logger;
 
-        public LoginController(IAdminAppService adminAppService, IAccountAppService accountAppService, ILogger<LoginController> logger)
+        public LoginController(IAccountAppService accountAppService, ILogger<LoginController> logger)
         {
-            _adminAppService = adminAppService;
+
            _accountAppService = accountAppService;
             _logger = logger;
         }
