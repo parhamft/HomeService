@@ -29,6 +29,7 @@ namespace HomeService.EndPoint.MVC.Areas.Account.Controllers
             var result = await _accountAppService.Register(createUserDTO, cancellationToken);
             if (result.Succeeded)
             {
+
                 return RedirectToAction("Index", "Home");
             }
             else

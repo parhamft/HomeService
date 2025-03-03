@@ -56,7 +56,7 @@ namespace App.Domain.AppService.HomeService.Account
             if (result.Succeeded) 
             {
                  await _userManager.AddToRoleAsync(User, Role);
-                
+
                 if (createUserDTO.Role == RoleEnum.Customer)
                 {
                     await _userManager.AddClaimAsync(User, new Claim("CustomerId", User.Customer.Id.ToString()));
@@ -64,10 +64,10 @@ namespace App.Domain.AppService.HomeService.Account
 
                 if (createUserDTO.Role == RoleEnum.Expert)
                 {
-                    await _userManager.AddClaimAsync(User, new Claim("ExopertId", User.Expert.Id.ToString()));
+                    await _userManager.AddClaimAsync(User, new Claim("ExpertId", User.Expert.Id.ToString()));
                 }
 
-               
+
             }
 
 

@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using HomeService.Domain.Core.HomeService.CustomerEntity.DTO
+
+@model GetCustomerDTO
+
+@{
+	var customerId = User.FindFirst("CustomerId")?.Value;
+	var expertId = User.FindFirst("ExpertId")?.Value;
+}
+
+<!DOCTYPE html>
 <html lang="fa">
 
 <head>
@@ -44,7 +53,7 @@
 						<div class="mobile_nav">
 							<ul>
 								<li>
-									<a href="#" data-bs-toggle="modal" data-bs-target="#login" class="theme-cl fs-lg">
+									<a asp-area="Customer" asp-controller="Dashboard" asp-action="Index" class="theme-cl fs-lg">
 										<i class="lni lni-user"></i>
 									</a>
 								</li>
@@ -151,7 +160,7 @@
 
 						<ul class="nav-menu nav-menu-social align-to-left">
 							<li>
-								<a asp-area="Account" asp-controller="Login" asp-action="Index" data-bs-toggle="modal" data-bs-target="#login" class="theme-cl fs-lg">
+								<a asp-area="Customer" asp-controller="Dashboard" asp-action="Index" class="theme-cl fs-lg">
 									<i class="lni lni-user"></i>
 								</a>
 							</li>
@@ -179,12 +188,19 @@
 
 						<div class="dashboard-head-author-clicl">
 							<div class="dashboard-head-author-thumb">
-								<img src="/assets/img/t-7.png" class="img-fluid" alt="" />
+								@if(@Model.ImagePath==null)
+								{
+									<img src="~/AdminTemplate/Images/user/placeholder.jpg" class="img-fluid" alt="" />
+								}
+								else
+								{
+									<img src="@Model.ImagePath" class="img-fluid" alt="" />
+								}
+								
 							</div>
 							<div class="dashboard-head-author-caption">
-								<div class="dashploio"><h4>مهرداد هاشمی</h4></div>
-								<div class="dashploio"><span class="agd-location"><i class="lni lni-map-marker ms-1"></i>سانفرانسیسکو، آمریکا</span></div>
-								<div class="listing-rating high"><i class="fas fa-star active"></i><i class="fas fa-star active"></i><i class="fas fa-star active"></i><i class="fas fa-star active"></i><i class="fas fa-star active"></i></div>
+								<div class="dashploio"><h4>@Model.FirstName @Model.LastName</h4></div>
+								></i><i class="fas fa-star active"></i></div>
 							</div>
 						</div>
 
@@ -192,7 +208,36 @@
 				</div>
 			</div>
 		</section>
+		<a class="mobNavigation" data-bs-toggle="collapse" href="#MobNav" role="button" aria-expanded="false" aria-controls="MobNav">
+			<i class="fas fa-bars ms-2"></i>منو
+		</a>
+	<div class="goodup-dashboard-wrap gray px-4 py-5">
+
+
+		<div class="collapse" id="MobNav">
+			<div class="goodup-dashboard-nav sticky-top">
+				<div class="goodup-dashboard-inner">
+					<ul data-submenu-title="منو">
+						<li class="active"><a asp-area="Customer" asp-controller="Login" asp-action="Index" asp-route-Id="@customerId"><i class="lni lni-dashboard ms-2"></i>داشبورد</a></li>
+						<li><a asp-area="Customer" asp-controller="MyListing" asp-action="Index" asp-route-Id="@customerId"><i class="lni lni-files ms-2"></i>آگهی های من</a></li>
+						<li><a asp-area="Customer" asp-controller="AddListing" asp-action="Index" asp-route-Id="@customerId"></i>افزودن آگهی</a></li>
+						<li><a href="dashboard-saved-listings.html"><i class="lni lni-bookmark ms-2"></i>آگهی های موردعلاقه</a></li>
+						<li><a href="dashboard-my-bookings.html"><i class="lni lni-briefcase ms-2"></i>لیست رزروها<span class="count-tag bg-warning">4</span></a></li>
+						<li><a href="dashboard-wallet.html"><i class="lni lni-mastercard ms-2"></i>کیف پول</a></li>
+						<li><a href="dashboard-messages.html"><i class="lni lni-envelope ms-2"></i>پیام ها<span class="count-tag">4</span></a></li>
+					</ul>
+					<ul data-submenu-title="حساب کاربری">
+						<li><a asp-area="Customer" asp-controller="UpdateProfile" asp-action="Index" asp-route-Id="@customerId"></i>تنظیمات </a></li>
+						<li><a href="dashboard-change-password.html"><i class="lni lni-lock-alt ms-2"></i>تغییر رمز عبور</a></li>
+						<li><a href="javascript:void(0);"><i class="lni lni-trash-can ms-2"></i>حذف اکانت</a></li>
+						<li><a href="login.html"><i class="lni lni-power-switch ms-2"></i>خروج</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
 		@RenderBody()
+		</div>
 		<!-- =============================== Dashboard Header ========================== -->
 
 

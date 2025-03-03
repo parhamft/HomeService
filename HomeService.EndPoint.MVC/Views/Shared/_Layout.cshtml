@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@{
+	var customerId = User.FindFirst("CustomerId")?.Value;
+	var expertId = User.FindFirst("ExpertId")?.Value;
+}
+
+<!DOCTYPE html>
 <html lang="fa">
 
 <head>
@@ -35,7 +40,7 @@
 						<div class="mobile_nav">
 							<ul>
 								<li>
-									<a asp-area="Account" asp-controller="Login" asp-action="Index" data-bs-toggle="modal" data-bs-target="#login" class="theme-cl fs-lg">
+									<a asp-area="Account" asp-controller="Login" asp-action="Index"  class="theme-cl fs-lg">
 										<i class="lni lni-user"></i>
 									</a>
 								</li>
@@ -106,9 +111,9 @@
 							<li>
 								<a href="javascript:void(0);">پنل کاربری</a>
 								<ul class="nav-dropdown nav-submenu">
-									<li><a href="dashboard.html"><i class="lni lni-dashboard ms-2"></i>داشبورد</a></li>
-									<li><a href="dashboard-my-listings.html"><i class="lni lni-files ms-2"></i>آگهی های من</a></li>
-									<li><a href="dashboard-add-listings.html"><i class="lni lni-add-files ms-2"></i>افزودن آگهی</a></li>
+									<li><a asp-area="Customer" asp-controller="Dashboard" asp-action="Index"><i class="lni lni-dashboard ms-2"></i>داشبورد</a></li>
+									<li><a asp-area="Customer" asp-controller="MyListing" asp-action="Index" ><i class="lni lni-files ms-2"></i>آگهی های من</a></li>
+									<li><a asp-area="Customer" asp-controller="AddListing" asp-action="Index"><i class="lni lni-add-files ms-2"></i>افزودن آگهی</a></li>
 									<li><a href="dashboard-saved-listings.html"><i class="lni lni-bookmark ms-2"></i>علاقه مندی ها</a></li>
 									<li><a href="dashboard-my-bookings.html"><i class="lni lni-briefcase ms-2"></i>رزروهای من<span class="count-tag bg-warning">4</span></a></li>
 									<li><a href="dashboard-wallet.html"><i class="lni lni-mastercard ms-2"></i>کیف پول</a></li>
@@ -135,9 +140,18 @@
 						</ul>
 						<ul class="nav-menu nav-menu-social align-to-left">
 							<li>
-								<a href="#" data-bs-toggle="modal" data-bs-target="#login" class="ft-bold">
-									<i class="fas fa-sign-in-alt ms-1 theme-cl"></i>ورود
-								</a>
+								@if (User.Identity.IsAuthenticated)
+								{
+									<a asp-area="Customer" asp-controller="Dashboard" asp-action="Index" asp-route-Id="@customerId" class="theme-cl fs-lg">
+										<i class="lni lni-user"></i>
+									</a>
+								}
+								else
+								{
+									<a asp-area="Account" asp-controller="Login" asp-action="Index" class="ft-bold">
+										<i class="fas fa-sign-in-alt ms-1 theme-cl"></i>ورود
+									</a>
+								}
 							</li>
 							<li class="add-listing">
 								<a href="add-listing.html">
@@ -153,11 +167,9 @@
 		<div class="clearfix"></div>
 
 		<!-- Main Content -->
-		<div class="container-fluid">
-			<main role="main" class="pb-3">
+
 				@RenderBody()
-			</main>
-		</div>
+
 
 		<!-- Newsletter Section -->
 		<section class="space bg-cover" style="background:#03343b url(~/assets/img/landing-bg.png) no-repeat;">

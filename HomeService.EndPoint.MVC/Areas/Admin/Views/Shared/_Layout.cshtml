@@ -509,11 +509,50 @@
     <script src="~/AdminTemplate/plugins/switchery/dist/switchery.js"></script>
     <script src="~/AdminTemplate/js/core.js"></script>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+        // اعمال کلاس current بر اساس آدرس صفحه فعلی
+        function setCurrentClass() {
+        let currentUrl = window.location.href;
+        $("#side-menu li a").each(function () {
+        if ($(this).attr("href") === currentUrl) {
+        $(this).addClass("current");
+        }
+        });
+        }
+
+        // هنگام کلیک روی لینک
+        $("#side-menu li a").click(function () {
+        $("#side-menu li a").removeClass("current"); // حذف کلاس از همه لینک‌ها
+        $(this).addClass("current"); // اضافه کردن به لینک کلیک شده
+        sessionStorage.setItem("currentLink", $(this).attr("href")); // ذخیره آدرس در sessionStorage
+        });
+
+        // بررسی sessionStorage و اعمال کلاس هنگام بارگذاری صفحه
+        let savedLink = sessionStorage.getItem("currentLink");
+        if (savedLink) {
+        $("#side-menu li a").each(function () {
+        if ($(this).attr("href") === savedLink) {
+        $(this).addClass("current");
+        }
+        });
+        }
+
+        // بررسی اینکه اگر هیچ تگی current نداشت، به تگ id="dss" اختصاص بده
+        if ($("#side-menu li a.current").length === 0) {
+        $("#dss").addClass("current");
+        }
+        });
+    </script>
     <!-- BEGIN PAGE JAVASCRIPT -->
     <!-- END PAGE JAVASCRIPT -->
     @await RenderSectionAsync("Scripts", required: false)
     <!-- BEGIN PAGE JAVASCRIPT -->
     <!-- END PAGE JAVASCRIPT -->
 </body>
+
+
 
 </html>

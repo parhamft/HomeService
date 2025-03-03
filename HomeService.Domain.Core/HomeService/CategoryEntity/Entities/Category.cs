@@ -19,5 +19,6 @@ namespace HomeService.Domain.Core.HomeService.CategoryEntity.Entities
         #region NavigationProperties
         public List<SubCategory>? SubCategories { get; set; }
         #endregion
+        
     }
 }

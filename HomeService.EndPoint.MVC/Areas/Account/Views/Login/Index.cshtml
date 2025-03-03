@@ -5,30 +5,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
-@* <section id="main" class="clearfix user-page"> *@
-@*     <div class="container"> *@
-@*         <div class="row text-center"> *@
-@*             <!-- user-login --> *@
-@*             <div class="col-md-8 offset-md-2 col-lg-6 offset-lg-3"> *@
-@*                 <div class="user-account"> *@
-@*                     <h2>فرم ورود</h2> *@
-@*                     <!-- form --> *@
-@*                     <form asp-area="Account" asp-controller="Login" asp-action="login" method="post"> *@
-@*                         <div class="form-group"> *@
-@*                             <input type="text" name="Email" class="form-control" placeholder="نام کاربری"> *@
-@*                         </div> *@
-@*                         <div class="form-group"> *@
-@*                             <input type="password" name="Password" class="form-control" placeholder="رمزعبور"> *@
-@*                         </div> *@
-@*                         <button type="submit" class="btn">ورود</button> *@
-@*                     </form><!-- form --> *@
-@*                     <!-- forgot-password --> *@
-@*                 </div> *@
-@*                 <a class="btn-primary">ساخت اکانت جدید</a> *@
-@*             </div><!-- user-login --> *@
-@*         </div><!-- row --> *@
-@*     </div><!-- container --> *@
-@* </section><!-- signin-page --> *@
+
 
 <section class="gray">
 	<div class="container">
@@ -69,16 +46,9 @@
 								<button type="submit" class="btn btn-md full-width theme-bg text-light rounded ft-medium">ورود</button>
 							</div>
 
-							<div class="form-group text-center mb-0">
-								<p class="extra">یـا ورود با</p>
-								<div class="option-log">
-									<div class="single-log-opt"><a href="javascript:void(0);" class="log-btn"><img src="assets/img/c-1.png" class="img-fluid" alt="" />ورود با Google</a></div>
-									<div class="single-log-opt"><a href="javascript:void(0);" class="log-btn"><img src="assets/img/facebook.png" class="img-fluid" alt="" />ورود با Facebook</a></div>
-								</div>
-							</div>
 
 							<div class="form-group text-center mt-4 mb-0">
-								<p class="mb-0">آیا تا به حال ثبت نام نکرده اید؟ <a href="signup.html" class="ft-medium text-success">ثبت نام</a></p>
+								<p class="mb-0">آیا تا به حال ثبت نام نکرده اید؟ <a asp-area="Account" asp-controller="register" asp-action="Index" >ثبت نام</a></p>
 							</div>
 
 						</form>

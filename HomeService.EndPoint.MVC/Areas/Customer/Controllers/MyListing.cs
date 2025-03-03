@@ -1,4 +1,5 @@
-﻿using HomeService.Domain.Core.HomeService.OfferEntity.AppServices;
+﻿using HomeService.Domain.Core.HomeService.CustomerEntity.AppServices;
+using HomeService.Domain.Core.HomeService.OfferEntity.AppServices;
 using HomeService.Domain.Core.HomeService.OrderEntity.AppServices;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
@@ -10,16 +11,18 @@ namespace HomeService.EndPoint.MVC.Areas.Customer.Controllers
     {
         private readonly IOrderAppService _orderAppService;
         private readonly IOfferAppService _offerAppService;
+        private readonly ICustomerAppService _customerAppService;
 
-        public MyListing(IOrderAppService orderAppService, IOfferAppService offerAppService)
+        public MyListing(IOrderAppService orderAppService, IOfferAppService offerAppService, ICustomerAppService customerAppService)
         {
             _orderAppService = orderAppService;
             _offerAppService = offerAppService;
+            _customerAppService = customerAppService;
         }
-        public IActionResult Index()
+        public async Task<IActionResult> Index(int Id, CancellationToken cancellationToken)
         {
-
-            return View();
+            var result = await _customerAppService.GetById(Id, cancellationToken);
+            return View(result);
         }
         public async Task<IActionResult> GetOffers(int Id, CancellationToken cancellationToken)
         {
