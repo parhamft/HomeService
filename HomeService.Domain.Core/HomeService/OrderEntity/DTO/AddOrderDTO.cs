@@ -1,5 +1,6 @@
 ﻿using HomeService.Domain.Core.HomeService.ImageEntity;
 using HomeService.Domain.Core.HomeService.OrderEntity.Enums;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,7 +16,7 @@ namespace HomeService.Domain.Core.HomeService.OrderEntity.DTO
         public int CustomerId { get; set; }
         public int ServiceId { get; set; }
         public List<Image>?     Images { get; set; }
-        public StatusEnum Status { get; set; }
+        public List<IFormFile>? ImageFiles { get; set; }
         public int CityId { get; set; }
         public DateTime TimeCreated { get; set; } = DateTime.Now;
 

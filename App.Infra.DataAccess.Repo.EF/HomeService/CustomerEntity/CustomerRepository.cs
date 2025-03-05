@@ -65,6 +65,7 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CustomerEntity
                 LastName = x.LastName,
                 Balance = x.Balance,
                 Gender = x.Gender,
+                
                 Id = x.Id,
                 ImagePath = x.ImagePath,
 
@@ -84,6 +85,8 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CustomerEntity
             cus.Balance = customer.Balance;
             cus.Gender = customer.Gender;
             cus.User.FullName = $"{customer.FirstName} {customer.LastName}";
+            cus.User.Email = customer.User.Email;
+            cus.User.UserName = customer.User.Email;
             cus.ImagePath = customer.ImagePath;
             
 

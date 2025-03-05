@@ -16,5 +16,6 @@ namespace HomeService.Domain.Core.HomeService.ServiceEntity.Data
         Task<bool> Create(AddServiceDTO service, CancellationToken cancellationToken);
         Task<bool> Update(UpdateServiceDTO service, CancellationToken cancellationToken);
         Task<bool> Delete(int Id, CancellationToken cancellationToken);
+        Task<List<GetServiceDTO>> GetAllSubCategoryOf(int Id, CancellationToken cancellationToken);
     }
 }

@@ -50,6 +50,21 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.SubCategoryEntity
             return result;
 
         }
+        public async Task<List<GetSubCategoryDTO>> GetAllOfCategory(int Id, CancellationToken cancellationToken)
+        {
+            var result = await _appDbContext.SubCategories.AsNoTracking().Where(x => x.IsDeleted != true && x.CategoryId == Id).Select(x => new GetSubCategoryDTO
+            {
+                Id = x.Id,
+                Name = x.Name,
+                CategoryId = x.CategoryId,
+                ImagePath = x.ImagePath,
+                Category = x.Category
+
+
+            }
+).ToListAsync(cancellationToken);
+            return result;
+        }
         public async Task<GetSubCategoryDTO> GetById(int Id, CancellationToken cancellationToken)
         {
             var result = await _appDbContext.SubCategories.AsNoTracking().FirstOrDefaultAsync(x => x.Id == Id, cancellationToken);

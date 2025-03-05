@@ -22,31 +22,31 @@
                             <h4 class="m-0 ft-medium">ثبت نـام</h4>
                         </div>
 
-                        <form class="submit-form" asp-area="Account" asp-controller="Register" asp-action="Register">
+                        <form class="submit-form"  asp-area="Account" asp-controller="Register" asp-action="Register">
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label class="mb-1">نام</label>
-                                        <input asp-for="FirstName" type="text" class="form-control rounded" placeholder="نام">
+                                        <input asp-for="FirstName" required type="text" class="form-control rounded" placeholder="نام">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label class="mb-1">نام</label>
-                                        <input asp-for="LastName" type="text" class="form-control rounded" placeholder="نام خانوادگی">
+                                        <input asp-for="LastName" required type="text" class="form-control rounded" placeholder="نام خانوادگی">
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label class="mb-1">پست الکترونیک</label>
-                                        <input asp-for="Email" type="text" class="form-control rounded" placeholder="example@gmail.com">
+                                        <input asp-for="Email" required type="text" class="form-control rounded" placeholder="example@gmail.com">
                                     </div>
                                 </div>
                             </div>
 
                             <div class="form-group">
                                 <label class="mb-1">رمز عبور</label>
-                                <input type="password" asp-for="Password" class="form-control rounded" placeholder="رمز عبور*">
+                                <input type="password" required asp-for="Password" class="form-control rounded" placeholder="رمز عبور*">
                             </div>
 
 

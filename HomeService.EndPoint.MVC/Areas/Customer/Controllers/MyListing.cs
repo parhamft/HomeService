@@ -21,8 +21,9 @@ namespace HomeService.EndPoint.MVC.Areas.Customer.Controllers
         }
         public async Task<IActionResult> Index(int Id, CancellationToken cancellationToken)
         {
-            var result = await _customerAppService.GetById(Id, cancellationToken);
-            return View(result);
+            var Customer = await _customerAppService.GetById(Id, cancellationToken);
+            ViewBag.Customer = Customer;
+            return View();
         }
         public async Task<IActionResult> GetOffers(int Id, CancellationToken cancellationToken)
         {

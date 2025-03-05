@@ -21,12 +21,13 @@ namespace HomeService.EndPoint.MVC.Controllers
             _serviceAppService = serviceAppService;
         }
 
-        public async Task<IActionResult> Index(CancellationToken cancellationToken)
+        public async Task<IActionResult> Index(int Id,CancellationToken cancellationToken)
         {
             _logger.LogInformation("شخصی در تاریخ {date} وارد سرویس پیج شد", DateTime.UtcNow.ToLongDateString);
-            var Services = await _serviceAppService.GetAll(cancellationToken);
+            var Services = await _serviceAppService.GetAllSubCategoryOf( Id,cancellationToken);
             ViewBag.Services = Services;
             return View();
         }
+
     }
 }

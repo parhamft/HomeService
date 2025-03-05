@@ -1,14 +1,15 @@
-﻿@if (TempData["Message"] != null)
-{
-    <div class="alert alert-@TempData["AlertType"] alert-dismissible fade show" role="alert">
-        @TempData["Message"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
-}
+﻿
 
 
 <section class="gray">
 	<div class="container">
+		@if (TempData["Message"] != null)
+		{
+			<div class="alert alert-@TempData["AlertType"] alert-dismissible fade show" role="alert">
+				@TempData["Message"]
+				<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+			</div>
+		}
 		<div class="row align-items-start justify-content-center">
 			<div class="col-xl-5 col-lg-8 col-md-12">
 
@@ -22,12 +23,12 @@
 							<div class="form-group">
 								<label class="mb-1">نام کاربری</label>
 
-								<input type="text" name="Email" class="form-control rounded" placeholder="ایمیل">
+								<input type="text" required name="Email" class="form-control rounded" placeholder="ایمیل">
 							</div>
 
 							<div class="form-group">
 								<label class="mb-1">رمز عبور</label>
-								<input type="password" name="Password" class="form-control rounded" placeholder="رمز عبور*">
+								<input type="password" required name="Password" class="form-control rounded" placeholder="رمز عبور*">
 							</div>
 
 							<div class="form-group">

@@ -15,5 +15,6 @@ namespace HomeService.Domain.Core.HomeService.SubCategoryEntity.Services
         Task<bool> Delete(int Id, CancellationToken cancellationToken);
         Task<bool> Update(UpdateSubCategoryDTO updateCategoryDTO, CancellationToken cancellationToken);
         Task<bool> Add(AddSubCategoryDTO addCategoryDTO, CancellationToken cancellationToken);
+        Task<List<GetSubCategoryDTO>> GetAllOfCategory(int Id, CancellationToken cancellationToken);
     }
 }

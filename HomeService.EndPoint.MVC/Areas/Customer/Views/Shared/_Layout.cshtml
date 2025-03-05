@@ -1,6 +1,5 @@
-﻿@using HomeService.Domain.Core.HomeService.CustomerEntity.DTO
+﻿
 
-@model GetCustomerDTO
 
 @{
 	var customerId = User.FindFirst("CustomerId")?.Value;
@@ -188,24 +187,24 @@
 
 						<div class="dashboard-head-author-clicl">
 							<div class="dashboard-head-author-thumb">
-								@if(@Model.ImagePath==null)
+								@if (ViewBag.Customer.ImagePath == null)
 								{
 									<img src="~/AdminTemplate/Images/user/placeholder.jpg" class="img-fluid" alt="" />
 								}
 								else
 								{
-									<img src="@Model.ImagePath" class="img-fluid" alt="" />
+									<img src="@ViewBag.Customer.ImagePath" class="img-fluid" alt="" />
 								}
-								
 							</div>
 							<div class="dashboard-head-author-caption">
-								<div class="dashploio"><h4>@Model.FirstName @Model.LastName</h4></div>
-								></i><i class="fas fa-star active"></i></div>
+								<div class="dashploio"><h4>@ViewBag.Customer.FirstName @ViewBag.Customer.LastName</h4></div>
+
 							</div>
 						</div>
 
 					</div>
 				</div>
+			</div>>
 			</div>
 		</section>
 		<a class="mobNavigation" data-bs-toggle="collapse" href="#MobNav" role="button" aria-expanded="false" aria-controls="MobNav">

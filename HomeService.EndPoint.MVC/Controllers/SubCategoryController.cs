@@ -12,9 +12,9 @@ namespace HomeService.EndPoint.MVC.Controllers
         {
             _subCategoryAppService = subCategoryAppService;
         }
-        public async Task<IActionResult> Index(CancellationToken cancellationToken)
+        public async Task<IActionResult> Index(int Id,CancellationToken cancellationToken)
         {
-            var SubCategories = await _subCategoryAppService.GetAll(cancellationToken);
+            var SubCategories = await _subCategoryAppService.GetAllOfCategory(Id,cancellationToken);
             ViewBag.SubCategories = SubCategories;
             return View();
         }

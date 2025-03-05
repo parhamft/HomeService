@@ -71,7 +71,10 @@
     .cats-wrap:hover {
         transform: translateY(-5px); /* Optional: Lift effect on hover */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Shadow on hover */
+
     }
+
+
 
 /* Image container styling */
 .Goodup-catg-icon {
@@ -7216,15 +7219,33 @@ span._user_status.busy {
     font-size: 11px;
 }
 
+
+.dashboard-head-author-thumb {
+    width: 100px; /* Adjust size as needed */
+    height: 100px; /* Keep width and height equal for a perfect circle */
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.dashboard-head-author-thumb img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+
 /*--------- Blog Detail Page -----------*/
 .single_article_wrap {
     display: block;
     width: 100%;
     background: #ffffff;
-    padding:20px;
+    padding: 20px;
     border-radius: 4px;
     margin-bottom: 30px;
-    border:1px solid #e5e8f3;
+    border: 1px solid #e5e8f3;
 }
 .article_featured_image {
     display: block;

@@ -7,6 +7,7 @@ using HomeService.Domain.Core.HomeService.HomeServiceEntity.Entities;
 using HomeService.Domain.Core.HomeService.OrderEntity.Data;
 using HomeService.Domain.Core.HomeService.OrderEntity.DTO;
 using HomeService.Domain.Core.HomeService.OrderEntity.Entities;
+using HomeService.Domain.Core.HomeService.OrderEntity.Enums;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -32,7 +33,7 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.OrderEntity
                 Description = x.Description,
                 Id = x.Id,
                 DateFor = x.DateFor,
-                Status = x.Status,
+                Status = StatusEnum.WaitingForExperts,
                 Customer =x.Customer,
                 City = x.City,
                 Expert = x.Expert,
@@ -78,13 +79,9 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.OrderEntity
             CityId = order.CityId,
             CustomerId = order.CustomerId,
             DateFor=order.DateFor,
-
             ServiceId = order.ServiceId,
-            Status = order.Status,
             TimeCreated = order.TimeCreated,
-
-            
-
+            Images = order.Images,
             };
             try
             {

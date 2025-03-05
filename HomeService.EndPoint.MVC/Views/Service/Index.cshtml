@@ -1,76 +1,98 @@
-﻿<section class="gray">
-	<div class="container">
-		<div class="row">
-				<!-- row -->
-				<div class="row justify-content-center gx-3">
-					
-					<!-- Single -->
-				@foreach (var ser in ViewBag.Services)
-				{
-					<div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
-						<div class="Goodup-grid-wrap">
-							<div class="Goodup-grid-upper">
-								<div class="Goodup-bookmark-btn"><button type="button"><i class="lni lni-heart-filled position-absolute"></i></button></div>
+﻿@{
+    int pageSize = 6; // Number of items per page
+    int currentPage = Context.Request.Query["page"].Count > 0 ? int.Parse(Context.Request.Query["page"]) : 1;
 
-								<div class="Goodup-grid-thumb">
-									<a href="listing-search-v1.html" class="d-block text-center m-auto"><img src="@ser.ImagePath" class="img-fluid" alt=""></a>
-								</div>
-							</div>
-							<div class="Goodup-grid-fl-wrap">
-								<div class="Goodup-caption px-3 py-2">
+    var allServices = (List<HomeService.Domain.Core.HomeService.ServiceEntity.DTO.GetServiceDTO>)ViewBag.Services;
+
+    int totalItems = allServices.Count;
+    int totalPages = (int)Math.Ceiling((double)totalItems / pageSize);
+
+    var paginatedServices = allServices.Skip((currentPage - 1) * pageSize).Take(pageSize).ToList();
+}
 
 
-									<h4 class="mb-0 ft-medium medium"><a href="listing-search-v1.html" class="text-dark fs-md">@ser.Name<span class="verified-badge"><i class="fas fa-check-circle"></i></span></a></h4>
 
-								</div>
-								<div class="Goodup-grid-footer py-3 px-3">
-									<div class="Goodup-ft-first">
-+-
-										<div class="Goodup-price-range">
-											<span class="active">@ser.BasePrice<i class="fas fa-dollar-sign"></i></span>
+@{
+    var customerId = User.FindFirst("CustomerId")?.Value;
+    var expertId = User.FindFirst("ExpertId")?.Value;
+}
 
-										</div>
-									</div>
+<section class="gray">
+    <div class="container">
+        <div class="row justify-content-center gx-3">
+            @foreach (var ser in paginatedServices)
+            {
+                <div class="col-xl-4 col-lg-4 col-md-6 col-sm-12">
+                    <div class="Goodup-grid-wrap shadow-lg rounded-3 overflow-hidden border">
+                        <div class="Goodup-grid-upper position-relative">
 
-								</div>
-							</div>
-						</div>
-					</div>
+                            <div class="Goodup-grid-thumb">
+                                <a asp-area="Customer" asp-controller="AddListing" asp-action="Index" asp-route-Id="@ser.Id" class="d-block text-center m-auto">
+                                    <img src="@ser.ImagePath" class="img-fluid rounded-top" alt="">
+                                </a>
+                            </div>
+                        </div>
 
-				}
-					
+                        <div class="Goodup-grid-fl-wrap p-3">
+                            <div class="Goodup-caption">
+                                <h4 class="mb-2 ft-medium medium text-center">
+                                    <a asp-area="Customer" asp-controller="AddListing" asp-action="Index" asp-route-Id="@ser.Id" class="text-dark fs-md text-decoration-none">
+                                        @ser.Name
+                                        <span class="verified-badge"><i class="fas fa-check-circle text-primary"></i></span>
+                                    </a>
+                                </h4>
+                            </div>
 
-					<!-- Single -->
-					
+                            <div class="Goodup-grid-footer d-flex justify-content-between align-items-center px-3 pb-3">
+                                <div class="Goodup-ft-first">
+                                    <div class="Goodup-price-range">
+                                        <span class="active fw-bold text-success">
+                                            @ser.BasePrice<i class="fas fa-dollar-sign ms-1"></i>
+                                        </span>
+                                    </div>
+                                </div>
 
-				</div>
-				<!-- /row -->
+                                <a asp-area="Customer" asp-controller="AddListing" asp-action="Index" asp-route-Id="@customerId" asp-route-ServiceId="@ser.Id" class="btn btn-primary btn-sm px-3">سفارش</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-				<div class="row">
-					<div class="col-lg-12 col-md-12 col-sm-12">
-						<ul class="pagination">
-							<li class="page-item">
-								<a class="page-link" href="#" aria-label="Previous">
-									<span class="fas fa-arrow-circle-right"></span>
-									<span class="sr-only">قبل</span>
-								</a>
-							</li>
-							<li class="page-item"><a class="page-link" href="#">1</a></li>
-							<li class="page-item"><a class="page-link" href="#">2</a></li>
-							<li class="page-item active"><a class="page-link" href="#">3</a></li>
-							<li class="page-item"><a class="page-link" href="#">...</a></li>
-							<li class="page-item"><a class="page-link" href="#">18</a></li>
-							<li class="page-item">
-								<a class="page-link" href="#" aria-label="Next">
-									<span class="fas fa-arrow-circle-left"></span>
-									<span class="sr-only">بعد</span>
-								</a>
-							</li>
-						</ul>
-					</div>
-				</div>
+            }
+        </div>
 
-			</div>
-		</div>
-	</div>
+        <!-- Pagination -->
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12">
+                <ul class="pagination">
+                    @if (currentPage > 1)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="?page=@(currentPage - 1)" aria-label="Previous">
+                                <span class="fas fa-arrow-circle-right"></span>
+                                <span class="sr-only">قبل</span>
+                            </a>
+                        </li>
+                    }
+
+                    @for (int i = 1; i <= totalPages; i++)
+                    {
+                        <li class="page-item @(i == currentPage ? "active" : "")">
+                            <a class="page-link" href="?page=@i">@i</a>
+                        </li>
+                    }
+
+                    @if (currentPage < totalPages)
+                    {
+                        <li class="page-item">
+                            <a class="page-link" href="?page=@(currentPage + 1)" aria-label="Next">
+                                <span class="fas fa-arrow-circle-left"></span>
+                                <span class="sr-only">بعد</span>
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </div>
+        </div>
+    </div>
 </section>

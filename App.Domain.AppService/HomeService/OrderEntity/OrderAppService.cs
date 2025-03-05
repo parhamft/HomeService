@@ -1,4 +1,7 @@
-﻿using HomeService.Domain.Core.HomeService.OfferEntity.DTO;
+﻿using HomeService.Domain.Core.HomeService.Account.AppService;
+using HomeService.Domain.Core.HomeService.BaseData.Service;
+using HomeService.Domain.Core.HomeService.ImageEntity;
+using HomeService.Domain.Core.HomeService.OfferEntity.DTO;
 using HomeService.Domain.Core.HomeService.OrderEntity.AppServices;
 using HomeService.Domain.Core.HomeService.OrderEntity.Data;
 using HomeService.Domain.Core.HomeService.OrderEntity.DTO;
@@ -15,13 +18,24 @@ namespace App.Domain.AppService.HomeService.OrderEntity
     public class OrderAppService : IOrderAppService
     {
         private readonly IOrderService _orderService;
+        private readonly IBaseDataService _baseDataService;
 
-        public OrderAppService(IOrderService orderService)
+        public OrderAppService(IOrderService orderService, IBaseDataService baseDataService)
         {
             _orderService = orderService;
+            _baseDataService = baseDataService;
         }
         public async Task<bool> Add(AddOrderDTO addOrderDTO, CancellationToken cancellationToken)
         {
+            if(addOrderDTO.ImageFiles!=null)
+            {
+                foreach(var i in addOrderDTO.ImageFiles)
+                {
+                    var Image = new Image { ImagePath= await _baseDataService.UploadImage(i, "Orders", cancellationToken) };
+                    addOrderDTO.Images.Add(Image);
+                }
+            }
+            
             var result = await _orderService.Add(addOrderDTO, cancellationToken);
             return result;
         }

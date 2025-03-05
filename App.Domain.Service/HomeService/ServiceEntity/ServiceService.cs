@@ -29,6 +29,11 @@ namespace App.Domain.AppService.HomeService.ServiceEntity
             var result = await _serviceRepository.GetAll(cancellationToken);
             return result;
         }
+        public async Task<List<GetServiceDTO>> GetAllSubCategoryOf(int Id, CancellationToken cancellationToken)
+        {
+            var result = await _serviceRepository.GetAllSubCategoryOf(Id,cancellationToken);
+            return result;
+        }
         public async Task<bool> Delete(int Id, CancellationToken cancellationToken)
         {
             var result = await _serviceRepository.Delete(Id, cancellationToken);

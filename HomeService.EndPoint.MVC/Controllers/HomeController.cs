@@ -36,6 +36,7 @@ namespace HomeService.EndPoint.MVC.Controllers
             return View();
         }
 
+
         public IActionResult Privacy()
         {
             return View();
