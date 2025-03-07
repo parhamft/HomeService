@@ -2,6 +2,8 @@
 using HomeService.Domain.Core.HomeService.OfferEntity.DTO;
 using HomeService.Domain.Core.HomeService.OfferEntity.Entities;
 using HomeService.Domain.Core.HomeService.OfferEntity.Services;
+using HomeService.Domain.Core.HomeService.OrderEntity.Enums;
+using HomeService.Domain.Core.HomeService.OrderEntity.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,10 +15,12 @@ namespace App.Domain.AppService.HomeService.OfferEntity
     public class OfferAppService : IOfferAppService
     {
         private readonly IOfferService _offerService;
+        private readonly IOrderService _orderService;
 
-        public OfferAppService(IOfferService offerService)
+        public OfferAppService(IOfferService offerService, IOrderService orderService)
         {
             _offerService = offerService;
+            _orderService = orderService;
         }
         public async Task<bool> Add(Offer addOrderDTO, CancellationToken cancellationToken)
         {
@@ -41,7 +45,15 @@ namespace App.Domain.AppService.HomeService.OfferEntity
         }
         public async Task<bool> Delete(int id, CancellationToken cancellationToken)
         {
+            var offer = await _offerService.GetById(id, cancellationToken);
             var result = await _offerService.Delete(id, cancellationToken);
+            var order = await _orderService.GetById(offer.OrderId, cancellationToken);
+            if (order.Offers.Count==0)
+            {
+                order.Status = StatusEnum.WaitingForExperts;
+                await _orderService.Update(order, cancellationToken);
+            }
+
             return result;
         }
     }

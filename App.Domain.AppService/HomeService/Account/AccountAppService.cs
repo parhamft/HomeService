@@ -78,5 +78,9 @@ namespace App.Domain.AppService.HomeService.Account
             var result = await _signInManager.PasswordSignInAsync(Email, password, true, false);
             return result;
         }
+        public async Task Logout(CancellationToken cancellationToken)
+        {
+            await _signInManager.SignOutAsync();
+        }
     }
 }

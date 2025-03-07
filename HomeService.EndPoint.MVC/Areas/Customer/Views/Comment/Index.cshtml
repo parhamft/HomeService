@@ -1,0 +1,49 @@
+﻿@using HomeService.Domain.Core.HomeService.CommentEntity.DTO
+
+
+
+@model List<GetCommentDTO>
+<section class="gray py-5 position-relative">
+	<div class="container">
+		<div class="row">
+			<div class="col-xl-8 col-lg-8 col-md-12 col-sm-12">
+			<div class="bg-white rounded mb-4">
+				<div class="jbd-01 px-4 py-4">
+					<div class="jbd-details mb-4">
+						<h5 class="ft-bold fs-lg">امتیاز و نظر </h5>
+						<div class="reviews-comments-wrap">
+							@foreach (var x in  @Model)
+							{
+								<div class="reviews-comments-item">
+									<div class="review-comments-avatar">
+										<img src="assets/img/t-1.png" class="img-fluid" alt="">
+									</div>
+									<div class="reviews-comments-item-text">
+										<h4><a href="#">@x.Customer.FirstName @x.Customer.LastName</a><span class="reviews-comments-item-date d-flex align-items-center"><i class="ti-calendar theme-cl ms-1"></i>@x.TimeCreated.Date</span></h4>
+
+										@{
+
+											var rating = @x.Score;
+											while (rating >= 1)
+											{
+												<i class="fas fa-star"></i>
+												rating -= 1;
+											}
+										}
+										<p>@x.Description</p>
+											<p><a asp-area="Customer" asp-controller="MyListing" asp-action="GetOffers" asp-route-Id="@x.Customer.Id" asp-route-OrderId="@x.Offer.OrderId" >@x.Offer.Description</a></p>
+
+									</div>
+								</div>
+
+							}
+
+						</div>
+					</div>
+				</div>
+				
+			</div>
+			</div>
+		</div>
+		</div>
+</section>

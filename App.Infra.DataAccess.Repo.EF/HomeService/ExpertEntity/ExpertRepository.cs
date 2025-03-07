@@ -25,6 +25,7 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.ExpertEntity
         .Where(x => x.IsDeleted == false && x.Id == id)
                 .Select(x => new UpdateExpertDTO
             {
+                    Id=x.Id,
                 FirstName = x.FirstName,
                 LastName = x.LastName,
                 Balance = x.Balance,
@@ -103,7 +104,8 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.ExpertEntity
         }
         public async Task<bool> Update(UpdateExpertDTO expert, CancellationToken cancellationToken)
         {
-            var exp = await _appDbContext.Experts.Include(x=>x.User).FirstOrDefaultAsync(x => x.Id == expert.Id, cancellationToken);
+            var exp = await _appDbContext.Experts.Include(x => x.User)
+                .FirstOrDefaultAsync(x => x.Id == expert.Id, cancellationToken);
             if (exp == null)
             {
                 throw new Exception("That Object Does Not Exist");

@@ -7,7 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="HomeService\AdminEntity\" />
     <Folder Include="HomeService\UserEntity\" />
   </ItemGroup>
 

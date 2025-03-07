@@ -4,14 +4,15 @@ using HomeService.Domain.Core.HomeService.OfferEntity.AppServices;
 using HomeService.Domain.Core.HomeService.OrderEntity.AppServices;
 using HomeService.Domain.Core.HomeService.OrderEntity.DTO;
 using HomeService.Domain.Core.HomeService.ServiceEntity.AppServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading;
 
 namespace HomeService.EndPoint.MVC.Areas.Customer.Controllers
 {
-
+    [Authorize(Roles = "Customer")]
     [Area(areaName: "Customer")]
-    public class AddListing : Controller
+    public class AddListingController : Controller
     {
         private readonly IServiceAppService _serviceAppService;
         private readonly ICityAppService _cityAppService;
@@ -19,7 +20,7 @@ namespace HomeService.EndPoint.MVC.Areas.Customer.Controllers
         private readonly ICustomerAppService _customerAppService;
         private readonly IOrderAppService _orderAppService;
 
-        public AddListing(IServiceAppService serviceAppService, ICityAppService cityAppService, IOfferAppService offerAppService, ICustomerAppService customerAppService,IOrderAppService orderAppService)
+        public AddListingController(IServiceAppService serviceAppService, ICityAppService cityAppService, IOfferAppService offerAppService, ICustomerAppService customerAppService,IOrderAppService orderAppService)
         {
             _serviceAppService = serviceAppService;
             _cityAppService = cityAppService;
@@ -43,7 +44,7 @@ namespace HomeService.EndPoint.MVC.Areas.Customer.Controllers
         public async Task<IActionResult> AddOrder(AddOrderDTO addOrderDTO, CancellationToken cancellationToken)
         {
             var result = await _orderAppService.Add(addOrderDTO, cancellationToken);
-            return RedirectToAction("Index","Dashboard");
+            return LocalRedirect($"/Customer/MyListing/Index/{addOrderDTO.CustomerId}");
         }
 
     }

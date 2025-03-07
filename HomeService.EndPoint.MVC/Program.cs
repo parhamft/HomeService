@@ -9,6 +9,7 @@ using App.Domain.AppService.HomeService.OfferEntity;
 using App.Domain.AppService.HomeService.OrderEntity;
 using App.Domain.AppService.HomeService.ServiceEntity;
 using App.Domain.AppService.HomeService.SubCategoryEntity;
+using App.Domain.Service.HomeService.AdminEntity;
 using App.Domain.Service.HomeService.BaseDataService;
 using App.Domain.Service.HomeService.CategoryEntity;
 using App.Domain.Service.HomeService.CityEntity;
@@ -35,6 +36,7 @@ using Divarcheh.Endpoints.RazorPages.Middleware;
 using HomeService.Domain.Core.HomeService.Account.AppService;
 using HomeService.Domain.Core.HomeService.AdminEntity.AppServices;
 using HomeService.Domain.Core.HomeService.AdminEntity.Data;
+using HomeService.Domain.Core.HomeService.AdminEntity.Services;
 using HomeService.Domain.Core.HomeService.BaseData.Service;
 using HomeService.Domain.Core.HomeService.CategoryEntity.AppServices;
 using HomeService.Domain.Core.HomeService.CategoryEntity.Data;
@@ -119,6 +121,9 @@ try
 
     });
 
+    builder.Services.AddMemoryCache();
+
+
     builder.Services.AddScoped<IAdminRepository, AdminRepository>();
     builder.Services.AddScoped<ICategoryRepository, CategoryRepository>();
     builder.Services.AddScoped<ICityRepository, CityRepository>();
@@ -131,6 +136,7 @@ try
     builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
     builder.Services.AddScoped<IUserRepository, UserRepository>();
 
+    builder.Services.AddScoped<IAdminService, AdminService>();
     builder.Services.AddScoped<ICategoryService, CategoryService>();
     builder.Services.AddScoped<ISubCategoryService, SubCategoryService>();
     builder.Services.AddScoped<IServiceService, ServiceService>();
@@ -154,6 +160,7 @@ try
     builder.Services.AddScoped<IAccountAppService, AccountAppService>();
     builder.Services.AddScoped<ICustomerAppService, CustomerAppService>();
     builder.Services.AddScoped<IExpertAppService, ExpertAppService>();
+
 
     //builder.Logging.AddSeq("http://localhost:5341/", "4745f464-06b8-44ff-8207-198783c1928e");
 

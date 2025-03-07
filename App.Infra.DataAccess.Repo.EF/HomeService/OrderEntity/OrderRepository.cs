@@ -33,12 +33,33 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.OrderEntity
                 Description = x.Description,
                 Id = x.Id,
                 DateFor = x.DateFor,
-                Status = StatusEnum.WaitingForExperts,
+                Status = x.Status,
                 Customer =x.Customer,
                 City = x.City,
                 Expert = x.Expert,
                 Service = x.Service,
                 Offers = x.Offers, 
+                Images = x.Images,
+                TimeCreated = x.TimeCreated
+
+
+            }
+            ).ToListAsync(cancellationToken);
+            return result;
+        }
+        public async Task<List<GetOrderDTO>> GetAllOfUsers(int id,CancellationToken cancellationToken)
+        {
+            var result = await _appDbContext.Orders.AsNoTracking().Where(x => x.IsDeleted != true && x.CustomerId == id).Select(x => new GetOrderDTO
+            {
+                Description = x.Description,
+                Id = x.Id,
+                DateFor = x.DateFor,
+                Status = x.Status,
+                Customer = x.Customer,
+                City = x.City,
+                Expert = x.Expert,
+                Service = x.Service,
+                Offers = x.Offers.Where(z => z.IsDeleted == false).ToList(),
                 Images = x.Images,
                 TimeCreated = x.TimeCreated
 
@@ -59,7 +80,7 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.OrderEntity
                 Customer = x.Customer,
                 Expert = x.Expert,
                 Service = x.Service,
-                Offers = x.Offers,
+                Offers = x.Offers.Where(z=>z.IsDeleted==false).ToList(),
                 Images = x.Images,
                 TimeCreated=x.TimeCreated
                 
@@ -80,6 +101,7 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.OrderEntity
             CustomerId = order.CustomerId,
             DateFor=order.DateFor,
             ServiceId = order.ServiceId,
+            Status = StatusEnum.WaitingForExperts,
             TimeCreated = order.TimeCreated,
             Images = order.Images,
             };
@@ -102,8 +124,12 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.OrderEntity
                 throw new Exception("That Object Does Not Exist");
             }
             ord.Status = order.Status;
-            ord.Offers = order.Offers;
-            ord.Expert = order.Expert;
+
+            if (order.Expert != null)
+            {
+                _appDbContext.Attach(order.Expert);
+                ord.Expert = order.Expert;
+            }
 
 
             _appDbContext.Orders.Update(ord);

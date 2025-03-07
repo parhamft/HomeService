@@ -27,6 +27,11 @@ namespace App.Domain.Service.HomeService.OrderEntity
             var result = await _orderRepository.GetAll(cancellationToken);
             return result;
         }
+        public async Task<List<GetOrderDTO>> GetAllOfUsers(int id, CancellationToken cancellationToken)
+        {
+            var result = await _orderRepository.GetAllOfUsers(id,cancellationToken);
+            return result;
+        }
         public async Task<GetOrderDTO> GetById(int id, CancellationToken cancellationToken)
         {
             var result =  await _orderRepository.GetById(id, cancellationToken);

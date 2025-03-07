@@ -1,6 +1,8 @@
 ﻿using App.Infra.DB.SQLServer.EF;
 using HomeService.Domain.Core.HomeService.AdminEntity.Data;
+using HomeService.Domain.Core.HomeService.AdminEntity.DTO;
 using HomeService.Domain.Core.HomeService.AdminEntity.Entities;
+using HomeService.Domain.Core.HomeService.CustomerEntity.DTO;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Infra.DataAccess.Repo.EF.HomeService.AdminEntity
@@ -35,19 +37,32 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.AdminEntity
                 return false;
             }
         }
-        public async Task<bool> Update(Admin admin, CancellationToken cancellationToken)
+        public async Task<UpdateAdminDTO> GetUpdateDTO(int Id, CancellationToken cancellationToken)
         {
-            var Admin = await _appDbContext.Admins.FirstOrDefaultAsync(x => x.Id == admin.Id, cancellationToken);
-            if (admin == null)
+            var result = await _appDbContext.Admins.AsNoTracking().Where(x => x.IsDeleted != true &&  x.Id == Id).Select(x => new UpdateAdminDTO
+            {
+                Id =x.Id,
+                    FirstName = x.FirstName,
+                    LastName = x.LastName,
+                    Balance = x.Balance,
+                    User = x.User,
+
+            }).FirstOrDefaultAsync( cancellationToken);
+            return result;
+        }
+        public async Task<bool> Update(UpdateAdminDTO adminDTO, CancellationToken cancellationToken)
+        {
+            var result = await _appDbContext.Admins.AsNoTracking().FirstOrDefaultAsync(x => x.Id == adminDTO.Id, cancellationToken);
+            if (result == null)
             {
                 throw new Exception("That Object Does Not Exist");
             }
-            Admin.Balance = admin.Balance;
-            Admin.TimeCreated = admin.TimeCreated;
-            Admin.UserId = admin.UserId;
-            admin.IsDeleted = admin.IsDeleted;
+            result.FirstName = adminDTO.FirstName;
+            result.LastName = adminDTO.LastName;
+            result.Balance = adminDTO.Balance;
+            result.User = adminDTO.User;
 
-            _appDbContext.Admins.Update(Admin);
+            _appDbContext.Admins.Update(result);
             await _appDbContext.SaveChangesAsync(cancellationToken);
             return true;
 

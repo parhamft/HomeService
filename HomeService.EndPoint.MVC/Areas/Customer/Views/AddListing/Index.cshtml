@@ -6,6 +6,8 @@
 	var expertId = User.FindFirst("ExpertId")?.Value;
 }
 
+
+
 	<div class="goodup-dashboard-content">
 		<div class="dashboard-tlbar d-block mb-5">
 			<div class="row">
@@ -42,19 +44,19 @@
 									<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 										<div class="form-group">
 											<label class="mb-1">توضیحات</label>
-											<input asp-for="Description" type="text" class="form-control rounded" placeholder="" />
+											<input asp-for="Description" type="text" class="form-control rounded" placeholder="" required/>
 										</div>
 									</div>
 									<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
 										<div class="form-group">
 											<label class="mb-1">برای تاریخ</label>
-											<input asp-for="DateFor" type="date" class="form-control rounded" placeholder="برای تاریخ" />
+											<input asp-for="DateFor" type="date" class="form-control rounded" placeholder="برای تاریخ" required/>
 										</div>
 									</div>
 								<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
 									<div class="form-group">
 										<label class="mb-1">دسته بندی</label>
-										<select asp-for="ServiceId" class="form-control" >
+										<select asp-for="ServiceId" class="form-control" required>
 											<option value="">دسته بندی</option>
 											@foreach (var x in ViewBag.Services)
 											{
@@ -70,7 +72,7 @@
 									<div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
 										<div class="form-group">
 											<label class="mb-1">استان</label>
-											<select asp-for="CityId" class="form-control">
+											<select asp-for="CityId" class="form-control" required>
 												@foreach (var x in @ViewBag.Cities)
 												{
 													<option value="@x.Id">@x.Titel</option>

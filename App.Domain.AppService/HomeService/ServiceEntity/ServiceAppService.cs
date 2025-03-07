@@ -4,6 +4,8 @@ using HomeService.Domain.Core.HomeService.ServiceEntity.AppServices;
 using HomeService.Domain.Core.HomeService.ServiceEntity.Data;
 using HomeService.Domain.Core.HomeService.ServiceEntity.DTO;
 using HomeService.Domain.Core.HomeService.ServiceEntity.Services;
+using HomeService.Domain.Core.HomeService.SubCategoryEntity.DTO;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,11 +18,13 @@ namespace App.Domain.Service.HomeService.ServiceEntity
     {
         private readonly IServiceService _serviceService;
         private readonly IBaseDataService _baseDataService;
+        private readonly IMemoryCache _memoryCache;
 
-        public ServiceAppService(IServiceService serviceService,IBaseDataService baseDataService)
+        public ServiceAppService(IServiceService serviceService, IBaseDataService baseDataService, IMemoryCache memoryCache)
         {
             _serviceService = serviceService;
             _baseDataService = baseDataService;
+            _memoryCache = memoryCache;
         }
 
         public async Task<UpdateServiceDTO> GetUpdate(int id, CancellationToken cancellationToken)
@@ -31,13 +35,27 @@ namespace App.Domain.Service.HomeService.ServiceEntity
 
         public async Task<List<GetServiceDTO>> GetAll(CancellationToken cancellationToken)
         {
-            var result = await _serviceService.GetAll(cancellationToken);
+            List<GetServiceDTO>? result;
+            if (_memoryCache.Get("GetServiceDTO") != null)
+            {
+                result = _memoryCache.Get<List<GetServiceDTO>?>("GetAllServiceDTO");
+            }
+            else
+            {
+                result = await _serviceService.GetAll(cancellationToken);
+                _memoryCache.Set("GetAllServiceDTO", result, TimeSpan.FromHours(2));
+            }
             return result;
+
         }
         public async Task<List<GetServiceDTO>> GetAllSubCategoryOf(int Id, CancellationToken cancellationToken)
         {
-            var result = await _serviceService.GetAllSubCategoryOf(Id, cancellationToken);
+
+               var result = await _serviceService.GetAllSubCategoryOf(Id, cancellationToken);
+
             return result;
+
+
         }
         public async Task<bool> Delete(int Id, CancellationToken cancellationToken)
         {

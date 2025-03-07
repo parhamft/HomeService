@@ -25,7 +25,7 @@ namespace HomeService.EndPoint.MVC.Areas.Account.Controllers
         }
         [HttpPost]
         public async Task<IActionResult> register(CreateUserDTO createUserDTO, CancellationToken cancellationToken)
-        {
+            {
             var result = await _accountAppService.Register(createUserDTO, cancellationToken);
             if (result.Succeeded)
             {

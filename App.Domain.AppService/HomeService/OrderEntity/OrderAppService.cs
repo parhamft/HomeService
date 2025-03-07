@@ -44,7 +44,11 @@ namespace App.Domain.AppService.HomeService.OrderEntity
             var result = await _orderService.GetAll(cancellationToken);
             return result;
         }
-
+        public async Task<List<GetOrderDTO>> GetAllOfUsers(int id, CancellationToken cancellationToken)
+        {
+            var result = await _orderService.GetAllOfUsers(id, cancellationToken);
+            return result;
+        }
         public async Task<GetOrderDTO> GetById(int id, CancellationToken cancellationToken)
         {
             var result = await _orderService.GetById(id, cancellationToken);
@@ -89,7 +93,12 @@ namespace App.Domain.AppService.HomeService.OrderEntity
             {
                 throw new Exception("متخصص انتخاب شده");
             }
+
             var order = await _orderService.GetById(id, cancellationToken);
+            if (expert == true && status <= 5)
+            {
+                order.Expert = null;
+            }
             order.Status = (StatusEnum)status;
             return await _orderService.Update(order,cancellationToken);
              

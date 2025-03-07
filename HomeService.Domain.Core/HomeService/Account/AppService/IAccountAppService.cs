@@ -16,5 +16,6 @@ namespace HomeService.Domain.Core.HomeService.Account.AppService
     {
         Task<IdentityResult> Register(CreateUserDTO createUserDTO, CancellationToken cancellationToken);
          Task<SignInResult> Login(string Email, string password, CancellationToken cancellationToken);
+         Task Logout(CancellationToken cancellationToken);
     }
 }

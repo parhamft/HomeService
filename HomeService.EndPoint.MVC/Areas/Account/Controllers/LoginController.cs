@@ -50,6 +50,11 @@ namespace HomeService.EndPoint.MVC.Areas.Account.Controllers
 
             return RedirectToAction("Index");
         }
+        public async Task<IActionResult> Logout(CancellationToken cancellationToken)
+        {
+            await _accountAppService.Logout(cancellationToken);
+            return Redirect("/home");
+        }
     }
 }
 

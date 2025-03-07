@@ -1,9 +1,11 @@
 ﻿using HomeService.Domain.Core.HomeService.CustomerEntity.AppServices;
 using HomeService.Domain.Core.HomeService.CustomerEntity.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomeService.EndPoint.MVC.Areas.Customer.Controllers
 {
+    [Authorize(Roles = "Customer")]
     [Area(areaName: "Customer")]
     public class UpdateProfileController : Controller
     {

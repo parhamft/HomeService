@@ -1,4 +1,8 @@
-﻿
+﻿@{
+	var customerId = User.FindFirst("CustomerId")?.Value;
+	var expertId = User.FindFirst("ExpertId")?.Value;
+}
+
 
 @{
 	Layout = "_layout";

@@ -8,7 +8,6 @@
 
   <ItemGroup>
     <Folder Include="HomeService\AdminEntity\Enums\" />
-    <Folder Include="HomeService\AdminEntity\Services\" />
     <Folder Include="HomeService\CategoryEntity\Enums\" />
     <Folder Include="HomeService\CityEntity\DTO\" />
     <Folder Include="HomeService\CityEntity\Enums\" />

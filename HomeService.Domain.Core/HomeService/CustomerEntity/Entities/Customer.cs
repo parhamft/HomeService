@@ -28,6 +28,6 @@ namespace HomeService.Domain.Core.HomeService.CustomerEntity.Entities
         public User User { get; set; }
 
         #endregion
-
+        
     }
 }

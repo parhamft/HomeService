@@ -1,0 +1,15 @@
+﻿@{
+    var customerId = User.FindFirst("CustomerId")?.Value;
+    var expertId = User.FindFirst("ExpertId")?.Value;
+}
+
+<div class="container-fluid">
+<h4>@ViewBag.Customer.Balance</h4>
+
+<form asp-area="Customer" asp-controller="AddFunds" asp-action="Transaction" asp-route-Id="@customerId" method="post" class="d-flex align-items-center bg-light p-3 rounded shadow-sm" style="max-width: 400px;">
+    <input type="text" name="Amount" class="form-control me-2" placeholder="مقدار را وارد کنید" required />
+    <button type="submit" class="btn btn-primary">
+        <i class="fas fa-paper-plane"></i> ارسال
+    </button>
+</form>
+</div>

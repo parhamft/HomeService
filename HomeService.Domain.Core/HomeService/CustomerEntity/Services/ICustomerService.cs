@@ -15,5 +15,7 @@ namespace HomeService.Domain.Core.HomeService.CustomerEntity.Services
         Task<UpdateCustomerDTO> GetUpdateDTO(int Id, CancellationToken cancellationToken);
         Task<bool> Update(UpdateCustomerDTO customer, CancellationToken cancellationToken);
         Task<bool> Delete(int Id, CancellationToken cancellationToken);
+        Task<bool> CheckBalance(int Id, decimal amount, CancellationToken cancellationToken);
+        Task<decimal> CalculateTax(decimal amount, CancellationToken cancellationToken);
     }
 }

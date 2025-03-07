@@ -54,6 +54,8 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CustomerEntity
                 ImagePath = x.ImagePath,
                 TimeCreated = x.TimeCreated,
                 User = x.User,
+                Orders = x.Orders,
+                Comments = x.Comments.Where(x=>x.Approved==true).ToList(),
             }).FirstOrDefaultAsync(x=>x.Id == Id,cancellationToken);
             return result;
         }
@@ -69,13 +71,13 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CustomerEntity
                 Id = x.Id,
                 ImagePath = x.ImagePath,
 
-                User = x.User,
+                User = x.User, 
             }).FirstOrDefaultAsync(x => x.Id == Id, cancellationToken);
             return result;
         }
         public async Task<bool> Update(UpdateCustomerDTO customer, CancellationToken cancellationToken)
         {
-            var cus = await _appDbContext.Customers.Include(x=>x.User).FirstOrDefaultAsync(x => x.Id == customer.Id, cancellationToken);
+            var cus = await _appDbContext.Customers.AsNoTracking().Include(x=>x.User).FirstOrDefaultAsync(x => x.Id == customer.Id, cancellationToken);
             if (cus == null)
             {
                 throw new Exception("That Object Does Not Exist");
@@ -88,6 +90,7 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CustomerEntity
             cus.User.Email = customer.User.Email;
             cus.User.UserName = customer.User.Email;
             cus.ImagePath = customer.ImagePath;
+            cus.Balance = customer.Balance;
             
 
             _appDbContext.Customers.Update(cus);
@@ -108,5 +111,6 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CustomerEntity
             return true;
 
         }
+
     }
 }

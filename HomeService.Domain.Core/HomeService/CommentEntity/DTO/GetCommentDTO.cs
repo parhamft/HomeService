@@ -1,6 +1,7 @@
 ﻿using HomeService.Domain.Core.HomeService.CustomerEntity.Entities;
 using HomeService.Domain.Core.HomeService.ExpertEntity.Entities;
 using HomeService.Domain.Core.HomeService.OfferEntity.Entities;
+using HomeService.Domain.Core.HomeService.OrderEntity.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,7 @@ namespace HomeService.Domain.Core.HomeService.CommentEntity.DTO
         public bool Approved { get; set; }
         public DateTime TimeCreated { get; set; }
         public Customer Customer { get; set; }
+        public Order order { get; set; }
         public Expert Expert { get; set; }
         public Offer Offer { get; set; }
         public bool IsDeleted { get; set; }

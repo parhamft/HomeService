@@ -37,5 +37,19 @@ namespace App.Domain.Service.HomeService.CustomerEntity
         {
             return await _customerRepository.Delete(Id, cancellationToken);
         }
+        public async Task<bool> CheckBalance(int Id, decimal amount, CancellationToken cancellationToken)
+        {
+            var customer = await _customerRepository.GetById(Id, cancellationToken);
+            if (customer.Balance>=amount)
+            {
+                return true;
+            }
+            return false;
+        }
+        public async Task<decimal> CalculateTax(decimal amount, CancellationToken cancellationToken)
+        {
+            return await Task.FromResult(amount * 0.05m);
+        }
+
     }
 }

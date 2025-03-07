@@ -23,6 +23,10 @@ namespace App.Domain.AppService.HomeService.CommentEntity
         {
             return await _commentService.GetPendings(cancellationToken);
         }
+        public async Task<List<GetCommentDTO>> GetUsersComments(int Id, CancellationToken cancellationToken)
+        {
+            return await _commentService.GetUsersComments(Id, cancellationToken);
+        }
         public async Task<List<GetCommentDTO>> GetApproved(CancellationToken cancellationToken)
         {
             return await _commentService.GetApproved(cancellationToken);
@@ -35,7 +39,7 @@ namespace App.Domain.AppService.HomeService.CommentEntity
         {
             return await _commentService.GetById(Id, cancellationToken);
         }
-        public async Task<bool> Create(Comment comment, CancellationToken cancellationToken)
+        public async Task<bool> Create(AddCommentDTO comment, CancellationToken cancellationToken)
         {
             return await _commentService.Create(comment, cancellationToken);
         }

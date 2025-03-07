@@ -50,5 +50,6 @@ namespace App.Domain.AppService.HomeService.AdminEntity
             var result = await _signInManager.PasswordSignInAsync(Email,password, true,false);
             return result;
         }
+        
     }
 }

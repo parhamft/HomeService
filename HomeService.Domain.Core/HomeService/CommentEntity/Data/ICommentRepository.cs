@@ -13,8 +13,9 @@ namespace HomeService.Domain.Core.HomeService.CommentEntity.Data
         Task<List<GetCommentDTO>> GetPendings(CancellationToken cancellationToken);
         Task<List<GetCommentDTO>> GetApproved(CancellationToken cancellationToken);
         Task<List<GetCommentDTO>> GetDissaproved(CancellationToken cancellationToken);
+        Task<List<GetCommentDTO>> GetUsersComments(int Id, CancellationToken cancellationToken);
         Task<GetCommentDTO> GetById(int Id, CancellationToken cancellationToken);
-        Task<bool> Create(Comment comment, CancellationToken cancellationToken);
+        Task<bool> Create(AddCommentDTO comment, CancellationToken cancellationToken);
         Task<bool> Update(Comment comment, CancellationToken cancellationToken);
         Task<bool> ChangeStatus(UpdateStatusCommentDTO updateStatusCommentDTO, CancellationToken cancellationToken);
         Task<bool> Delete(int Id, CancellationToken cancellationToken);

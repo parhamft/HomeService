@@ -1,7 +1,9 @@
 ﻿using HomeService.Domain.Core.HomeService.BaseData.Service;
 using HomeService.Domain.Core.HomeService.CategoryEntity.AppServices;
 using HomeService.Domain.Core.HomeService.CategoryEntity.DTO;
+using HomeService.Domain.Core.HomeService.CategoryEntity.Entities;
 using HomeService.Domain.Core.HomeService.CategoryEntity.Services;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +16,13 @@ namespace App.Domain.Service.HomeService.CategoryEntity
     {
         private readonly ICategoryService _categoryService;
         private readonly IBaseDataService _baseDataService;
+        private readonly IMemoryCache _memoryCache;
 
-        public CategoryAppService(ICategoryService categoryService, IBaseDataService baseDataService)
+        public CategoryAppService(ICategoryService categoryService, IBaseDataService baseDataService, IMemoryCache memoryCache)
         {
             _categoryService = categoryService;
             _baseDataService = baseDataService;
+            _memoryCache = memoryCache;
         }
 
         public async Task<UpdateCategoryDTO> GetUpdate(int id, CancellationToken cancellationToken)
@@ -34,8 +38,19 @@ namespace App.Domain.Service.HomeService.CategoryEntity
         }
         public async Task<List<GetCategoryDTO>> GetAll(CancellationToken cancellationToken)
         {
-            var result = await _categoryService.GetAll(cancellationToken);
-            return result;
+            
+                List<GetCategoryDTO>? x;
+                if (_memoryCache.Get("GetCategoryDTO") != null)
+                {
+                    x = _memoryCache.Get<List<GetCategoryDTO>?>("GetCategoryDTO");
+                }
+                else
+                {
+                     x = await _categoryService.GetAll(cancellationToken);
+                    _memoryCache.Set("GetCategoryDTO", x, TimeSpan.FromHours(2));
+                }
+                return x;
+
         }
         public async Task<bool> Delete(int Id, CancellationToken cancellationToken)
         {

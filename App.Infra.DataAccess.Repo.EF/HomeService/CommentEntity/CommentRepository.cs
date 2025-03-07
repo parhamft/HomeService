@@ -43,6 +43,24 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CommentEntity
             }).ToListAsync(cancellationToken);
             return result;
         }
+        public async Task<List<GetCommentDTO>> GetUsersComments(int Id,CancellationToken cancellationToken)
+        {
+            var result = await _appDbContext.Comments.AsNoTracking().Where(x => x.CustomerId==Id && x.Approved ==true).Select(x => new GetCommentDTO
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Description = x.Description,
+                Score = x.Score,
+                Approved = x.Approved,
+                Customer = x.Customer,
+                Expert = x.Expert,
+                Offer = x.Offer,
+                TimeCreated = x.TimeCreated,
+                IsDeleted = x.IsDeleted,
+                
+            }).ToListAsync(cancellationToken);
+            return result;
+        }
         public async Task<List<GetCommentDTO>> GetApproved(CancellationToken cancellationToken)
         {
             var result = await _appDbContext.Comments.AsNoTracking().Where(x => x.IsDeleted != true && x.Approved == true).Select(x => new GetCommentDTO
@@ -96,19 +114,19 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CommentEntity
             }).FirstOrDefaultAsync(x=>x.Id==Id, cancellationToken);
             return result;
         }
-        public async Task<bool> Create(Comment comment, CancellationToken cancellationToken)
+        public async Task<bool> Create(AddCommentDTO comment, CancellationToken cancellationToken)
         {
             var newComment = new Comment
             {
                 Title = comment.Title,
                 Score = comment.Score,
                 Description = comment.Description,
-                Approved = comment.Approved,
+
                 CustomerId = comment.CustomerId,
                 ExpertId = comment.ExpertId,
                 OfferId = comment.OfferId,
-                IsDeleted = comment.IsDeleted,
-                TimeCreated = comment.TimeCreated,
+
+                TimeCreated = DateTime.Now
 
             };
             try

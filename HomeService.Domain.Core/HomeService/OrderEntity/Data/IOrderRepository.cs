@@ -12,6 +12,7 @@ namespace HomeService.Domain.Core.HomeService.OrderEntity.Data
     {
         Task<List<GetOrderDTO>> GetAll(CancellationToken cancellationToken);
         Task<GetOrderDTO> GetById(int Id, CancellationToken cancellationToken);
+        Task<List<GetOrderDTO>> GetAllOfUsers(int id, CancellationToken cancellationToken);
         Task<bool> Create(AddOrderDTO order, CancellationToken cancellationToken);
         Task<bool> Update(OrderStatusUpdateDTO order, CancellationToken cancellationToken);
         Task<bool> Delete(int Id, CancellationToken cancellationToken);
