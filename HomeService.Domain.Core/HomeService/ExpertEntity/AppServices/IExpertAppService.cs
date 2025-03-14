@@ -19,7 +19,6 @@ namespace HomeService.Domain.Core.HomeService.ExpertEntity.AppServices
         Task<GetExpertDTO> GetById(int Id, CancellationToken cancellationToken);
         Task<bool> Create(Expert expert, CancellationToken cancellationToken);
         Task<bool> Update(UpdateExpertDTO expert, CancellationToken cancellationToken);
-        Task<bool> UpdateScore(int ExpertId, CancellationToken cancellationToken);
         Task<List<GetOrderDTO>> GetOrdersForExpert(GetExpertDTO getExpertDTO, CancellationToken cancellationToken);
         Task<bool> Delete(int Id, CancellationToken cancellationToken);
     }

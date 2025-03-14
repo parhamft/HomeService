@@ -21,13 +21,13 @@ namespace App.Domain.AppServices.HomeService.ExpertEntity
         private readonly IBaseDataService _baseDataService;
         private readonly IcommentAppService _icommentAppService;
 
-        public ExpertAppService(IExpertService expertService, IOrderAppService orderAppService, IOrderService order,IBaseDataService baseDataService, IcommentAppService icommentAppService)
+        public ExpertAppService(IExpertService expertService, IOrderAppService orderAppService, IOrderService order,IBaseDataService baseDataService)
         {
             _expertService = expertService;
             _orderAppService = orderAppService;
             _order = order;
             _baseDataService = baseDataService;
-            _icommentAppService = icommentAppService;
+
         }
         public async Task<UpdateExpertDTO> GetUpdate(int id, CancellationToken cancellationToken)
         {
@@ -53,26 +53,7 @@ namespace App.Domain.AppServices.HomeService.ExpertEntity
             }
             return await _expertService.Update(expert, cancellationToken);
         }
-        public async Task<bool> UpdateScore(int ExpertId,CancellationToken cancellationToken)
-        {
-            var Comments = await _icommentAppService.GetExpertsComments(ExpertId, cancellationToken);
-            decimal sum = 0;
-            var Expert = await _expertService.GetUpdate(ExpertId, cancellationToken);
-            if (Comments.Count() != 0)
-            {
-                foreach (var i in Comments)
-                {
-                    sum += i.Score;
-                }
 
-                Expert.Rating = sum / Comments.Count();
-            }
-            else
-            {
-                Expert.Rating = 1;
-            }
-            return await _expertService.Update(Expert, cancellationToken);
-        }
         public async Task<bool> Delete(int Id, CancellationToken cancellationToken)
         {
             return await _expertService.Delete(Id, cancellationToken);

@@ -2,11 +2,13 @@
 using HomeService.Domain.Core.HomeService.ExpertEntity.AppServices;
 using HomeService.Domain.Core.HomeService.ExpertEntity.DTO;
 using HomeService.Domain.Core.HomeService.ServiceEntity.AppServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomeService.EndPoint.MVC.Areas.Expert.Controllers
 {
     [Area(areaName:"Expert")]
+    [Authorize(Roles = "Expert")]
     public class UpdateProfileController : Controller
     {
         private readonly IExpertAppService _expertAppService;

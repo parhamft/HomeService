@@ -66,7 +66,23 @@ namespace App.Domain.AppService.HomeService.CommentEntity
             }
             await _commentService.ChangeStatus(comment, cancellationToken);
 
-            return await _expertAppService.UpdateScore(ExpertId,cancellationToken);
+            var Comments = await _commentService.GetExpertsComments(ExpertId, cancellationToken);
+            decimal sum = 0;
+            var Expert = await _expertAppService.GetUpdate(ExpertId, cancellationToken);
+            if (Comments.Count() != 0)
+            {
+                foreach (var i in Comments)
+                {
+                    sum += i.Score;
+                }
+
+                Expert.Rating = sum / Comments.Count();
+            }
+            else
+            {
+                Expert.Rating = 1;
+            }
+            return await _expertAppService.Update(Expert, cancellationToken);
 
         }
         public async Task<bool> Delete(int Id, CancellationToken cancellationToken)

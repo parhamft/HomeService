@@ -2,11 +2,13 @@
 using HomeService.Domain.Core.HomeService.OfferEntity.AppServices;
 using HomeService.Domain.Core.HomeService.OfferEntity.DTO;
 using HomeService.Domain.Core.HomeService.OrderEntity.AppServices;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomeService.EndPoint.MVC.Areas.Expert.Controllers
 {
     [Area(areaName: "Expert")]
+    [Authorize(Roles = "Expert")]
     public class OrdersListController : Controller
     {
         private readonly IOrderAppService _orderAppService;

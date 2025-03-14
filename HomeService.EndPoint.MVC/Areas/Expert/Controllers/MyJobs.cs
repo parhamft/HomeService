@@ -1,11 +1,13 @@
 ﻿using HomeService.Domain.Core.HomeService.ExpertEntity.AppServices;
 using HomeService.Domain.Core.HomeService.OrderEntity.AppServices;
 using HomeService.Domain.Core.HomeService.OrderEntity.Enums;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HomeService.EndPoint.MVC.Areas.Expert.Controllers
 {
     [Area(areaName: "Expert")]
+    [Authorize(Roles = "Expert")]
     public class MyJobs : Controller
     {
         private readonly IOrderAppService _orderAppService;
