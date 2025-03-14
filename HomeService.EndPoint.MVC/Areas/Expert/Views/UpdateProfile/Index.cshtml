@@ -1,0 +1,139 @@
+﻿@using HomeService.Domain.Core.HomeService.ExpertEntity.DTO
+@using HomeService.Domain.Core.HomeService.HomeServiceEntity.Entities
+@using HomeService.Domain.Core.HomeService.ServiceEntity.DTO
+@using HomeService.Domain.Core.HomeService.UserEntity.Enums
+
+@model UpdateExpertDTO
+@{
+    ViewData["Title"] = "دیوارچه > مدیریت کاربران > ایجاد کاربران";
+}
+
+<link href="https://cdn.jsdelivr.net/npm/yaireo/tagify/dist/tagify.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/yaireo/tagify"></script>
+
+@{
+    // Explicitly cast ViewBag.Services to List<GetServiceDTO>
+    var servicesList = (List<GetServiceDTO>)ViewBag.Services;
+    var serviceTitles = servicesList.Select(s => s.Name).ToList();
+}
+
+<div class="goodup-dashboard-content">
+    <div class="dashboard-tlbar d-block mb-5">
+        <div class="row">
+            <div class="colxl-12 col-lg-12 col-md-12">
+                <h1 class="ft-medium fs-lg">آگهی های من</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item text-muted"><a href="#">خانه</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="#">داشبورد</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="theme-cl">پروفایل</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="top-buttons-box mb-2"></div>
+        <div class="row">
+            <form enctype="multipart/form-data" asp-area="Customer" asp-controller="UpdateProfile" asp-action="Update" id="simple-form" role="form" method="post">
+                <div class="form-body">
+                    <!-- Hidden Fields -->
+                    <input type="hidden" asp-for="Id" />
+                    <input type="hidden" asp-for="ImagePath" />
+
+                    <!-- First Name -->
+                    <div class="form-group mb-3">
+                        <label for="FirstName" class="form-label">نام</label>
+                        <input asp-for="FirstName" class="form-control" type="text" placeholder="نام" />
+                    </div>
+
+                    <!-- Last Name -->
+                    <div class="form-group mb-3">
+                        <label for="LastName" class="form-label">نام خانوادگی</label>
+                        <input asp-for="LastName" class="form-control" type="text" placeholder="نام خانوادگی" />
+                    </div>
+
+                    <!-- Email -->
+                    <div class="form-group mb-3">
+                        <label for="User.Email" class="form-label">ایمیل</label>
+                        <input asp-for="User.Email" class="form-control" type="email" placeholder="ایمیل" required />
+                    </div>
+
+                    <!-- Gender -->
+                    <div class="form-group mb-3">
+                        <label for="Gender" class="form-label">جنسیت</label>
+                        <select asp-for="Gender" class="form-select">
+                            <option value="@GenderEnum.Male">مرد</option>
+                            <option value="@GenderEnum.Female">زن</option>
+                        </select>
+                    </div>
+
+                    <!-- City -->
+                    <div class="form-group">
+                        <div class="input-group">
+                            <select asp-for="CityId" class="form-select">
+                                <option value="">شهر</option>
+                                @foreach (var x in ViewBag.city)
+                                {
+                                    <option value="@x.Id">@x.Titel</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <select asp-for="servicesId" class="js-example-basic-multiple form-control" multiple="multiple">
+                            @foreach (var category in ViewBag.Services)
+                            {
+                                <option value="@category.Id">@category.Name</option>
+                            }
+                        </select>
+                    </div>
+
+
+                    <!-- Profile Image Upload -->
+                    <div class="form-group mb-3">
+                        <label for="ProfileImgFile" class="form-label">آپلود عکس پروفایل</label>
+                        <div class="input-group">
+                            <input asp-for="ProfileImgFile" type="file" class="form-control" id="ProfileImgFile" />
+                            <button type="button" class="btn btn-outline-secondary" onclick="document.getElementById('ProfileImgFile').click()">
+                                <i class="icon-picture"></i> انتخاب فایل
+                            </button>
+                        </div>
+                        <small class="text-muted">فرمت‌های مجاز: JPG, PNG</small>
+                        <span asp-validation-for="ProfileImgFile" class="text-danger"></span>
+                    </div>
+                </div>
+
+                <hr class="my-4">
+
+                <!-- Form Actions -->
+                <div class="form-actions d-flex justify-content-between">
+                    <button asp-area="Expert" asp-controller="UpdateProfile" asp-action="Update" type="submit" class="btn btn-success">
+                        <i class="icon-check"></i> ذخیره
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div><!-- /.col-lg-12 -->
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+
+    <script src="https://cdn.startbootstrap.com/sb-forms-latest.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+
+    <script>
+        $(document).ready(function () {
+
+            $('.js-example-basic-multiple').select2(
+                {
+                    placeholder: "انتخاب حرفه",
+                    allowClear: true
+                });
+        });
+    </script>
+}

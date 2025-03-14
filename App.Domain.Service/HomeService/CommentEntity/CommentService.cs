@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Domain.Service.HomeService.CommentEntity
+namespace App.Domain.service.HomeService.CommentEntity
 {
     public class CommentService : ICommentService
     {
@@ -25,6 +25,10 @@ namespace App.Domain.Service.HomeService.CommentEntity
         public async Task<List<GetCommentDTO>> GetUsersComments(int Id, CancellationToken cancellationToken)
         {
             return await _commentRepository.GetUsersComments(Id, cancellationToken);
+        }
+        public async Task<List<GetCommentDTO>> GetExpertsComments(int Id, CancellationToken cancellationToken)
+        {
+            return await _commentRepository.GetExpertsComments(Id, cancellationToken);
         }
         public async Task<List<GetCommentDTO>> GetApproved(CancellationToken cancellationToken)
             {

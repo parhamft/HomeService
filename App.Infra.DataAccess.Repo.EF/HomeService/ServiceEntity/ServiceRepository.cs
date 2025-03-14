@@ -52,6 +52,13 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.ServiceEntity
             return result;
 
         }
+        public async Task<List<Service>> GetAllServices(CancellationToken cancellationToken)
+        {
+            var result = await _appDbContext.Services.AsNoTracking().Where(x => x.IsDeleted == false)
+            .ToListAsync(cancellationToken);
+            return result;
+
+        }
         public async Task<List<GetServiceDTO>> GetAllSubCategoryOf(int Id,CancellationToken cancellationToken)
         {
             var result = await _appDbContext.Services.AsNoTracking().Where(x => x.IsDeleted == false && x.SubCategoryId == Id).Select(x => new GetServiceDTO

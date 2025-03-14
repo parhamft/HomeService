@@ -14,6 +14,8 @@ namespace HomeService.Domain.Core.HomeService.OrderEntity.AppServices
         Task<bool> Add(AddOrderDTO addOrderDTO, CancellationToken cancellationToken);
         Task<List<GetOrderDTO>> GetAll(CancellationToken cancellationToken);
         Task<GetOrderDTO> GetById(int id, CancellationToken cancellationToken);
+        Task<List<GetOrderDTO>> GetAllAccepted(int ExpertId, CancellationToken cancellationToken);
+        Task<List<GetOrderDTO>> GetOrdersForExpert(List<int> Services, int? CityId, CancellationToken cancellationToken);
         Task<List<GetOrderDTO>> GetAllOfUsers(int id, CancellationToken cancellationToken);
         Task<bool> Update(GetOfferDTO getOfferDTO, CancellationToken cancellationToken);
         Task<bool> Delete(int id, CancellationToken cancellationToken);

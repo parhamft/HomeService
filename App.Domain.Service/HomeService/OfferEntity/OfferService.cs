@@ -10,7 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Domain.Service.HomeService.OfferEntity
+namespace App.Domain.service.HomeService.OfferEntity
 {
     public class OfferService : IOfferService
     {
@@ -22,7 +22,7 @@ namespace App.Domain.Service.HomeService.OfferEntity
             _offerRepository = offerRepository;
             _orderRepository = orderRepository;
         }
-        public async Task<bool> Add(Offer addOrderDTO, CancellationToken cancellationToken)
+        public async Task<bool> Add(AddOfferDTO addOrderDTO, CancellationToken cancellationToken)
         {
             var result = await _offerRepository.Create(addOrderDTO, cancellationToken);
             return result;
@@ -37,6 +37,7 @@ namespace App.Domain.Service.HomeService.OfferEntity
             var result = await _offerRepository.GetById(id, cancellationToken);
             return result;
         }
+
         public async Task<bool> Update(Offer orderStatusUpdateDTO, CancellationToken cancellationToken)
         {
             var result = await _offerRepository.Update(orderStatusUpdateDTO, cancellationToken);

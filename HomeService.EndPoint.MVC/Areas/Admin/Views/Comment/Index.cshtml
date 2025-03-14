@@ -84,11 +84,11 @@
 
 
                                     <td>
-                                        <a asp-area="Admin" asp-controller="Comment" asp-action="Approve" asp-route-Id="@Comments.Id" class="btn btn-success">
+                                        <a asp-area="Admin" asp-controller="Comment" asp-action="Approve" asp-route-ExpertId="@Comments.Expert.Id" asp-route-Id="@Comments.Id" class="btn btn-success">
                                             قبول کردن
                                         </a>
 
-                                        <a onclick="return confirm('آیا از حذف این کاربر اطمینان دارید؟')" asp-area="Admin" asp-controller="Comment" asp-action="DisApprove" asp-route-Id="@Comments.Id" class="btn btn-danger">رد کردن</a>
+                                        <a onclick="return confirm('آیا از حذف این کاربر اطمینان دارید؟')" asp-area="Admin" asp-controller="Comment" asp-action="DisApprove" asp-route-ExpertId="@Comments.Expert.Id" asp-route-Id="@Comments.Id" class="btn btn-danger">رد کردن</a>
                                     </td>
                                 </tr>
                             }

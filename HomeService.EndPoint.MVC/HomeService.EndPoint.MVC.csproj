@@ -20,8 +20,9 @@
 
   <ItemGroup>
     <ProjectReference Include="..\App.Domain.AppService\App.Domain.AppService.csproj" />
-    <ProjectReference Include="..\App.Domain.Service\App.Domain.Service.csproj" />
+    <ProjectReference Include="..\App.Domain.Service\App.Domain.Services.csproj" />
     <ProjectReference Include="..\App.Infra.DataAccess.Repo.EF\App.Infra.DataAccess.Repo.EF.csproj" />
+    <ProjectReference Include="..\App.Infra.DB.SQLServer.Dapper\App.Infra.DB.SQLServer.Dappers.csproj" />
     <ProjectReference Include="..\App.Infra.DB.SQLServer.EF\App.Infra.DB.SQLServer.EF.csproj" />
     <ProjectReference Include="..\FrameWorks\FrameWorks.csproj" />
     <ProjectReference Include="..\HomeService.Domain.Core\HomeService.Domain.Core.csproj" />
@@ -34,6 +35,8 @@
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="Areas\Customer\Data\" />
     <Folder Include="Areas\Customer\Models\" />
+    <Folder Include="Areas\Expert\Data\" />
+    <Folder Include="Areas\Expert\Models\" />
     <Folder Include="wwwroot\NewFolder\" />
   </ItemGroup>
 

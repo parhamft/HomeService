@@ -1,4 +1,4 @@
-﻿using App.Domain.Service.HomeService.CategoryEntity;
+﻿using App.Domain.service.HomeService.CategoryEntity;
 using HomeService.Domain.Core.HomeService.CategoryEntity.AppServices;
 using HomeService.Domain.Core.HomeService.ServiceEntity.AppServices;
 using HomeService.Domain.Core.HomeService.SubCategoryEntity.AppServices;

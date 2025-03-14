@@ -12,7 +12,7 @@ namespace HomeService.Domain.Core.HomeService.OfferEntity.Data
     {
         Task<List<GetOfferDTO>> GetAll(int id, CancellationToken cancellationToken);
         Task<GetOfferDTO> GetById(int Id, CancellationToken cancellationToken);
-        Task<bool> Create(Offer offer, CancellationToken cancellationToken);
+        Task<bool> Create(AddOfferDTO offer, CancellationToken cancellationToken);
         Task<bool> Update(Offer offer, CancellationToken cancellationToken);
         Task<bool> Delete(int Id, CancellationToken cancellationToken);
     }

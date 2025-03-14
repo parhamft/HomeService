@@ -1,6 +1,7 @@
 ﻿using HomeService.Domain.Core.HomeService.CategoryEntity.Data;
 using HomeService.Domain.Core.HomeService.CategoryEntity.DTO;
 using HomeService.Domain.Core.HomeService.CategoryEntity.Services;
+using HomeService.Domain.Core.HomeService.Configs.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,10 +13,12 @@ namespace App.Domain.AppService.HomeService.CategoryEntity
     public class CategoryService : ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
+        private readonly IDapperRepo _dapper;
 
-        public CategoryService(ICategoryRepository categoryRepository)
+        public CategoryService(ICategoryRepository categoryRepository,IDapperRepo Dapper)
         {
             _categoryRepository = categoryRepository;
+            _dapper = Dapper;
         }
 
 
@@ -33,7 +36,7 @@ namespace App.Domain.AppService.HomeService.CategoryEntity
         }
         public async Task<List<GetCategoryDTO>> GetAll(CancellationToken cancellationToken)
         {
-            var result = await _categoryRepository.GetAll(cancellationToken);
+            var result = await _dapper.GetAllCategoryDapper(cancellationToken);
             return result;
         }
         public async Task<bool> Delete(int Id, CancellationToken cancellationToken)

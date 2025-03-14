@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Domain.Service.HomeService.AdminEntity
+namespace App.Domain.Services.HomeService.AdminEntity
 {
     public class AdminService : IAdminService
     {

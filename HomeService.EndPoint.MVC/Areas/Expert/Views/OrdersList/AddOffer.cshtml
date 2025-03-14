@@ -1,0 +1,36 @@
+﻿@using Framework
+@using HomeService.Domain.Core.HomeService.OfferEntity.DTO
+
+@model AddOfferDTO
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-lg">
+                <div class="card-header bg-primary text-white text-center">
+                    <h4 class="mb-0">ارسال پیشنهاد</h4>
+                </div>
+                <div class="card-body">
+                    <form asp-area="expert" asp-controller="OrdersList" asp-action="AddOffer" method="post">
+                        <input type="hidden" asp-for="OrderId" value="@ViewBag.OrderId" />
+                        <input type="hidden" asp-for="ExpertId" value="@ViewBag.Expert.Id" />
+
+                        <div class="mb-3">
+                            <label for="description" class="form-label"><strong>توضیحات پیشنهاد</strong></label>
+                            <textarea asp-for="Description" id="description" class="form-control" rows="4" required></textarea>
+                        </div>
+
+                        <div class="mb-3">
+                            <label for="price" class="form-label"><strong>قیمت (تومان)</strong></label>
+                            <input type="number" asp-for="Price" id="price" class="form-control" required min="0">
+                        </div>
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success btn-lg px-5">ارسال پیشنهاد</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

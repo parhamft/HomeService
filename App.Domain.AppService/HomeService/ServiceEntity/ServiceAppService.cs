@@ -12,7 +12,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Domain.Service.HomeService.ServiceEntity
+namespace App.Domain.service.HomeService.ServiceEntity
 {
     public class ServiceAppService : IServiceAppService
     {
@@ -26,13 +26,11 @@ namespace App.Domain.Service.HomeService.ServiceEntity
             _baseDataService = baseDataService;
             _memoryCache = memoryCache;
         }
-
         public async Task<UpdateServiceDTO> GetUpdate(int id, CancellationToken cancellationToken)
         {
             var cat = await _serviceService.GetUpdate(id, cancellationToken);
             return cat;
         }
-
         public async Task<List<GetServiceDTO>> GetAll(CancellationToken cancellationToken)
         {
             List<GetServiceDTO>? result;

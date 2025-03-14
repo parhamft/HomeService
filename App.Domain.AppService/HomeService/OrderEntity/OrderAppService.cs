@@ -44,6 +44,14 @@ namespace App.Domain.AppService.HomeService.OrderEntity
             var result = await _orderService.GetAll(cancellationToken);
             return result;
         }
+        public async Task<List<GetOrderDTO>> GetAllAccepted(int ExpertId, CancellationToken cancellationToken)
+        {
+            return await _orderService.GetAllAccepted(ExpertId, cancellationToken);
+        }
+        public async Task<List<GetOrderDTO>> GetOrdersForExpert(List<int> Services, int? CityId, CancellationToken cancellationToken)
+        {
+            return await _orderService.GetOrdersForExpert(Services, CityId, cancellationToken);
+        }
         public async Task<List<GetOrderDTO>> GetAllOfUsers(int id, CancellationToken cancellationToken)
         {
             var result = await _orderService.GetAllOfUsers(id, cancellationToken);

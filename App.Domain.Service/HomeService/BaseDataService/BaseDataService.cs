@@ -7,7 +7,7 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Domain.Service.HomeService.BaseDataService
+namespace App.Domain.service.HomeService.BaseDataService
 {
     public class BaseDataService : IBaseDataService
     {

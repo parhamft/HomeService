@@ -1,0 +1,167 @@
+﻿@using HomeService.Domain.Core.HomeService.ExpertEntity.DTO
+@using Framework
+@model GetExpertDTO
+
+<style>
+    /* Scoped Styles for Specialist Container */
+    .specialist-container {
+    width: 80%;
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    direction: rtl;
+    }
+
+    .specialist-container .specialist-details {
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    }
+
+    .specialist-container .profile-picture img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-left: 20px;
+    border: 3px solid #007bff;
+    }
+
+    .specialist-container .info {
+    flex: 1;
+    }
+
+    .specialist-container .info h1 {
+    margin: 0;
+    font-size: 24px;
+    color: #007bff;
+    }
+
+    .specialist-container .info p {
+    margin: 5px 0;
+    font-size: 16px;
+    }
+
+    .specialist-container .info .rating {
+    color: #ffc107;
+    font-weight: bold;
+    }
+
+    .specialist-container .comments-section {
+    margin-top: 20px;
+    }
+
+    .specialist-container .comments-section h2 {
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 10px;
+    }
+
+    .specialist-container .comment {
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    }
+
+    .specialist-container .comment-text {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
+    }
+
+    .specialist-container .comment-author {
+    margin: 5px 0 0;
+    font-size: 12px;
+    color: #777;
+    text-align: left;
+    }
+</style>
+
+<div class="specialist-container">
+    <!-- متخصص Details -->
+    <div class="specialist-details">
+        @if (Model.ImagePath==null)
+        {
+            <div class="profile-picture">
+                <img src="~/AdminTemplate/Images/user/placeholder.jpg" alt="عکس متخصص">
+            </div>
+        }
+        else
+        {
+            <div class="profile-picture">
+                <img src="@Model.ImagePath" alt="عکس متخصص">
+            </div>
+        }
+        <div class="info">
+            <h1 class="fullname">@Model.FirstName @Model.LastName</h1>
+            <p class="gender">@Model.Gender.GetEnumDisplayName()</p>
+            <p class="rating">امتیاز:
+                @{
+                    var x = Model.Rating;
+                    while (x>0)
+                    {
+                        <i>⭐</i>
+                        x -= 1;
+                    }
+
+                }
+
+
+                (@Model.Rating)
+
+            </p>
+            @if (Model.City == null)
+            {
+                <p class="city">----</p>
+            }
+            else
+            {
+                <p class="city">شهر: @Model.City.Titel</p>
+            }
+
+        </div>
+    </div>
+
+    <!-- Comments Section -->
+    <div class="comments-section">
+        <h2>نظرات کاربران</h2>
+        @if (ViewBag.Comments== null)
+        {
+            <div class="comment">
+                <p class="comment-text">نظری برای این کاربر ثبت نشده است</p>
+
+            </div>
+        }
+        else
+        {
+            @foreach (var comment in ViewBag.Comments)
+            {
+                <div class="comment">
+                    <p class="comment-text">@comment.Description</p>
+                    <p class="rating">
+
+                        @{
+
+                            var z = comment.Score;
+                            while (z > 0)
+                            {
+                                <i>⭐</i>
+                                z -= 1;
+                            }
+
+                        }
+                <p class="comment-author">- @comment.Customer.FirstName @comment.Customer.LastName</p>
+            </div>
+        }
+        }
+
+
+
+    </div>
+</div>

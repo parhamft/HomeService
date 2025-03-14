@@ -44,11 +44,7 @@
 										<i class="lni lni-user"></i>
 									</a>
 								</li>
-								<li>
-									<a asp-area="Customer" asp-controller="AddListing" asp-action="Index" asp-route-Id="@customerId" class="crs_yuo12 w-auto text-white theme-bg">
-										<span class="embos_45"><i class="fas fa-plus ms-2"></i>افزودن آگهی</span>
-									</a>
-								</li>
+
 							</ul>
 						</div>
 					</div>
@@ -148,6 +144,12 @@
 								else if (User.IsInRole("Customer"))
 								{
 									<a asp-area="Customer" asp-controller="Dashboard" asp-action="Index" asp-route-Id="@customerId" class="theme-cl fs-lg">
+										<i class="lni lni-user"></i>
+									</a>
+								}
+								else if (User.IsInRole("Expert"))
+								{
+									<a asp-area="Expert" asp-controller="Dashboard" asp-action="Index" asp-route-Id="@expertId" class="theme-cl fs-lg">
 										<i class="lni lni-user"></i>
 									</a>
 								}

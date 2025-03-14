@@ -97,10 +97,7 @@ namespace HomeService.EndPoint.MVC.Areas.Admin.Controllers
         [HttpPost]
         public async Task<IActionResult> Expertupdate(UpdateExpertDTO updateExpertDTO, CancellationToken cancellationToken)
         {
-            if (updateExpertDTO.ProfileImgFile != null)
-            {
-                updateExpertDTO.ImagePath = await _baseDataService.UploadImage(updateExpertDTO.ProfileImgFile!, "Users", cancellationToken);
-            }
+
             await _expertAppService.Update(updateExpertDTO, cancellationToken);
             return RedirectToAction("Customers");
         }

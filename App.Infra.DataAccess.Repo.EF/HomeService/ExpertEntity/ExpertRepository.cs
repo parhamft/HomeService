@@ -1,9 +1,11 @@
 ﻿using App.Infra.DB.SQLServer.EF;
+using HomeService.Domain.Core.HomeService.CategoryEntity.Entities;
 using HomeService.Domain.Core.HomeService.CityEntity.Entities;
 using HomeService.Domain.Core.HomeService.CustomerEntity.DTO;
 using HomeService.Domain.Core.HomeService.ExpertEntity.Data;
 using HomeService.Domain.Core.HomeService.ExpertEntity.DTO;
 using HomeService.Domain.Core.HomeService.ExpertEntity.Entities;
+using HomeService.Domain.Core.HomeService.HomeServiceEntity.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace App.Infra.DataAccess.Repo.EF.HomeService.ExpertEntity
@@ -31,6 +33,8 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.ExpertEntity
                 Balance = x.Balance,
                 CityId = x.CityId,
                 User =x.User,
+                services = x.Services,
+                City = x.City,
                 Gender = x.Gender,
                 ImagePath = x.ImagePath,
                 Rating = x.Rating,
@@ -48,7 +52,11 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.ExpertEntity
                 Balance = x.Balance,
                 Gender = x.Gender,
                 Rating = x.Rating,
+                City = x.City,
+                CityId=x.CityId,
+                Comments = x.Comments,
                 Id = x.Id,
+                Services = x.Services,
                 User = x.User,
                 ImagePath = x.ImagePath,
                 TimeCreated = x.TimeCreated,
@@ -66,7 +74,10 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.ExpertEntity
                 Balance = x.Balance,
                 Gender = x.Gender,
                 User = x.User,
+                City = x.City,
+                CityId = x.CityId,
                 Rating = x.Rating,
+                Services= x.Services,
                 Id = x.Id,
                 ImagePath = x.ImagePath,
                 TimeCreated = x.TimeCreated,
@@ -105,20 +116,44 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.ExpertEntity
         public async Task<bool> Update(UpdateExpertDTO expert, CancellationToken cancellationToken)
         {
             var exp = await _appDbContext.Experts.Include(x => x.User)
+                .Include(x=>x.Services)
                 .FirstOrDefaultAsync(x => x.Id == expert.Id, cancellationToken);
             if (exp == null)
             {
                 throw new Exception("That Object Does Not Exist");
             }
+
             exp.FirstName = expert.FirstName;
             exp.LastName = expert.LastName;
             exp.Balance = expert.Balance;
             exp.CityId = expert.CityId;
             exp.User.Email = expert.User.Email;
+
             exp.Gender = expert.Gender;
             exp.ImagePath = expert.ImagePath;
             exp.Rating = expert.Rating;
-            
+
+            if (exp.Services == null)
+            {
+                exp.Services = new List<Service>();
+            }
+
+
+            if (expert.servicesId != null)
+            {
+                exp.Services.Clear();
+                foreach (var serviceId in expert.servicesId)
+                {
+                    var service = await _appDbContext.Services
+                        .FirstOrDefaultAsync(x => x.Id == serviceId, cancellationToken);
+
+                    if (service != null)
+                    {
+                        exp.Services.Add(service);
+                    }
+                }
+            }
+
             _appDbContext.Experts.Update(exp);
             await _appDbContext.SaveChangesAsync(cancellationToken);
             return true;

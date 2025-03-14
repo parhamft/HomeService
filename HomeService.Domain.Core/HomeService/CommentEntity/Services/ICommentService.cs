@@ -15,6 +15,7 @@ namespace HomeService.Domain.Core.HomeService.CommentEntity.Services
         Task<List<GetCommentDTO>> GetApproved(CancellationToken cancellationToken);
         Task<List<GetCommentDTO>> GetDissaproved(CancellationToken cancellationToken);
         Task<List<GetCommentDTO>> GetUsersComments(int Id, CancellationToken cancellationToken);
+        Task<List<GetCommentDTO>> GetExpertsComments(int Id, CancellationToken cancellationToken);
         Task<GetCommentDTO> GetById(int Id, CancellationToken cancellationToken);
         Task<bool> Create(AddCommentDTO comment, CancellationToken cancellationToken);
         Task<bool> Update(Comment comment, CancellationToken cancellationToken);

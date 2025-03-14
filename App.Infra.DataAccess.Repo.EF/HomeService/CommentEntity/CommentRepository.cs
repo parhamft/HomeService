@@ -61,6 +61,24 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CommentEntity
             }).ToListAsync(cancellationToken);
             return result;
         }
+        public async Task<List<GetCommentDTO>> GetExpertsComments(int Id, CancellationToken cancellationToken)
+        {
+            var result = await _appDbContext.Comments.AsNoTracking().Where(x => x.ExpertId == Id && x.Approved == true).Select(x => new GetCommentDTO
+            {
+                Id = x.Id,
+                Title = x.Title,
+                Description = x.Description,
+                Score = x.Score,
+                Approved = x.Approved,
+                Customer = x.Customer,
+                Expert = x.Expert,
+                Offer = x.Offer,
+                TimeCreated = x.TimeCreated,
+                IsDeleted = x.IsDeleted,
+
+            }).ToListAsync(cancellationToken);
+            return result;
+        }
         public async Task<List<GetCommentDTO>> GetApproved(CancellationToken cancellationToken)
         {
             var result = await _appDbContext.Comments.AsNoTracking().Where(x => x.IsDeleted != true && x.Approved == true).Select(x => new GetCommentDTO

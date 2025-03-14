@@ -2,6 +2,8 @@
 using HomeService.Domain.Core.HomeService.OfferEntity.DTO;
 using HomeService.Domain.Core.HomeService.OfferEntity.Entities;
 using HomeService.Domain.Core.HomeService.OfferEntity.Services;
+using HomeService.Domain.Core.HomeService.OrderEntity.DTO;
+using HomeService.Domain.Core.HomeService.OrderEntity.Entities;
 using HomeService.Domain.Core.HomeService.OrderEntity.Enums;
 using HomeService.Domain.Core.HomeService.OrderEntity.Services;
 using System;
@@ -22,9 +24,22 @@ namespace App.Domain.AppService.HomeService.OfferEntity
             _offerService = offerService;
             _orderService = orderService;
         }
-        public async Task<bool> Add(Offer addOrderDTO, CancellationToken cancellationToken)
+        public async Task<bool> Add(AddOfferDTO AddOfferDTO, CancellationToken cancellationToken)
         {
-            var result = await _offerService.Add(addOrderDTO, cancellationToken);
+
+            var order=new GetOrderDTO
+            {
+                Id = AddOfferDTO.OrderId,
+                Status = StatusEnum.WaitingToBeAccepted,
+                Expert = null
+            };
+            var check = await _orderService.CheckForDuplicateOffersOfExpert(order.Id,AddOfferDTO.ExpertId, cancellationToken);
+            if (check==true)
+            {
+                throw new Exception("شما قبلا پیشنهاد فرستاده اید");
+            }
+            var result = await _offerService.Add(AddOfferDTO, cancellationToken);
+            await _orderService.Update(order,cancellationToken);
             return result;
         }
         public async Task<List<GetOfferDTO>> GetAll(int id, CancellationToken cancellationToken)

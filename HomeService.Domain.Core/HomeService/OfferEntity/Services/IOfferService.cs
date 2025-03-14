@@ -11,7 +11,7 @@ namespace HomeService.Domain.Core.HomeService.OfferEntity.Services
 {
     public interface IOfferService
     {
-        Task<bool> Add(Offer addOrderDTO, CancellationToken cancellationToken);
+        Task<bool> Add(AddOfferDTO addOrderDTO, CancellationToken cancellationToken);
         Task<List<GetOfferDTO>> GetAll(int id, CancellationToken cancellationToken);
         Task<GetOfferDTO> GetById(int id, CancellationToken cancellationToken);
         Task<bool> Update(Offer orderStatusUpdateDTO, CancellationToken cancellationToken);

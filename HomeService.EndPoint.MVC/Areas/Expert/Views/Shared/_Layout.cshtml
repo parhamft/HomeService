@@ -1,0 +1,234 @@
+﻿@{
+
+
+	var expertId = User.FindFirst("ExpertId")?.Value;
+}
+
+<!DOCTYPE html>
+<html lang="fa">
+
+<head>
+	<!-- Meta Data -->
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Goodup - قالب ثبت آگهی و دایرکتوری HTML</title>
+
+	<!-- Favicon -->
+	<link rel="shortcut icon" type="image/x-icon" href="/assets/img/favicon.png">
+	<!-- Morris Charts CSS -->
+	<link href="/assets/js/plugins/morris.js/morris.css" rel="stylesheet">
+
+	<!-- Custom CSS -->
+	<link href="/assets/css/styles.css" rel="stylesheet">
+</head>
+
+<body dir="rtl">
+
+	<!-- ============================================================== -->
+	<!-- Preloader - style you can find in spinners.css -->
+	<!-- ============================================================== -->
+	<div class="preloader"></div>
+
+	<!-- ============================================================== -->
+	<!-- Main wrapper - style you can find in pages.scss -->
+	<!-- ============================================================== -->
+	<div id="main-wrapper">
+
+		<!-- ============================================================== -->
+		<!-- Top header  -->
+		<!-- ============================================================== -->
+		<!-- Start Navigation -->
+		<div class="header header-light dark-text head-shadow">
+			<div class="container">
+				<nav id="navigation" class="navigation navigation-landscape">
+					<div class="nav-header">
+						<a class="nav-brand" asp-controller="Home" asp-action="Index">
+							<img src="/assets/img/logo.png" class="logo" alt="" />
+						</a>
+						<div class="nav-toggle"></div>
+						<div class="mobile_nav">
+							<ul>
+								<li>
+									<a asp-area="Expert" asp-controller="Dashboard" asp-action="Index" asp-route-Id="@expertId" class="theme-cl fs-lg">
+										<i class="lni lni-user"></i>
+									</a>
+								</li>
+
+							</ul>
+						</div>
+					</div>
+					<div class="nav-menus-wrapper" style="transition-property: none;">
+						<ul class="nav-menu">
+
+							<li class="active">
+								<a asp-controller="Home" asp-action="Index">صفحه اصلی</a>
+								<ul class="nav-dropdown nav-submenu">
+									<li><a asp-controller="Home" asp-action="Index">نسخه   1</a></li>
+									<li><a asp-controller="Home" asp-action="Index">نسخه 2</a></li>
+									<li><a asp-controller="Home" asp-action="Index">نسخه 3</a></li>
+									<li><a asp-controller="Home" asp-action="Index">نسخه 4</a></li>
+									<li><a asp-controller="Home" asp-action="Index">نسخه 5</a></li>
+								</ul>
+							</li>
+
+							<li>
+								<a href="javascript:void(0);">آگهی</a>
+								
+							</li>
+
+							<li>
+								<a asp-area="Expert" asp-controller="Dashboard" asp-action="Index" asp-route-Id="@expertId">پنل کاربری</a>
+								<ul class="nav-dropdown nav-submenu">
+									<li><a asp-area="Expert" asp-controller="Dashboard" asp-action="Index" asp-route-Id="@expertId"><i class="lni lni-dashboard ms-2"></i>داشبورد</a></li> 
+									<li><a asp-area="Expert" asp-controller="OrdersList" asp-action="Index" asp-route-Id="@expertId"><i class="lni lni-files ms-2"></i>آگهی ها</a></li> 
+									  <li><a asp-area="Expert" asp-controller="MyJobs" asp-action="Index" asp-route-Id="@expertId">کار های من</a></li> 
+									<li><a asp-area="Expert" asp-controller="UpdateProfile" asp-action="Index" asp-route-Id="@expertId">تنظیمات </a></li>
+									<li><a asp-area="Account" asp-controller="Login" asp-action="LogOut">خروج </a></li>
+								</ul>
+							</li>
+
+
+
+						</ul>
+
+						<ul class="nav-menu nav-menu-social align-to-left">
+							<li>
+								<a asp-area="Customer" asp-controller="Dashboard" asp-action="Index" class="theme-cl fs-lg">
+									<i class="lni lni-user"></i>
+								</a>
+							</li>
+
+						</ul>
+					</div>
+				</nav>
+			</div>
+		</div>
+		<!-- End Navigation -->
+		<div class="clearfix"></div>
+		<!-- ============================================================== -->
+		<!-- Top header  -->
+		<!-- ============================================================== -->
+		<!-- =============================== Dashboard Header ========================== -->
+		<section class="bg-cover position-relative" style="background:red url(/assets/img/cover.jpg) no-repeat;" data-overlay="3">
+			<div class="abs-list-sec"><a href="dashboard-add-listing.html" class="add-list-btn"><i class="fas fa-plus ms-2"></i>افزودن آگهی</a></div>
+			<div class="container">
+				<div class="row">
+					<div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+
+						<div class="dashboard-head-author-clicl">
+							<div class="dashboard-head-author-thumb">
+								@if (ViewBag.Expert.ImagePath == null)
+								{
+									<img src="~/AdminTemplate/Images/user/placeholder.jpg" class="img-fluid" alt="" />
+								}
+								else
+								{
+									<img src="@ViewBag.Expert.ImagePath" class="img-fluid" alt="" />
+								}
+							</div>
+							<div class="dashboard-head-author-caption">
+								<div class="dashploio"><h4>@ViewBag.Expert.FirstName @ViewBag.Expert.LastName</h4></div>
+								<div class="listing-rating high">
+									@{
+
+										var rating = ViewBag.Expert.Rating;
+										while (rating >= 1)
+										{
+											<i class="fas fa-star active"></i>
+
+											rating -= 1;
+										}
+									}
+									
+									</div>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>>
+	</div>
+	</section>
+	<a class="mobNavigation" data-bs-toggle="collapse" href="#MobNav" role="button" aria-expanded="false" aria-controls="MobNav">
+		<i class="fas fa-bars ms-2"></i>منو
+	</a>
+	@if (TempData["Message"] != null)
+	{
+		<div class="alert alert-@TempData["AlertType"] alert-dismissible fade show" role="alert">
+			@TempData["Message"]
+			<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	}
+	<div class="goodup-dashboard-wrap gray px-4 py-5">
+
+
+		<div class="collapse" id="MobNav">
+			<div class="goodup-dashboard-nav sticky-top">
+				<div class="goodup-dashboard-inner">
+					<ul data-submenu-title="منو">
+						<li class="active"><a asp-area="Expert" asp-controller="Dashboard" asp-action="Index" asp-route-Id="@expertId"><i class="lni lni-dashboard ms-2"></i>داشبورد</a></li>
+						<li><a sp-area="Expert" asp-controller="OrdersList" asp-action="Index" asp-route-Id="@expertId"><i class="lni lni-files ms-2"></i>آگهی ها</a></li>
+						<li><a sp-area="Expert" asp-controller="MyJobs" asp-action="Index" asp-route-Id="@expertId"></i>کار های من</a></li>
+
+					</ul>
+					<ul data-submenu-title="حساب کاربری">
+						<li><a sp-area="Expert" asp-controller="UpdateProfile" asp-action="Index" asp-route-Id="@expertId">تنظیمات </a></li>
+						<li><a asp-area="Account" asp-controller="Login" asp-action="LogOut">><i class="lni lni-power-switch ms-2"></i>خروج</a></li>
+					</ul>
+				</div>
+			</div>
+		</div>
+
+		@RenderBody()
+	</div>
+	<!-- =============================== Dashboard Header ========================== -->
+	<!-- footer -->
+	<div class="row">
+		<div class="col-md-12">
+			<div class="py-3">© 2022 Goodup ارائه شده در سایت <a href="https://rtl-theme.com/">راست چین</a></div>
+		</div>
+	</div>
+
+	</div>
+
+	</div>
+	<!-- ======================= dashboard Detail End ======================== -->
+
+	<a id="tops-button" class="top-scroll" title="Back to top" href="#"><i class="ti-arrow-up"></i></a>
+
+
+	</div>
+	<!-- ============================================================== -->
+	<!-- End Wrapper -->
+	<!-- ============================================================== -->
+	<!-- ============================================================== -->
+	<!-- All Jquery -->
+	<!-- ============================================================== -->
+	<script src="~/assets/js/jquery.min.js"></script>
+	<script src="~/assets/js/popper.min.js"></script>
+	<script src="~/assets/js/bootstrap.min.js"></script>
+	<script src="~/assets/js/slick.js"></script>
+	<script src="~/assets/js/jquery.magnific-popup.min.js"></script>
+	<script src="~/assets/js/dropzone.js"></script>
+	<script src="~/assets/js/counterup.js"></script>
+	<script src="~/assets/js/lightbox.js"></script>
+	<script src="~/assets/js/moment.min.js"></script>
+	<script src="~/assets/js/daterangepicker.js"></script>
+	<script src="~/assets/js/lightbox.js"></script>
+	<script src="~/assets/js/jQuery.style.switcher.js"></script>
+	<script src="~/assets/js/custom.js"></script>
+
+	<!-- Morris.js charts -->
+	<script src="assets/js/plugins/raphael/raphael.min.js"></script>
+	<script src="assets/js/plugins/morris.js/morris.min.js"></script>
+
+	<!-- Custom Chart JavaScript -->
+	<script src="assets/js/plugins/dashboard-2.js"></script>
+	<!-- ============================================================== -->
+	<!-- This page plugins -->
+	<!-- ============================================================== -->
+	@await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Domain.Service.HomeService.SubCategoryEntity
+namespace App.Domain.service.HomeService.SubCategoryEntity
 {
     public class SubCategoryAppService : ISubCategoryAppService
     {

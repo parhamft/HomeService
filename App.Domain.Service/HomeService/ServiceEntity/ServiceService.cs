@@ -1,4 +1,6 @@
-﻿using HomeService.Domain.Core.HomeService.ServiceEntity.Data;
+﻿using HomeService.Domain.Core.HomeService.Configs.Data;
+using HomeService.Domain.Core.HomeService.HomeServiceEntity.Entities;
+using HomeService.Domain.Core.HomeService.ServiceEntity.Data;
 using HomeService.Domain.Core.HomeService.ServiceEntity.DTO;
 using HomeService.Domain.Core.HomeService.ServiceEntity.Services;
 using HomeService.Domain.Core.HomeService.SubCategoryEntity.DTO;
@@ -13,10 +15,12 @@ namespace App.Domain.AppService.HomeService.ServiceEntity
     public class ServiceService : IServiceService
     {
         private readonly IServiceRepository _serviceRepository;
+        private readonly IDapperRepo _dapperRepo;
 
-        public ServiceService(IServiceRepository serviceRepository)
+        public ServiceService(IServiceRepository serviceRepository, IDapperRepo dapperRepo)
         {
             _serviceRepository = serviceRepository;
+            _dapperRepo = dapperRepo;
         }
         public async Task<UpdateServiceDTO> GetUpdate(int id, CancellationToken cancellationToken)
         {
@@ -26,7 +30,12 @@ namespace App.Domain.AppService.HomeService.ServiceEntity
 
         public async Task<List<GetServiceDTO>> GetAll(CancellationToken cancellationToken)
         {
-            var result = await _serviceRepository.GetAll(cancellationToken);
+            var result = await _dapperRepo.GetAllServiceDapper(cancellationToken);
+            return result;
+        }
+        public async Task<List<Service>> GetAllServices(CancellationToken cancellationToken)
+        {
+            var result = await _serviceRepository.GetAllServices(cancellationToken);
             return result;
         }
         public async Task<List<GetServiceDTO>> GetAllSubCategoryOf(int Id, CancellationToken cancellationToken)

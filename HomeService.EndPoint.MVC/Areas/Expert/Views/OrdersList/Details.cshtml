@@ -1,0 +1,76 @@
+﻿@using Framework
+@using HomeService.Domain.Core.HomeService.OrderEntity.DTO
+
+@model GetOrderDTO
+
+@{
+    var customerId = User.FindFirst("CustomerId")?.Value;
+    var expertId = User.FindFirst("ExpertId")?.Value;
+}
+
+
+<div class="container mt-4">
+    <!-- Image Carousel -->
+    <div class="row justify-content-center">
+        <div class="col-md-10">
+            <div id="imageCarousel" class="carousel slide shadow rounded" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                    @if (Model.Images != null && Model.Images.Any())
+                    {
+                        var firstImage = true;
+                        @foreach (var image in Model.Images)
+                        {
+                            <div class="carousel-item @(firstImage ? "active" : "")">
+                                <img src="@image.ImagePath" class="d-block w-100 rounded" alt="Order Image" style="height: 300px; object-fit: cover;">
+                            </div>
+                            firstImage = false;
+                        }
+                    }
+                    else
+                    {
+                        <div class="carousel-item active">
+                            <img src="~/Images/PlaceHolder/bg.jpg" class="d-block w-100 rounded" alt="No Image Available" style="height: 300px; object-fit: cover;">
+                        </div>
+                    }
+                </div>
+                <button class="carousel-control-prev" type="button" data-bs-target="#imageCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+                <button class="carousel-control-next" type="button" data-bs-target="#imageCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Details -->
+    <div class="card shadow-lg border-0 mt-4">
+        <div class="card-header bg-primary text-white text-center">
+            <h4 class="mb-0">@Model.Service.Name</h4>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-4">
+                    <p><strong>شناسه:</strong> @Model.Id</p>
+                    <p><strong>سفارش دهنده:</strong> @Model.Customer.FirstName @Model.Customer.LastName</p>
+                    <p><strong>متخصص:</strong> @(Model.Expert != null ? Model.Expert.FirstName + " " + Model.Expert.LastName : "----")</p>
+                </div>
+                <div class="col-md-4">
+                    <p><strong>تاریخ ایجاد:</strong> @Model.TimeCreated.ToString("yyyy/MM/dd HH:mm")</p>
+                    <p><strong>برای تاریخ:</strong> @(Model.DateFor?.ToString("yyyy/MM/dd") ?? "نامشخص")</p>
+                    <p><strong>وضعیت:</strong> @Model.Status.GetEnumDisplayName()</p>
+                </div>
+                <div class="col-md-4">
+                    <p><strong>توضیحات:</strong> @Model.Description</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Accept Button -->
+    <div class="text-center mt-4">
+        <a asp-area="expert" asp-controller="OrdersList" asp-action="AddOffer" asp-route-id="@expertId" asp-route-OrderId="@Model.Id" class="btn btn-success btn-lg px-5">
+            قبول
+        </a>
+    </div>
+</div>

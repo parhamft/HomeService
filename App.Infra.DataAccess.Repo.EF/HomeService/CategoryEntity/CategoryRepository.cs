@@ -37,7 +37,7 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CategoryEntity
         }
         public async Task<List<GetCategoryDTO>> GetAll(CancellationToken cancellationToken)
         {
-            await Task.Delay(5000);
+
             var result = await _appDbContext.Categories.AsNoTracking().Where(x => x.IsDeleted == false).Select(x=> new GetCategoryDTO
              {
                  Id = x.Id,

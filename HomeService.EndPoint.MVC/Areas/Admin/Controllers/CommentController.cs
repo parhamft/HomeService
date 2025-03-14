@@ -29,14 +29,14 @@ namespace HomeService.EndPoint.MVC.Areas.Admin.Controllers
             var result = await _icommentAppService.GetDissaproved(cancellationToken);
             return View(result);
         }
-        public async Task <IActionResult> Approve(int id, CancellationToken cancellationToken)
+        public async Task <IActionResult> Approve(int id,int ExpertId, CancellationToken cancellationToken)
         {
-            await _icommentAppService.ChangeStatus(id, 1, cancellationToken);
+            await _icommentAppService.ChangeStatus(id, 1, ExpertId, cancellationToken);
             return RedirectToAction("Index");
         }
-        public async Task<IActionResult> DisApprove(int id, CancellationToken cancellationToken)
+        public async Task<IActionResult> DisApprove(int id,int ExpertId ,CancellationToken cancellationToken)
         {
-            await _icommentAppService.ChangeStatus(id, 2, cancellationToken);
+            await _icommentAppService.ChangeStatus(id, 2, ExpertId, cancellationToken);
             return RedirectToAction("Index");
         }
 

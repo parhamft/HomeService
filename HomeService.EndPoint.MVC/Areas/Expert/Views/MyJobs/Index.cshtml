@@ -1,0 +1,114 @@
+﻿@using Framework
+@using HomeService.Domain.Core.HomeService.OrderEntity.DTO
+@using HomeService.Domain.Core.HomeService.OrderEntity.Enums
+
+@model List<GetOrderDTO>
+
+@{
+    var customerId = User.FindFirst("CustomerId")?.Value;
+    var expertId = User.FindFirst("ExpertId")?.Value;
+}
+
+
+
+<div class="goodup-dashboard-content">
+    <div class="dashboard-tlbar d-block mb-5">
+        <div class="row">
+            <div class="colxl-12 col-lg-12 col-md-12">
+                <h1 class="ft-medium fs-lg">آگهی ها</h1>
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item text-muted"><a href="#">خانه</a></li>
+                        <li class="breadcrumb-item text-muted"><a href="#">داشبورد</a></li>
+                        <li class="breadcrumb-item"><a href="#" class="theme-cl">آگهی ها</a></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <div class="dashboard-widg-bar d-block">
+        <div class="row">
+            <div class="col-xl-12 col-lg-12">
+                <div class="dashboard-list-wraps bg-white rounded mb-4">
+                    <div class="dashboard-list-wraps-head br-bottom py-3 px-3">
+                        <div class="dashboard-list-wraps-flx">
+                            <h4 class="mb-0 ft-medium fs-md"><i class="fa fa-file-alt ms-2 theme-cl fs-sm"></i>آگهی ها</h4>
+                        </div>
+                    </div>
+
+                    <div class="dashboard-list-wraps-body py-3 px-3">
+                        <div class="dashboard-listing-wraps">
+
+                            <!-- Single Listing Item -->
+                            @foreach (var Order in Model)
+                            {
+                                <div class="dsd-single-listing-wraps">
+                                    @if (Order.Images?.Count != 0)
+                                    {
+                                        <div class="dsd-single-lst-thumb"><img src="@Order.Images[0].ImagePath" class="img-fluid" alt="" /></div>
+                                    }
+                                    else
+                                    {
+                                        <div class="dsd-single-lst-thumb"><img src="~/Images/PlaceHolder/bg.jpg" class="img-fluid" alt="" /></div>
+                                    }
+                                    <div class="dsd-single-lst-caption">
+                                        <div class="dsd-single-lst-title"><h5>@Order.Description</h5></div>
+                                        <span class="agd-location">@Order.Status.GetEnumDisplayName()</span>
+                                        <br>
+                                        <span class="agd-location"><i class="lni lni-map-marker ms-1"></i>@Order.City.Titel</span>
+                                        <div class="ico-content">
+                                            <div class="Goodup-ft-first">
+                                                <div class="Goodup-rating">
+                                                </div>
+                                                @if (@Order.Offers == null)
+                                                {
+                                                    <div class="Goodup-price-range">
+                                                        <span class="ft-medium">هیچ پیشنهادی داده نشده</span>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="Goodup-price-range">
+                                                        <span class="ft-medium">@Order.Offers.Count پیشنهاد ثبت شده</span>
+                                                    </div>
+                                                }
+
+                                            </div>
+                                        </div>
+                                        <div class="dsd-single-lst-footer">
+                                            <form asp-area="Expert" asp-controller="MyJobs" asp-action="FinishJob" method="post">
+                                                <input type="hidden" name="Id" value="@expertId">
+                                                <input type="hidden" name="OrderId" value="@Order.Id">
+
+                                                @if (Order.Status != StatusEnum.ExpertAccepted)
+                                                {
+                                                    <button type="submit" class="btn btn-edit mr-1" disabled>
+                                                        <i class="fas fa-edit ms-1"></i> اتمام کار
+                                                    </button>
+                                                }
+                                                else
+                                                {
+                                                    <button type="submit" class="btn btn-edit mr-1">
+                                                        <i class="fas fa-edit ms-1"></i> اتمام کار
+                                                    </button>
+                                                }
+                                            </form>
+                                        </div>
+
+
+									</div>
+								</div>
+							}
+
+
+
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</div>
+</div>

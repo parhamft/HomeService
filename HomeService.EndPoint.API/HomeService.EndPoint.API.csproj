@@ -1,0 +1,25 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.0" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.0.30" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\App.Domain.AppService\App.Domain.AppService.csproj" />
+    <ProjectReference Include="..\App.Domain.Service\App.Domain.Services.csproj" />
+    <ProjectReference Include="..\App.Infra.DataAccess.Repo.EF\App.Infra.DataAccess.Repo.EF.csproj" />
+    <ProjectReference Include="..\App.Infra.DB.SQLServer.Dapper\App.Infra.DB.SQLServer.Dappers.csproj" />
+    <ProjectReference Include="..\App.Infra.DB.SQLServer.EF\App.Infra.DB.SQLServer.EF.csproj" />
+    <ProjectReference Include="..\FrameWorks\FrameWorks.csproj" />
+    <ProjectReference Include="..\HomeService.Domain.Core\HomeService.Domain.Core.csproj" />
+    <ProjectReference Include="..\HomeService.EndPoint.MVC\HomeService.EndPoint.MVC.csproj" />
+  </ItemGroup>
+
+</Project>

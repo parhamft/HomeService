@@ -4,22 +4,22 @@ using App.Domain.AppService.HomeService.CategoryEntity;
 using App.Domain.AppService.HomeService.CityEntity;
 using App.Domain.AppService.HomeService.CommentEntity;
 using App.Domain.AppService.HomeService.CustomerEntity;
-using App.Domain.AppService.HomeService.ExpertEntity;
 using App.Domain.AppService.HomeService.OfferEntity;
 using App.Domain.AppService.HomeService.OrderEntity;
 using App.Domain.AppService.HomeService.ServiceEntity;
 using App.Domain.AppService.HomeService.SubCategoryEntity;
-using App.Domain.Service.HomeService.AdminEntity;
-using App.Domain.Service.HomeService.BaseDataService;
-using App.Domain.Service.HomeService.CategoryEntity;
-using App.Domain.Service.HomeService.CityEntity;
-using App.Domain.Service.HomeService.CommentEntity;
-using App.Domain.Service.HomeService.CustomerEntity;
-using App.Domain.Service.HomeService.ExpertEntity;
-using App.Domain.Service.HomeService.OfferEntity;
-using App.Domain.Service.HomeService.OrderEntity;
-using App.Domain.Service.HomeService.ServiceEntity;
-using App.Domain.Service.HomeService.SubCategoryEntity;
+using App.Domain.AppServices.HomeService.ExpertEntity;
+using App.Domain.service.HomeService.BaseDataService;
+using App.Domain.service.HomeService.CategoryEntity;
+using App.Domain.service.HomeService.CityEntity;
+using App.Domain.service.HomeService.CommentEntity;
+using App.Domain.service.HomeService.CustomerEntity;
+using App.Domain.service.HomeService.ExpertEntity;
+using App.Domain.service.HomeService.OfferEntity;
+using App.Domain.service.HomeService.OrderEntity;
+using App.Domain.service.HomeService.ServiceEntity;
+using App.Domain.service.HomeService.SubCategoryEntity;
+using App.Domain.Services.HomeService.AdminEntity;
 using App.Infra.DataAccess.Repo.EF.HomeService.AdminEntity;
 using App.Infra.DataAccess.Repo.EF.HomeService.CategoryEntity;
 using App.Infra.DataAccess.Repo.EF.HomeService.CityEntity;
@@ -31,8 +31,9 @@ using App.Infra.DataAccess.Repo.EF.HomeService.OrderEntity;
 using App.Infra.DataAccess.Repo.EF.HomeService.ServiceEntity;
 using App.Infra.DataAccess.Repo.EF.HomeService.SubCategoryEntity;
 using App.Infra.DataAccess.Repo.EF.HomeService.UserEntity;
+
+using App.Infra.DB.SQLServer.Dappers;
 using App.Infra.DB.SQLServer.EF;
-using Divarcheh.Endpoints.RazorPages.Middleware;
 using HomeService.Domain.Core.HomeService.Account.AppService;
 using HomeService.Domain.Core.HomeService.AdminEntity.AppServices;
 using HomeService.Domain.Core.HomeService.AdminEntity.Data;
@@ -47,6 +48,7 @@ using HomeService.Domain.Core.HomeService.CityEntity.Services;
 using HomeService.Domain.Core.HomeService.CommentEntity.AppServices;
 using HomeService.Domain.Core.HomeService.CommentEntity.Data;
 using HomeService.Domain.Core.HomeService.CommentEntity.Services;
+using HomeService.Domain.Core.HomeService.Configs.Data;
 using HomeService.Domain.Core.HomeService.Configs.Entities;
 using HomeService.Domain.Core.HomeService.CustomerEntity.AppServices;
 using HomeService.Domain.Core.HomeService.CustomerEntity.Data;
@@ -65,14 +67,12 @@ using HomeService.Domain.Core.HomeService.ServiceEntity.Data;
 using HomeService.Domain.Core.HomeService.ServiceEntity.Services;
 using HomeService.Domain.Core.HomeService.SubCategoryEntity.AppServices;
 using HomeService.Domain.Core.HomeService.SubCategoryEntity.Data;
-using HomeService.Domain.Core.HomeService.SubCategoryEntity.Entities;
 using HomeService.Domain.Core.HomeService.SubCategoryEntity.Services;
 using HomeService.Domain.Core.HomeService.UserEntity.Data;
 using HomeService.Domain.Core.HomeService.Users.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Serilog;
-using System;
 
 Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
 
@@ -135,6 +135,7 @@ try
     builder.Services.AddScoped<ISubCategoryRepository, SubCategoryRepository>();
     builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
     builder.Services.AddScoped<IUserRepository, UserRepository>();
+    builder.Services.AddScoped<IDapperRepo, DapperRepo>();
 
     builder.Services.AddScoped<IAdminService, AdminService>();
     builder.Services.AddScoped<ICategoryService, CategoryService>();
@@ -160,6 +161,8 @@ try
     builder.Services.AddScoped<IAccountAppService, AccountAppService>();
     builder.Services.AddScoped<ICustomerAppService, CustomerAppService>();
     builder.Services.AddScoped<IExpertAppService, ExpertAppService>();
+
+
 
 
     //builder.Logging.AddSeq("http://localhost:5341/", "4745f464-06b8-44ff-8207-198783c1928e");

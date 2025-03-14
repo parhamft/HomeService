@@ -76,6 +76,7 @@ namespace App.Domain.AppService.HomeService.Account
         public async Task<SignInResult> Login(string Email, string password, CancellationToken cancellationToken)
         {
             var result = await _signInManager.PasswordSignInAsync(Email, password, true, false);
+
             return result;
         }
         public async Task Logout(CancellationToken cancellationToken)

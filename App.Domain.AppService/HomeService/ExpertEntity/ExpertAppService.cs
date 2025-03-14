@@ -1,22 +1,33 @@
-﻿using HomeService.Domain.Core.HomeService.ExpertEntity.AppServices;
+﻿using HomeService.Domain.Core.HomeService.BaseData.Service;
+using HomeService.Domain.Core.HomeService.CommentEntity.AppServices;
+using HomeService.Domain.Core.HomeService.ExpertEntity.AppServices;
 using HomeService.Domain.Core.HomeService.ExpertEntity.DTO;
 using HomeService.Domain.Core.HomeService.ExpertEntity.Entities;
 using HomeService.Domain.Core.HomeService.ExpertEntity.Services;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using HomeService.Domain.Core.HomeService.OrderEntity.AppServices;
+using HomeService.Domain.Core.HomeService.OrderEntity.DTO;
+using HomeService.Domain.Core.HomeService.OrderEntity.Enums;
+using HomeService.Domain.Core.HomeService.OrderEntity.Services;
+using HomeService.Domain.Core.HomeService.ServiceEntity.AppServices;
 
-namespace App.Domain.AppService.HomeService.ExpertEntity
+
+namespace App.Domain.AppServices.HomeService.ExpertEntity
 {
     public class ExpertAppService : IExpertAppService
     {
         private readonly IExpertService _expertService;
+        private readonly IOrderAppService _orderAppService;
+        private readonly IOrderService _order;
+        private readonly IBaseDataService _baseDataService;
+        private readonly IcommentAppService _icommentAppService;
 
-        public ExpertAppService(IExpertService expertService)
+        public ExpertAppService(IExpertService expertService, IOrderAppService orderAppService, IOrderService order,IBaseDataService baseDataService, IcommentAppService icommentAppService)
         {
             _expertService = expertService;
+            _orderAppService = orderAppService;
+            _order = order;
+            _baseDataService = baseDataService;
+            _icommentAppService = icommentAppService;
         }
         public async Task<UpdateExpertDTO> GetUpdate(int id, CancellationToken cancellationToken)
         {
@@ -36,11 +47,51 @@ namespace App.Domain.AppService.HomeService.ExpertEntity
         }
         public async Task<bool> Update(UpdateExpertDTO expert, CancellationToken cancellationToken)
         {
+            if (expert.ProfileImgFile != null)
+            {
+                expert.ImagePath = await _baseDataService.UploadImage(expert.ProfileImgFile!, "Users", cancellationToken);
+            }
             return await _expertService.Update(expert, cancellationToken);
+        }
+        public async Task<bool> UpdateScore(int ExpertId,CancellationToken cancellationToken)
+        {
+            var Comments = await _icommentAppService.GetExpertsComments(ExpertId, cancellationToken);
+            decimal sum = 0;
+            var Expert = await _expertService.GetUpdate(ExpertId, cancellationToken);
+            if (Comments.Count() != 0)
+            {
+                foreach (var i in Comments)
+                {
+                    sum += i.Score;
+                }
+
+                Expert.Rating = sum / Comments.Count();
+            }
+            else
+            {
+                Expert.Rating = 1;
+            }
+            return await _expertService.Update(Expert, cancellationToken);
         }
         public async Task<bool> Delete(int Id, CancellationToken cancellationToken)
         {
             return await _expertService.Delete(Id, cancellationToken);
+        }
+        public async Task<bool> FinishJob(int orderId, CancellationToken cancellationToken)
+        {
+            var order = await _order.GetById(orderId, cancellationToken);
+            order.Status = StatusEnum.WaitingForPayment;
+            return await _order.Update(order, cancellationToken);
+        }
+        public async Task<List<GetOrderDTO>> GetOrdersForExpert(GetExpertDTO getExpertDTO , CancellationToken cancellationToken)
+        {
+            List<int> serviceIds = new List<int>();
+            foreach(var x in getExpertDTO.Services)
+            {
+               serviceIds.Add(x.Id);
+            }
+            var result= await  _orderAppService.GetOrdersForExpert(serviceIds,getExpertDTO.CityId, cancellationToken);
+            return result;
         }
     }
 }

@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace App.Domain.Service.HomeService.CustomerEntity
+namespace App.Domain.service.HomeService.CustomerEntity
 {
     public class CustomerService : ICustomerService
     {

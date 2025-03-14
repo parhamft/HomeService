@@ -47,6 +47,45 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.OrderEntity
             ).ToListAsync(cancellationToken);
             return result;
         }
+        public async Task<List<GetOrderDTO>> GetAllAccepted(int ExpertId, CancellationToken cancellationToken)
+        {
+            var result = await _appDbContext.Orders.AsNoTracking().Where(x => x.IsDeleted != true && x.ExpertId==ExpertId).Select(x => new GetOrderDTO
+            {
+                Description = x.Description,
+                Id = x.Id,
+                DateFor = x.DateFor,
+                Status = x.Status,
+                Customer = x.Customer,
+                City = x.City,
+                Expert = x.Expert,
+                Service = x.Service,
+                Offers = x.Offers,
+                Images = x.Images,
+                TimeCreated = x.TimeCreated
+            }
+            ).ToListAsync(cancellationToken);
+            return result;
+        }
+        public async Task<List<GetOrderDTO>> GetOrdersForExpert(List<int> Services, int? CityId, CancellationToken cancellationToken)
+        {
+            var requests = await _appDbContext.Orders.Where(x => Services.Contains(x.ServiceId) && x.CityId==CityId  && x.Expert == null  )
+                .Select(x => new GetOrderDTO
+                {
+                    Description = x.Description,
+                    Id = x.Id,
+                    DateFor = x.DateFor,
+                    Status = x.Status,
+                    Customer = x.Customer,
+                    City = x.City,
+                    Expert = x.Expert,
+                    Service = x.Service,
+                    Offers = x.Offers,
+                    Images = x.Images,
+                    TimeCreated = x.TimeCreated
+                }
+            ).ToListAsync(cancellationToken);
+            return requests;
+        }
         public async Task<List<GetOrderDTO>> GetAllOfUsers(int id,CancellationToken cancellationToken)
         {
             var result = await _appDbContext.Orders.AsNoTracking().Where(x => x.IsDeleted != true && x.CustomerId == id).Select(x => new GetOrderDTO

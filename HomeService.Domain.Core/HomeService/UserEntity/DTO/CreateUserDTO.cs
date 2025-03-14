@@ -20,6 +20,6 @@ namespace HomeService.Domain.Core.HomeService.UserEntity.DTO
         public string Password { get; set; }
        
         public RoleEnum Role { get; set; }
-        public int CityId { get; set; }
+
     }
 }

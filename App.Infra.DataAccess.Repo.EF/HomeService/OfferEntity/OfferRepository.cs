@@ -46,7 +46,7 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.OfferEntity
 
             return result;
         }
-        public async Task<bool> Create(Offer offer, CancellationToken cancellationToken)
+        public async Task<bool> Create(AddOfferDTO offer, CancellationToken cancellationToken)
         {
             var newOffer = new Offer
             {
@@ -55,8 +55,7 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.OfferEntity
                 OrderId = offer.OrderId,
                 Price = offer.Price,
                 RequestTime = offer.RequestTime,
-                IsDeleted = offer.IsDeleted,
-                TimeCreated = offer.TimeCreated,
+                TimeCreated = DateTime.Now
             };
             try
             {

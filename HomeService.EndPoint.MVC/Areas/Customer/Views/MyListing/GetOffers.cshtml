@@ -53,7 +53,8 @@
 
                                         <div class="ico-content">
                                             <div class="Goodup-ft-first">
-                                                @x.Expert.FirstName @x.Expert.LastName
+                                                <a asp-area="" asp-controller="ExpertProfile" asp-action="Index" asp-route-Id="@x.Expert.Id">@x.Expert.FirstName @x.Expert.LastName</a>
+                                                
 
                                             </div>
                                         </div>
