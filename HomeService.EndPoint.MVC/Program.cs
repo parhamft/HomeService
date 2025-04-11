@@ -138,6 +138,10 @@ try
     builder.Services.AddScoped<IServiceRepository, ServiceRepository>();
     builder.Services.AddScoped<IUserRepository, UserRepository>();
     builder.Services.AddScoped<IDapperRepo, DapperRepo>();
+    builder.Services.AddScoped<IDapperCityRepository, DapperCityRepository>();
+    builder.Services.AddScoped<IDapperCategoryRepository, DapperCategoryRepository>();
+    builder.Services.AddScoped<IDapperSubCategoryRepository, DapperSubCategoryRepository>();
+    builder.Services.AddScoped<IDapperServiceRepository, DapperServiceRepository>();
 
     builder.Services.AddScoped<IAdminService, AdminService>();
     builder.Services.AddScoped<ICategoryService, CategoryService>();

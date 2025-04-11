@@ -15,9 +15,9 @@ namespace App.Domain.AppService.HomeService.ServiceEntity
     public class ServiceService : IServiceService
     {
         private readonly IServiceRepository _serviceRepository;
-        private readonly IDapperRepo _dapperRepo;
+        private readonly IDapperServiceRepository _dapperRepo;
 
-        public ServiceService(IServiceRepository serviceRepository, IDapperRepo dapperRepo)
+        public ServiceService(IServiceRepository serviceRepository, IDapperServiceRepository dapperRepo)
         {
             _serviceRepository = serviceRepository;
             _dapperRepo = dapperRepo;

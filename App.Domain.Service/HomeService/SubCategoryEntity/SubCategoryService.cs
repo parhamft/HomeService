@@ -1,4 +1,5 @@
-﻿using HomeService.Domain.Core.HomeService.CategoryEntity.DTO;
+﻿using HomeService.Domain.Core.HomeService.CategoryEntity.Data;
+using HomeService.Domain.Core.HomeService.CategoryEntity.DTO;
 using HomeService.Domain.Core.HomeService.Configs.Data;
 using HomeService.Domain.Core.HomeService.SubCategoryEntity.Data;
 using HomeService.Domain.Core.HomeService.SubCategoryEntity.DTO;
@@ -14,12 +15,14 @@ namespace App.Domain.AppService.HomeService.SubCategoryEntity
     public class SubCategoryService : ISubCategoryService
     {
         private readonly ISubCategoryRepository _subCategoryRepository;
-        private readonly IDapperRepo _dapperRepo;
+        private readonly IDapperCategoryRepository _dapperRepo;
+        private readonly IDapperSubCategoryRepository _IDapperSubCategoryRepository;
 
-        public SubCategoryService(ISubCategoryRepository subCategoryRepository, IDapperRepo dapperRepo)
+        public SubCategoryService(ISubCategoryRepository subCategoryRepository, IDapperCategoryRepository dapperRepo, IDapperSubCategoryRepository dapperSubCategoryRepository)
         {
             _subCategoryRepository = subCategoryRepository;
             _dapperRepo = dapperRepo;
+            _IDapperSubCategoryRepository = dapperSubCategoryRepository;
         }
         public async Task<UpdateSubCategoryDTO> GetUpdate(int id, CancellationToken cancellationToken)
         {
@@ -29,7 +32,7 @@ namespace App.Domain.AppService.HomeService.SubCategoryEntity
 
         public async Task<List<GetSubCategoryDTO>> GetAll(CancellationToken cancellationToken)
         {
-            var result = await _dapperRepo.GetAllSubCategoryDapper(cancellationToken);
+            var result = await _IDapperSubCategoryRepository.GetAllSubCategoryDapper(cancellationToken);
             return result;
         }
         public async Task<List<GetSubCategoryDTO>> GetAllOfCategory(int Id, CancellationToken cancellationToken)

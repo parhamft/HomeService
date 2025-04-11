@@ -13,12 +13,12 @@ namespace App.Domain.service.HomeService.CityEntity
     public class CityService : ICityService
     {
         private readonly ICityRepository _cityRepository;
-        private readonly IDapperRepo _dapperRepo;
+        private readonly IDapperCityRepository _dapperRepo;
 
-        public CityService(ICityRepository cityRepository, IDapperRepo dapperRepo)
+        public CityService(ICityRepository cityRepository, IDapperCityRepository cityEntity)
         {
             _cityRepository = cityRepository;
-            _dapperRepo = dapperRepo;
+            _dapperRepo = cityEntity;
         }
         public async Task<List<City>> GetAll(CancellationToken cancellationToken)
         {

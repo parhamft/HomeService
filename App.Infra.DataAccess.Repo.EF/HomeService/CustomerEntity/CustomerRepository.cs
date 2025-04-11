@@ -44,7 +44,7 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CustomerEntity
         }
         public async Task<GetCustomerDTO> GetById(int Id, CancellationToken cancellationToken)
         {
-            var result = await _appDbContext.Customers.AsNoTracking().Where(x => x.IsDeleted != true).Select(x => new GetCustomerDTO
+            var result = await _appDbContext.Customers.AsNoTracking().Where(x => x.IsDeleted != true && x.Id == Id).Select(x => new GetCustomerDTO
             {
                 FirstName = x.FirstName,
                 LastName = x.LastName,
@@ -56,7 +56,7 @@ namespace App.Infra.DataAccess.Repo.EF.HomeService.CustomerEntity
                 User = x.User,
                 Orders = x.Orders,
                 Comments = x.Comments.Where(x=>x.Approved==true).ToList(),
-            }).FirstOrDefaultAsync(x=>x.Id == Id,cancellationToken);
+            }).FirstOrDefaultAsync(cancellationToken);
             return result;
         }
         public async Task<UpdateCustomerDTO> GetUpdateDTO(int Id, CancellationToken cancellationToken)

@@ -13,9 +13,9 @@ namespace App.Domain.AppService.HomeService.CategoryEntity
     public class CategoryService : ICategoryService
     {
         private readonly ICategoryRepository _categoryRepository;
-        private readonly IDapperRepo _dapper;
+        private readonly IDapperCategoryRepository _dapper;
 
-        public CategoryService(ICategoryRepository categoryRepository,IDapperRepo Dapper)
+        public CategoryService(ICategoryRepository categoryRepository, IDapperCategoryRepository Dapper)
         {
             _categoryRepository = categoryRepository;
             _dapper = Dapper;
