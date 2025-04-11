@@ -29,8 +29,7 @@ namespace HomeService.EndPoint.MVC.Areas.Account.Controllers
             var result = await _accountAppService.Register(createUserDTO, cancellationToken);
             if (result.Succeeded)
             {
-
-                return RedirectToAction("Index", "Home");
+                return LocalRedirect($"/Account/Login/Index");
             }
             else
             {
@@ -39,7 +38,7 @@ namespace HomeService.EndPoint.MVC.Areas.Account.Controllers
                     TempData["Message"] = error.Description;
                     TempData["AlertType"] = "danger";
                 }
-                return RedirectToAction("Index");
+                return LocalRedirect($"/Account/Register/Index");
             }
 
         }

@@ -38,18 +38,8 @@ namespace App.Domain.service.HomeService.CategoryEntity
         }
         public async Task<List<GetCategoryDTO>> GetAll(CancellationToken cancellationToken)
         {
-            
-                List<GetCategoryDTO>? x;
-                if (_memoryCache.Get("GetCategoryDTO") != null)
-                {
-                    x = _memoryCache.Get<List<GetCategoryDTO>?>("GetCategoryDTO");
-                }
-                else
-                {
-                     x = await _categoryService.GetAll(cancellationToken);
-                    _memoryCache.Set("GetCategoryDTO", x, TimeSpan.FromHours(2));
-                }
-                return x;
+
+            return await _categoryService.GetAll(cancellationToken);
 
         }
         public async Task<bool> Delete(int Id, CancellationToken cancellationToken)

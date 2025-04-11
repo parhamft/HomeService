@@ -368,6 +368,13 @@
                         </div><!-- /.breadcrumb-box -->
                     </div><!-- /.col-md-12 -->
                     <!-- END BREADCRUMB -->
+                    @if (TempData["Message"] != null)
+                    {
+                        <div class="alert alert-@TempData["AlertType"] alert-dismissible fade show" role="alert">
+                            @TempData["Message"]
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
+                    }
 
                     <div class="col-md-12">
                         <div class="row">

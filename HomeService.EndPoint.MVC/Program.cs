@@ -34,6 +34,7 @@ using App.Infra.DataAccess.Repo.EF.HomeService.UserEntity;
 
 using App.Infra.DB.SQLServer.Dappers;
 using App.Infra.DB.SQLServer.EF;
+using Framework;
 using HomeService.Domain.Core.HomeService.Account.AppService;
 using HomeService.Domain.Core.HomeService.AdminEntity.AppServices;
 using HomeService.Domain.Core.HomeService.AdminEntity.Data;
@@ -111,6 +112,7 @@ try
 
     })
         .AddRoles<IdentityRole<int>>()
+        .AddErrorDescriber<PersianIdentityErrorDescriber>()
         .AddEntityFrameworkStores<AppDbContext>()
         .AddDefaultTokenProviders();
 
@@ -199,7 +201,7 @@ try
     app.Run();
 
 }
-catch(Exception ex) 
+catch (Exception ex)
 {
     Log.Fatal(ex, "Application terminated unexpectedly");
 }

@@ -149,24 +149,24 @@
                                                 </form>
                                             }
 
-                                            @if (@ViewBag.Order.Status != StatusEnum.WaitingForPayment)
-                                            {
-                                                <form asp-area="Customer" asp-controller="MyListing" asp-action="DeleteOffer" method="post">
-                                                    <input type="hidden" name="id" value="@customerId" />
-                                                    <input type="hidden" name="Orderid" value="@ViewBag.Order.Id" />
-                                                    <input type="hidden" name="amount" value="@x.Price" />
-                                                    <button type="submit" class="btn btn-warning text-dark" disabled>
-                                                        <i class="fas fa-credit-card ms-1"></i> پرداخت
-                                                    </button>
-                                                </form>
-                                            }
-                                            else
+                                            @if (@ViewBag.Order.Status == StatusEnum.WaitingForPayment && x.Expert.Id == @ViewBag.Order.Expert.Id)
                                             {
                                                 <form asp-area="Customer" asp-controller="MyListing" asp-action="Pay" method="post">
                                                     <input type="hidden" name="id" value="@customerId" />
                                                     <input type="hidden" name="Orderid" value="@ViewBag.Order.Id" />
                                                     <input type="hidden" name="amount" value="@x.Price" />
                                                     <button type="submit" class="btn btn-warning text-dark">
+                                                        <i class="fas fa-credit-card ms-1"></i> پرداخت
+                                                    </button>
+                                                </form>
+                                            }
+                                            else
+                                            {
+                                                <form asp-area="Customer" asp-controller="MyListing" asp-action="DeleteOffer" method="post">
+                                                    <input type="hidden" name="id" value="@customerId" />
+                                                    <input type="hidden" name="Orderid" value="@ViewBag.Order.Id" />
+                                                    <input type="hidden" name="amount" value="@x.Price" />
+                                                    <button type="submit" class="btn btn-warning text-dark" disabled>
                                                         <i class="fas fa-credit-card ms-1"></i> پرداخت
                                                     </button>
                                                 </form>

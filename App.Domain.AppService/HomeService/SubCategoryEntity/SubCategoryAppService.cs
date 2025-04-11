@@ -35,17 +35,9 @@ namespace App.Domain.service.HomeService.SubCategoryEntity
 
         public async Task<List<GetSubCategoryDTO>> GetAll(CancellationToken cancellationToken)
         {
-            List<GetSubCategoryDTO>? result;
-            if (_memoryCache.Get("GetSubCategoryDTO") != null)
-            {
-                result = _memoryCache.Get<List<GetSubCategoryDTO>?>("GetSubCategoryDTO");
-            }
-            else
-            {
-                result = await _subCategoryService.GetAll(cancellationToken);
-                _memoryCache.Set("GetSubCategoryDTO", result, TimeSpan.FromHours(2));
-            }
-            return result;
+
+                return await _subCategoryService.GetAll(cancellationToken);
+
 
         }
         public async Task<List<GetSubCategoryDTO>> GetAllOfCategory(int Id, CancellationToken cancellationToken)

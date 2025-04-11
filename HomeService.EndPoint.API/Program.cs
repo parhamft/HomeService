@@ -72,6 +72,7 @@ using HomeService.Domain.Core.HomeService.Users.Entities;
 using HomeService.EndPoint.API.Filters;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Scalar.AspNetCore;
 using Serilog;
 
 Log.Logger = new LoggerConfiguration().WriteTo.Console().CreateLogger();
@@ -172,10 +173,13 @@ try
 
 
     // Configure the HTTP request pipeline.
+    // Configure the HTTP request pipeline.
     if (app.Environment.IsDevelopment())
     {
         app.MapOpenApi();
+        app.MapScalarApiReference();
     }
+
 
     app.UseHttpsRedirection();
 

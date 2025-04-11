@@ -50,88 +50,73 @@
 					</div>
 					<div class="nav-menus-wrapper" style="transition-property: none;">
 						<ul class="nav-menu">
-							<li class="active">
-								<a asp-controller="Home" asp-action="Index" >صفحه اصلی</a>
-								<ul class="nav-dropdown nav-submenu">
-									<li><a asp-controller="Home" asp-action="Index">نسخه   1</a></li>
-									<li><a asp-controller="Home" asp-action="Index">نسخه 2</a></li>
-									<li><a asp-controller="Home" asp-action="Index">نسخه 3</a></li>
-									<li><a asp-controller="Home" asp-action="Index">نسخه 4</a></li>
-									<li><a asp-controller="Home" asp-action="Index">نسخه 5</a></li>
-								</ul>
-							</li>
+
 							<li>
-								<a href="javascript:void(0);">آگهی</a>
-								<ul class="nav-dropdown nav-submenu">
-									<li>
-										<a href="javascript:void(0);">شبکه ای</a>
-										<ul class="nav-dropdown nav-submenu">
-											<li><a href="listing-search-v1.html">سایدبار نسخه 1</a></li>
-											<li><a href="listing-search-v2.html">سایدبار نسخه 2</a></li>
-											<li><a href="listing-search-v3.html">سایدبار نسخه 3</a></li>
-											<li><a href="listing-search-with-map.html">تمام صفحه با نقشه</a></li>
-										</ul>
-									</li>
-									<li>
-										<a href="javascript:void(0);">لیست</a>
-										<ul class="nav-dropdown nav-submenu">
-											<li><a href="listing-search-v4.html">با سایدبار</a></li>
-											<li><a href="listing-search-v5.html">تمام صفحه</a></li>
-											<li><a href="listing-search-with-map.html">تمام صفحه با نقشه</a></li>
-										</ul>
-									</li>
-									<li>
-										<a href="javascript:void(0);">با نقشه</a>
-										<ul class="nav-dropdown nav-submenu">
-											<li><a href="half-map-search-1.html">نسخه 1</a></li>
-											<li><a href="half-map-search-2.html">نسخه 2</a></li>
-											<li><a href="half-map-search-3.html">نسخه 3</a></li>
-										</ul>
-									</li>
-									<li>
-										<a href="javascript:void(0);">جزئیات</a>
-										<ul class="nav-dropdown nav-submenu">
-											<li><a href="single-listing-detail-1.html">نسخه 1</a></li>
-											<li><a href="single-listing-detail-2.html">نسخه 2</a></li>
-											<li><a href="single-listing-detail-3.html">نسخه 3</a></li>
-											<li><a href="single-listing-detail-4.html">نسخه 4</a></li>
-											<li><a href="single-listing-detail-5.html">نسخه 5</a></li>
-											<li><a href="single-listing-detail-6.html">نسخه 6</a></li>
-											<li><a href="single-listing-detail-7.html">نسخه 7</a></li>
-											<li><a href="single-listing-detail-8.html">نسخه 8</a></li>
-										</ul>
-									</li>
-									<li><a href="author-detail.html">جزئیات آگهی دهنده</a></li>
-								</ul>
+								@if (User.Identity.IsAuthenticated != true)
+								{
+
+									<a asp-area="Customer" asp-controller="Dashboard" asp-action="Index" asp-route-Id="@customerId">پنل کاربری</a>
+									<ul class="nav-dropdown nav-submenu">
+										<li><a asp-area="Customer" asp-controller="Dashboard" asp-action="Index" asp-route-Id="@customerId"><i class="lni lni-dashboard ms-2"></i>داشبورد</a></li>
+										<li><a asp-area="Customer" asp-controller="MyListing" asp-action="Index" asp-route-Id="@customerId"><i class="lni lni-files ms-2"></i>آگهی های من</a></li>
+										<li><a asp-area="Customer" asp-controller="AddListing" asp-action="Index" asp-route-Id="@customerId"><i class="lni lni-add-files ms-2"></i>افزودن آگهی</a></li>
+										<li><a asp-area="Customer" asp-controller="comment" asp-action="Index" asp-route-Id="@customerId">کامنت ها</a></li>
+										<li><a asp-area="Customer" asp-controller="AddFunds" asp-action="Index" asp-route-Id="@customerId"><i class="lni lni-mastercard ms-2"></i>کیف پول</a></li>
+										<li><a asp-area="Customer" asp-controller="UpdateProfile" asp-action="Index" asp-route-Id="@customerId">تنظیمات </a></li>
+										<li><a asp-area="Account" asp-controller="Login" asp-action="LogOut"><i class="lni lni-power-switch ms-2"></i>خروج</a></li>
+
+									</ul>
+
+								}
+								else if (User.IsInRole("Customer"))
+								{
+									<a asp-area="Customer" asp-controller="Dashboard" asp-action="Index" asp-route-Id="@customerId">پنل کاربری</a>
+									<ul class="nav-dropdown nav-submenu">
+										<li><a asp-area="Customer" asp-controller="Dashboard" asp-action="Index" asp-route-Id="@customerId"><i class="lni lni-dashboard ms-2"></i>داشبورد</a></li>
+										<li><a asp-area="Customer" asp-controller="MyListing" asp-action="Index" asp-route-Id="@customerId"><i class="lni lni-files ms-2"></i>آگهی های من</a></li>
+										<li><a asp-area="Customer" asp-controller="AddListing" asp-action="Index" asp-route-Id="@customerId"><i class="lni lni-add-files ms-2"></i>افزودن آگهی</a></li>
+										<li><a asp-area="Customer" asp-controller="comment" asp-action="Index" asp-route-Id="@customerId">کامنت ها</a></li>
+										<li><a asp-area="Customer" asp-controller="AddFunds" asp-action="Index" asp-route-Id="@customerId"><i class="lni lni-mastercard ms-2"></i>کیف پول</a></li>
+										<li><a asp-area="Customer" asp-controller="UpdateProfile" asp-action="Index" asp-route-Id="@customerId">تنظیمات </a></li>
+										<li><a asp-area="Account" asp-controller="Login" asp-action="LogOut"><i class="lni lni-power-switch ms-2"></i>خروج</a></li>
+
+									</ul>
+
+								}
+								else if (User.IsInRole("Expert"))
+								{
+									<a asp-area="Expert" asp-controller="Dashboard" asp-action="Index" asp-route-Id="@expertId">پنل کاربری</a>
+									<ul class="nav-dropdown nav-submenu">
+										<li><a asp-area="Expert" asp-controller="Dashboard" asp-action="Index" asp-route-Id="@expertId"><i class="lni lni-dashboard ms-2"></i>داشبورد</a></li>
+										<li><a asp-area="Expert" asp-controller="OrdersList" asp-action="Index" asp-route-Id="@expertId"><i class="lni lni-files ms-2"></i>آگهی ها</a></li>
+										<li><a asp-area="Expert" asp-controller="MyJobs" asp-action="Index" asp-route-Id="@expertId"><i class="lni lni-add-files ms-2"></i>کار های من</a></li>
+										<li><a asp-area="Expert" asp-controller="UpdateProfile" asp-action="Index" asp-route-Id="@expertId">تنظیمات </a></li>
+										<li><a asp-area="Account" asp-controller="Login" asp-action="LogOut"><i class="lni lni-power-switch ms-2"></i>خروج</a></li>
+
+									</ul>
+
+								}
+								else if (User.IsInRole("Admin"))
+								{
+									<a asp-area="Admin" asp-controller="Dashboard" asp-action="Index" >پنل کاربری</a>
+									<ul class="nav-dropdown nav-submenu">
+										<li><a asp-area="Admin" asp-controller="admin" asp-action="Index" ><i class="lni lni-dashboard ms-2"></i>داشبورد</a></li>
+										<li><a asp-area="Admin" asp-controller="User" asp-action="Customers" ><i class="lni lni-files ms-2"></i>مشتری ها</a></li>
+										<li><a asp-area="Admin" asp-controller="User" asp-action="experts"  ><i class="lni lni-add-files ms-2"></i>متخصص ها</a></li>
+										<li><a asp-area="Admin" asp-controller="Category" asp-action="Index"  >دسته بندی ها</a></li>
+										<li><a asp-area="Admin" asp-controller="SubCategory" asp-action="Index"  ><i class="lni lni-mastercard ms-2"></i>زیر مجموعه ها</a></li>
+										<li><a asp-area="Admin" asp-controller="Service" asp-action="Index"  >سرویس ها </a></li>
+										<li><a asp-area="Admin" asp-controller="Order" asp-action="Index" >سفارش ها</a></li>
+										<li><a asp-area="Admin" asp-controller="Comment" asp-action="Index" >نظرات</a></li>
+										<li><a asp-area="Account" asp-controller="Login" asp-action="LogOut"><i class="lni lni-power-switch ms-2"></i>خروج</a></li>
+
+									</ul>
+
+								}
 							</li>
-							<li>
-								<a asp-area="Customer" asp-controller="Dashboard" asp-action="Index" asp-route-Id="@customerId">پنل کاربری</a>
-								<ul class="nav-dropdown nav-submenu">
-									<li><a asp-area="Customer" asp-controller="Dashboard" asp-action="Index" asp-route-Id="@customerId"><i class="lni lni-dashboard ms-2"></i>داشبورد</a></li>
-									<li><a asp-area="Customer" asp-controller="MyListing" asp-action="Index" asp-route-Id="@customerId" ><i class="lni lni-files ms-2"></i>آگهی های من</a></li>
-									<li><a asp-area="Customer" asp-controller="AddListing" asp-action="Index" asp-route-Id="@customerId"><i class="lni lni-add-files ms-2"></i>افزودن آگهی</a></li>
-									<li><a asp-area="Customer" asp-controller="comment" asp-action="Index" asp-route-Id="@customerId">کامنت ها</a></li>
-									<li><a asp-area="Customer" asp-controller="AddFunds" asp-action="Index" asp-route-Id="@customerId"><i class="lni lni-mastercard ms-2"></i>کیف پول</a></li>
-									<li><a asp-area="Customer" asp-controller="UpdateProfile" asp-action="Index" asp-route-Id="@customerId">تنظیمات </a></li>
-									<li><a asp-area="Account" asp-controller="Login" asp-action="LogOut"><i class="lni lni-power-switch ms-2"></i>خروج</a></li>
-									
-								</ul>
-							</li>
-							<li>
-								<a href="javascript:void(0);">صفحات</a>
-								<ul class="nav-dropdown nav-submenu">
-									<li><a href="blog.html">وبلاگ</a></li>
-									<li><a href="about-us.html">درباره ما</a></li>
-									<li><a href="contact.html">تماس با ما</a></li>
-									<li><a href="checkout.html">تسویه حساب</a></li>
-									<li><a href="pricing.html">پکیج های قیمت گذاری</a></li>
-									<li><a href="signup.html">ثبت نام</a></li>
-									<li><a href="login.html">ورود</a></li>
-									<li><a href="privacy.html">شرایط و قوانین</a></li>
-									<li><a href="faq.html">سوالات متداول</a></li>
-									<li><a href="404.html">صفحه 404</a></li>
-								</ul>
-							</li>
+
+
+
 						</ul>
 						<ul class="nav-menu nav-menu-social align-to-left">
 							<li>
@@ -160,11 +145,7 @@
 									</a>
 								}
 							</li>
-							<li class="add-listing">
-								<a href="add-listing.html">
-									<i class="fas fa-plus ms-2"></i>افزودن آگهی
-								</a>
-							</li>
+
 						</ul>
 					</div>
 				</nav>
